@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D人口态势大屏 - 一人一档后台</title>
+    <title>数图分析 - 一人一档后台</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
@@ -35,7 +35,6 @@
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
                     <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
                     <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">3D人口态势大屏</a></li>
-                    <li><a href="admin_search_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索配置</a></li>
                 </ul>
             </li>
             <!-- 认领数据管理 -->
@@ -111,7 +110,7 @@
         <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
             <div class="flex items-center text-gray-500">
                 <i class="fa-solid fa-bars cursor-pointer hover:text-gray-800 mr-4"></i>
-                <span class="text-sm">数据检索管理 <span class="mx-2">/</span> <span class="text-gray-800 font-medium">3D人口态势大屏</span></span>
+                <span class="text-sm">数据检索管理 <span class="mx-2">/</span> <span class="text-gray-800 font-medium">数图分析</span></span>
             </div>
             <div class="flex items-center space-x-4">
                 <a href="./index.html" class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50">原型目录</a>
@@ -148,8 +147,43 @@
                 </div>
             </div>
 
+            <!-- Enlarge Map Section -->
+            <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-base font-bold text-gray-800 border-l-4 border-blue-500 pl-2">人口分布与态势分析地图</h3>
+                    <div class="flex space-x-2">
+                        <select class="border border-gray-300 rounded px-2 py-1 text-xs text-gray-600 focus:outline-none">
+                            <option>潍坊市全域</option>
+                            <option>高新区</option>
+                            <option>奎文区</option>
+                        </select>
+                        <button class="bg-indigo-50 text-indigo-600 border border-indigo-200 px-3 py-1 rounded text-xs hover:bg-indigo-100 transition flex items-center">
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> AI 态势推演
+                        </button>
+                    </div>
+                </div>
+                <!-- Enlarged 3D Map Area -->
+                <div class="w-full h-[500px] bg-gray-100 rounded-lg relative overflow-hidden border border-gray-200">
+                    <div class="absolute inset-0 flex items-center justify-center flex-col">
+                        <i class="fa-solid fa-map-location-dot text-6xl text-gray-300 mb-2"></i>
+                        <span class="text-gray-400 text-sm">3D GIS 高精度地图渲染区域</span>
+                    </div>
+                    <!-- Mock AI Prediction Overlay -->
+                    <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur p-4 rounded-xl border border-indigo-100 shadow-lg flex items-start">
+                        <i class="fa-solid fa-robot text-indigo-500 mt-1 mr-4 text-xl"></i>
+                        <div>
+                            <div class="text-sm font-bold text-gray-800 mb-1">AI 学龄儿童增长推演 (高新区)</div>
+                            <div class="text-xs text-gray-600 leading-relaxed">
+                                结合历史人口迁徙、出生率、社保缴纳等数据预测：未来3年内，高新区<span class="text-red-500 font-bold">新建社区周边</span>适龄入学儿童将激增 <span class="font-bold text-lg text-red-600 mx-1">25%</span>（约1200人）。<br>
+                                <span class="text-indigo-600 font-medium text-sm mt-1 inline-block">💡 建议教育局提前规划该区域小学学位配置，预计存在 400 个学位缺口。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Charts Section 1 -->
-            <div class="grid grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-3 gap-6 mb-6">
                 <!-- 年龄段分布 -->
                 <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100">
                     <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">年龄段分布情况</h3>
@@ -163,49 +197,10 @@
                         <div id="nationChart" style="width: 50%; height: 100%;"></div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Charts Section 2 -->
-            <div class="grid grid-cols-3 gap-6">
-                <!-- 辖区人口分布 (Map placeholder) -->
-                <div class="col-span-2 bg-white p-5 rounded-lg shadow-sm border border-gray-100">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-base font-bold text-gray-800 border-l-4 border-blue-500 pl-2">3D 人口分布热力图</h3>
-                        <div class="flex space-x-2">
-                            <select class="border border-gray-300 rounded px-2 py-1 text-xs text-gray-600 focus:outline-none">
-                                <option>潍坊市全域</option>
-                                <option>高新区</option>
-                                <option>奎文区</option>
-                            </select>
-                            <button class="bg-indigo-50 text-indigo-600 border border-indigo-200 px-3 py-1 rounded text-xs hover:bg-indigo-100 transition flex items-center">
-                                <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> AI 态势推演
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Mock 3D Map Area -->
-                    <div class="w-full h-[350px] bg-gray-100 rounded-lg relative overflow-hidden border border-gray-200">
-                        <div class="absolute inset-0 flex items-center justify-center flex-col">
-                            <i class="fa-solid fa-map-location-dot text-4xl text-gray-300 mb-2"></i>
-                            <span class="text-gray-400 text-sm">3D GIS 地图渲染区域</span>
-                        </div>
-                        <!-- Mock AI Prediction Overlay -->
-                        <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur p-3 rounded-lg border border-indigo-100 shadow-sm flex items-start">
-                            <i class="fa-solid fa-robot text-indigo-500 mt-1 mr-3"></i>
-                            <div>
-                                <div class="text-xs font-bold text-gray-800 mb-1">AI 学龄儿童增长推演 (高新区)</div>
-                                <div class="text-[10px] text-gray-600 leading-relaxed">
-                                    结合历史人口迁徙、出生率、社保缴纳等数据预测：未来3年内，高新区<span class="text-red-500 font-bold">新建社区周边</span>适龄入学儿童将激增 <span class="font-bold">25%</span>（约1200人）。<br>
-                                    <span class="text-indigo-600 font-medium">💡 建议教育局提前规划该区域小学学位配置，预计存在 400 个学位缺口。</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
                 <!-- 人口增长趋势 -->
                 <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100">
                     <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">近五年人口增长趋势</h3>
-                    <div id="trendChart" style="width: 100%; height: 350px;"></div>
+                    <div id="trendChart" style="width: 100%; height: 300px;"></div>
                 </div>
             </div>
         </main>

@@ -24,12 +24,12 @@
 
     <!-- Tabs -->
     <div class="bg-white flex border-b border-gray-200 sticky top-[52px] z-40">
-        <button id="tabClaimed" class="flex-1 py-3 text-sm text-center tab-active transition" onclick="switchTab('claimed')">
-            已认领的数据目录
-        </button>
         <button id="tabUnclaimed" class="flex-1 py-3 text-sm text-center tab-inactive transition relative" onclick="switchTab('unclaimed')">
             未认领的数据
             <span class="absolute top-2 right-6 w-2 h-2 bg-red-500 rounded-full"></span>
+        </button>
+        <button id="tabClaimed" class="flex-1 py-3 text-sm text-center tab-active transition" onclick="switchTab('claimed')">
+            已认领的数据目录
         </button>
     </div>
 
@@ -87,50 +87,52 @@
 
         <!-- Tab 2 Content: 未认领的数据 -->
         <div id="contentUnclaimed" class="space-y-4 hidden">
-            <!-- Info Banner -->
-            <div class="bg-blue-50 text-blue-600 text-xs p-3 rounded-lg flex items-start">
-                <i class="fa-solid fa-circle-info mt-0.5 mr-2"></i>
-                <p>平台为您匹配到以下数据，核对无误后请及时认领。认领后可用于授权或业务办理。</p>
-            </div>
-
             <!-- Item 1 -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-building-columns text-yellow-500 text-xl mr-3"></i>
-                        <h3 class="font-bold text-gray-800">公积金账户信息</h3>
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-yellow-50 rounded-full flex items-center justify-center mr-3 text-yellow-500 flex-shrink-0">
+                        <i class="fa-solid fa-building-columns text-lg"></i>
                     </div>
-                    <span class="bg-red-50 text-red-500 text-xs px-2 py-1 rounded border border-red-100">待认领</span>
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm mb-1">公积金账户信息</h3>
+                        <span class="bg-red-50 text-red-500 text-[10px] px-2 py-0.5 rounded border border-red-100">系统推荐</span>
+                    </div>
                 </div>
-                <div class="text-sm text-gray-600 mb-4 bg-gray-50 p-3 rounded">
-                    <p class="mb-1"><span class="text-gray-400">账户状态：</span>正常</p>
-                    <p class="mb-1"><span class="text-gray-400">缴存基数：</span>6,500.00</p>
-                    <p><span class="text-gray-400">数据来源：</span>市住房公积金管理中心</p>
-                </div>
-                <div class="flex space-x-3">
-                    <button class="flex-1 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">数据有误</button>
-                    <button class="flex-1 py-2 text-sm bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700" onclick="alert('认领成功！');">确认认领</button>
-                </div>
+                <button class="px-4 py-1.5 text-xs bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700 transition" onclick="alert('认领成功！该数据将移至已认领列表。');">
+                    认领
+                </button>
             </div>
 
             <!-- Item 2 -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-heart-pulse text-green-500 text-xl mr-3"></i>
-                        <h3 class="font-bold text-gray-800">门诊就诊记录</h3>
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center mr-3 text-green-500 flex-shrink-0">
+                        <i class="fa-solid fa-heart-pulse text-lg"></i>
                     </div>
-                    <span class="bg-red-50 text-red-500 text-xs px-2 py-1 rounded border border-red-100">待认领</span>
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm mb-1">门诊就诊记录</h3>
+                        <span class="bg-red-50 text-red-500 text-[10px] px-2 py-0.5 rounded border border-red-100">系统推荐</span>
+                    </div>
                 </div>
-                <div class="text-sm text-gray-600 mb-4 bg-gray-50 p-3 rounded">
-                    <p class="mb-1"><span class="text-gray-400">就诊时间：</span>2023-10-15</p>
-                    <p class="mb-1"><span class="text-gray-400">就诊科室：</span>呼吸内科</p>
-                    <p><span class="text-gray-400">数据来源：</span>市人民医院</p>
+                <button class="px-4 py-1.5 text-xs bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700 transition" onclick="alert('认领成功！该数据将移至已认领列表。');">
+                    认领
+                </button>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-purple-50 rounded-full flex items-center justify-center mr-3 text-purple-500 flex-shrink-0">
+                        <i class="fa-solid fa-house-chimney text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm mb-1">不动产登记信息</h3>
+                        <span class="bg-red-50 text-red-500 text-[10px] px-2 py-0.5 rounded border border-red-100">系统推荐</span>
+                    </div>
                 </div>
-                <div class="flex space-x-3">
-                    <button class="flex-1 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">数据有误</button>
-                    <button class="flex-1 py-2 text-sm bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700" onclick="alert('认领成功！');">确认认领</button>
-                </div>
+                <button class="px-4 py-1.5 text-xs bg-blue-600 text-white rounded-lg shadow-sm hover:bg-blue-700 transition" onclick="alert('认领成功！该数据将移至已认领列表。');">
+                    认领
+                </button>
             </div>
         </div>
     </div>
