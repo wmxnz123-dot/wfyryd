@@ -34,7 +34,7 @@
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
                     <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
-                    <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">3D人口态势大屏</a></li>
+                    <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数图分析</a></li>
                 </ul>
             </li>
             <!-- 认领数据管理 -->
@@ -162,14 +162,14 @@
                         </button>
                     </div>
                 </div>
-                <!-- Enlarged 3D Map Area -->
-                <div class="w-full h-[500px] bg-gray-100 rounded-lg relative overflow-hidden border border-gray-200">
+                <!-- Enlarged Map Area (Fixed Height) -->
+                <div class="w-full h-[400px] bg-gray-100 rounded-lg relative overflow-hidden border border-gray-200 mb-4">
                     <div class="absolute inset-0 flex items-center justify-center flex-col">
                         <i class="fa-solid fa-map-location-dot text-6xl text-gray-300 mb-2"></i>
-                        <span class="text-gray-400 text-sm">3D GIS 高精度地图渲染区域</span>
+                        <span class="text-gray-400 text-sm">高精度地图渲染区域</span>
                     </div>
                     <!-- Mock AI Prediction Overlay -->
-                    <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur p-4 rounded-xl border border-indigo-100 shadow-lg flex items-start">
+                    <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur p-4 rounded-xl border border-indigo-100 shadow-lg flex items-start">
                         <i class="fa-solid fa-robot text-indigo-500 mt-1 mr-4 text-xl"></i>
                         <div>
                             <div class="text-sm font-bold text-gray-800 mb-1">AI 学龄儿童增长推演 (高新区)</div>
@@ -179,6 +179,12 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Bottom Stats Charts (Under the map) -->
+                <div class="grid grid-cols-2 gap-4 border-t border-gray-100 pt-4">
+                    <div class="h-[250px] bg-gray-50/50 rounded p-2" id="bottomChart1"></div>
+                    <div class="h-[250px] bg-gray-50/50 rounded p-2" id="bottomChart2"></div>
                 </div>
             </div>
 
@@ -208,5 +214,89 @@
 
     
 <script src="admin_sidebar_logic.js"></script>
+<script>
+    // Initialize ECharts instances for the bottom charts
+    document.addEventListener("DOMContentLoaded", function() {
+        // Chart 1: 各区县数据归集量趋势 (Bar Chart)
+        var chart1 = echarts.init(document.getElementById('bottomChart1'));
+        var option1 = {
+            title: {
+                text: '各区县常住人口分布',
+                textStyle: { fontSize: 14, color: '#374151' },
+                left: 'center',
+                top: 10
+            },
+            tooltip: { trigger: 'axis' },
+            grid: { left: '10%', right: '10%', bottom: '15%', top: '25%' },
+            xAxis: {
+                type: 'category',
+                data: ['高新区', '奎文区', '潍城区', '坊子区', '寒亭区', '寿光市'],
+                axisLabel: { fontSize: 10, color: '#6b7280' },
+                axisLine: { lineStyle: { color: '#e5e7eb' } }
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: { fontSize: 10, color: '#6b7280' },
+                splitLine: { lineStyle: { color: '#f3f4f6', type: 'dashed' } }
+            },
+            series: [{
+                data: [120, 200, 150, 80, 70, 110],
+                type: 'bar',
+                barWidth: '40%',
+                itemStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        { offset: 0, color: '#60a5fa' },
+                        { offset: 1, color: '#3b82f6' }
+                    ]),
+                    borderRadius: [4, 4, 0, 0]
+                }
+            }]
+        };
+        chart1.setOption(option1);
+
+        // Chart 2: 重点人群标签占比 (Pie Chart)
+        var chart2 = echarts.init(document.getElementById('bottomChart2'));
+        var option2 = {
+            title: {
+                text: '重点关注人群画像',
+                textStyle: { fontSize: 14, color: '#374151' },
+                left: 'center',
+                top: 10
+            },
+            tooltip: { trigger: 'item' },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                top: 'middle',
+                itemWidth: 10,
+                itemHeight: 10,
+                textStyle: { fontSize: 10, color: '#6b7280' }
+            },
+            series: [{
+                name: '人群占比',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                center: ['65%', '55%'],
+                avoidLabelOverlap: false,
+                label: { show: false },
+                labelLine: { show: false },
+                data: [
+                    { value: 1048, name: '高层次人才', itemStyle: { color: '#8b5cf6' } },
+                    { value: 735, name: '退役军人', itemStyle: { color: '#3b82f6' } },
+                    { value: 580, name: '低保户群体', itemStyle: { color: '#f59e0b' } },
+                    { value: 484, name: '残疾人', itemStyle: { color: '#10b981' } },
+                    { value: 300, name: '独居老人', itemStyle: { color: '#ef4444' } }
+                ]
+            }]
+        };
+        chart2.setOption(option2);
+
+        // Resize charts on window resize
+        window.addEventListener('resize', function() {
+            chart1.resize();
+            chart2.resize();
+        });
+    });
+</script>
 </body>
 </html>

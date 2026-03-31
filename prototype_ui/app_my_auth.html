@@ -29,7 +29,7 @@
             <span class="absolute top-2 right-8 w-2 h-2 bg-red-500 rounded-full"></span>
         </button>
         <button id="tabAuthorized" class="flex-1 py-3 text-sm text-center tab-inactive transition" onclick="switchTab('authorized')">
-            已授权
+            已处理
         </button>
     </div>
 
@@ -88,10 +88,10 @@
             </div>
         </div>
 
-        <!-- Tab 2 Content: 已授权 -->
+        <!-- Tab 2 Content: 已处理 -->
         <div id="contentAuthorized" class="space-y-4 hidden">
-            <!-- Item 1 -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <!-- Item 1 (有效中) -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative" onclick="window.location.href='app_auth_detail.html?status=valid'">
                 <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
                     <div class="flex items-center">
                         <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mr-3">
@@ -99,7 +99,7 @@
                         </div>
                         <h3 class="font-bold text-gray-800">市公积金中心</h3>
                     </div>
-                    <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded border border-green-100">生效中</span>
+                    <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded border border-green-100">有效中</span>
                 </div>
                 <div class="text-sm text-gray-600 mb-4 space-y-1.5">
                     <p><span class="text-gray-400">授权事项：</span>公积金贷款额度测算</p>
@@ -107,32 +107,67 @@
                     <p><span class="text-gray-400">授权时间：</span>2025-10-01 10:20</p>
                     <p><span class="text-gray-400">有效期限：</span>至 2026-10-01</p>
                 </div>
-                <div class="flex space-x-3">
+                <!-- 阻止事件冒泡，防止点击按钮时触发卡片的跳转 -->
+                <div class="flex space-x-3" onclick="event.stopPropagation();">
+                    <button class="flex-1 py-2 text-sm border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition" onclick="alert('进入调整授权时间流程')">调整时间</button>
                     <button class="flex-1 py-2 text-sm border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition" onclick="confirm('确认取消该授权吗？取消后服务方将无法继续获取相关数据。')">取消授权</button>
-                    <a href="app_auth_records.html" class="flex-1 py-2 text-sm bg-purple-50 text-purple-600 rounded-lg text-center block hover:bg-purple-100 transition">使用记录</a>
                 </div>
             </div>
 
-            <!-- Item 2 -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <!-- Item 2 (已使用 - 单次授权) -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative" onclick="window.location.href='app_auth_detail.html?status=used'">
                 <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
                     <div class="flex items-center">
-                        <div class="w-8 h-8 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mr-3">
+                        <div class="w-8 h-8 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mr-3">
                             <i class="fa-solid fa-building-user"></i>
                         </div>
                         <h3 class="font-bold text-gray-800">市政务服务网</h3>
                     </div>
-                    <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded border border-green-100">生效中</span>
+                    <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded border border-blue-100">已使用</span>
                 </div>
-                <div class="text-sm text-gray-600 mb-4 space-y-1.5">
+                <div class="text-sm text-gray-600 space-y-1.5">
                     <p><span class="text-gray-400">授权事项：</span>政务一网通办身份免填</p>
                     <p><span class="text-gray-400">授权数据：</span>基础身份信息</p>
                     <p><span class="text-gray-400">授权时间：</span>2025-09-15 09:30</p>
-                    <p><span class="text-gray-400">有效期限：</span>长期有效</p>
+                    <p><span class="text-gray-400">有效期限：</span>单次有效</p>
                 </div>
-                <div class="flex space-x-3">
-                    <button class="flex-1 py-2 text-sm border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition" onclick="confirm('确认取消该授权吗？取消后服务方将无法继续获取相关数据。')">取消授权</button>
-                    <a href="app_auth_records.html" class="flex-1 py-2 text-sm bg-purple-50 text-purple-600 rounded-lg text-center block hover:bg-purple-100 transition">使用记录</a>
+            </div>
+
+            <!-- Item 3 (已过期) -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative" onclick="window.location.href='app_auth_detail.html?status=expired'">
+                <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gray-100 text-gray-500 rounded-full flex items-center justify-center mr-3">
+                            <i class="fa-solid fa-hospital"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800 opacity-70">市第一人民医院</h3>
+                    </div>
+                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200">已过期</span>
+                </div>
+                <div class="text-sm text-gray-500 space-y-1.5">
+                    <p><span class="text-gray-400">授权事项：</span>跨院电子病历调阅共享</p>
+                    <p><span class="text-gray-400">授权数据：</span>门诊就诊记录、基础生理信息</p>
+                    <p><span class="text-gray-400">授权时间：</span>2023-01-01 10:00</p>
+                    <p><span class="text-gray-400">有效期限：</span>至 2024-01-01 (已过期)</p>
+                </div>
+            </div>
+
+            <!-- Item 4 (已撤销) -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative" onclick="window.location.href='app_auth_detail.html?status=revoked'">
+                <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gray-100 text-gray-500 rounded-full flex items-center justify-center mr-3">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800 opacity-70">某某银行</h3>
+                    </div>
+                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200">已撤销</span>
+                </div>
+                <div class="text-sm text-gray-500 space-y-1.5">
+                    <p><span class="text-gray-400">授权事项：</span>个人信用贷款审核</p>
+                    <p><span class="text-gray-400">授权数据：</span>公积金账户信息</p>
+                    <p><span class="text-gray-400">授权时间：</span>2025-05-01 14:00</p>
+                    <p><span class="text-gray-400">撤销时间：</span>2025-06-01 09:00</p>
                 </div>
             </div>
         </div>

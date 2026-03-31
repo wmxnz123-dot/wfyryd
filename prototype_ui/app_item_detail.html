@@ -18,7 +18,7 @@
         <a href="app_my_data.html" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-700">
           <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <div class="text-base font-semibold text-gray-900">2023年度体检报告</div>
+        <div class="text-base font-semibold text-gray-900">基础身份信息</div>
         <a href="./index.html" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-700">
           <i class="fa-solid fa-grid-2"></i>
         </a>
@@ -30,18 +30,17 @@
         <div class="flex items-start justify-between">
           <div>
             <div class="text-sm font-bold text-gray-900">数据状态</div>
-            <div class="text-xs text-gray-500 mt-1">未认领</div>
           </div>
-          <span class="text-xs px-2 py-1 rounded-full bg-red-50 text-red-600 border border-red-100 h-fit">未认领</span>
+          <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-600 border border-green-100 h-fit">已认领</span>
         </div>
         <div class="mt-3 grid grid-cols-2 gap-3 text-sm">
           <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
             <div class="text-xs text-gray-500">来源</div>
-            <div class="mt-1 font-semibold text-gray-900">市健康体检中心</div>
+            <div class="mt-1 font-semibold text-gray-900">潍坊市公安局</div>
           </div>
           <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
             <div class="text-xs text-gray-500">更新时间</div>
-            <div class="mt-1 font-semibold text-gray-900">2025-10-25 09:30</div>
+            <div class="mt-1 font-semibold text-gray-900">2025-10-25 09:30:00</div>
           </div>
         </div>
       </div>
@@ -50,32 +49,60 @@
     <div class="px-4 mt-4">
       <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 relative">
         <div class="flex items-center justify-between">
-            <div class="text-sm font-bold text-gray-900">字段详情</div>
+            <div class="text-sm font-bold text-gray-900">数据详情</div>
             <button onclick="document.getElementById('aiModal').classList.remove('hidden')" class="text-xs bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-2.5 py-1 rounded-full shadow-sm flex items-center hover:opacity-90 transition">
                 <i class="fa-solid fa-sparkles mr-1"></i> AI 智能解读
             </button>
         </div>
         <div class="mt-3 divide-y divide-gray-100">
           <div class="py-3 flex items-start justify-between gap-4">
-            <div class="text-xs text-gray-500">体检日期</div>
-            <div class="text-sm font-semibold text-gray-900">2025-10-20</div>
+            <div class="text-xs text-gray-500">姓名</div>
+            <div class="text-sm font-semibold text-gray-900">张三三</div>
           </div>
           <div class="py-3 flex items-start justify-between gap-4">
-            <div class="text-xs text-gray-500">体检机构</div>
-            <div class="text-sm font-semibold text-gray-900 text-right">潍坊市健康体检中心</div>
+            <div class="text-xs text-gray-500">身份证号码</div>
+            <div class="text-sm font-semibold text-gray-900 text-right">44030419900101001X</div>
           </div>
           <div class="py-3 flex items-start justify-between gap-4">
-            <div class="text-xs text-gray-500">结论</div>
-            <div class="text-sm font-semibold text-gray-900 text-right">建议复查血脂</div>
+            <div class="text-xs text-gray-500">性别</div>
+            <div class="text-sm font-semibold text-gray-900 text-right">男</div>
           </div>
           <div class="py-3 flex items-start justify-between gap-4">
-            <div class="text-xs text-gray-500">附件</div>
-            <div class="text-sm font-semibold text-blue-600 text-right">报告.pdf</div>
+            <div class="text-xs text-gray-500">住址</div>
+            <div class="text-sm font-semibold text-gray-900 text-right">潍坊市幸福花园小区</div>
+          </div>
+          <div class="py-3 flex items-start justify-between gap-4">
+            <div class="text-xs text-gray-500">签发机关</div>
+            <div class="text-sm font-semibold text-gray-900 text-right">潍坊市公安局幸福花园分局</div>
+          </div>
+          <div class="py-3 flex items-start justify-between gap-4">
+            <div class="text-xs text-gray-500">身份证起始日期</div>
+            <div class="text-sm font-semibold text-gray-900 text-right">1990-01-01</div>
+          </div>
+          <div class="py-3 flex items-start justify-between gap-4">
+            <div class="text-xs text-gray-500">身份证截止日期</div>
+            <div class="text-sm font-semibold text-gray-900 text-right">2030-12-31</div>
+          </div>
+          <div class="py-3 flex items-start justify-between gap-4">
+            <div class="text-xs text-gray-500">民族</div>
+            <div class="text-sm font-semibold text-gray-900 text-right">汉族</div>
+          </div>
+          <div class="py-3 flex items-start justify-between gap-4">
+            <div class="text-xs text-gray-500">出生日期</div>
+            <div class="text-sm font-semibold text-gray-900 text-right">1990-01-01</div>
           </div>
         </div>
       </div>
     </div>
-
+    <div class="px-4 mt-4">
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+        <div class="text-sm font-bold text-gray-900">链上信息</div>
+        <div class="py-3 flex items-start justify-between gap-4">
+          <div class="text-xs text-gray-500">上链时间</div>
+          <div class="text-sm font-semibold text-gray-900 text-right">1990-01-01 00:00:00</div>
+        </div>
+    </div>
+    </div>
     <div class="px-4 mt-4">
       <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
         <div class="text-sm font-bold text-gray-900">说明</div>

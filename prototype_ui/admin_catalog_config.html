@@ -31,7 +31,7 @@
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
                     <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
-                    <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">3D人口态势大屏</a></li>
+                    <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数图分析</a></li>
                 </ul>
             </li>
             <!-- 认领数据管理 -->
@@ -109,147 +109,102 @@
       </div>
       <div class="flex items-center space-x-4">
         <a href="./index.html" class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50">原型目录</a>
-        <button class="text-sm px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700"><i class="fa-solid fa-floppy-disk mr-1"></i>保存</button>
       </div>
     </header>
 
     <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
       <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-4 bg-white border border-gray-100 rounded-lg shadow-sm">
-          <div class="p-4 border-b border-gray-100 flex items-center justify-between">
-            <div class="text-sm font-semibold text-gray-900">目录树</div>
-            <button class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50"><i class="fa-solid fa-plus mr-1"></i>新增</button>
-          </div>
-          <div class="p-4 space-y-2">
-            <div class="p-3 rounded-lg bg-blue-50 border border-blue-100">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2 font-semibold text-gray-900">
-                  <i class="fa-solid fa-folder text-blue-600"></i><span>基础身份数据</span>
-                </div>
-                <span class="text-xs px-2 py-1 rounded-full bg-white border border-blue-100 text-blue-700">启用</span>
-              </div>
-              <div class="mt-2 pl-6 space-y-2 text-sm">
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-700">基础信息</span>
-                  <span class="text-xs text-gray-500">3项</span>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-700">户籍信息</span>
-                  <span class="text-xs text-gray-500">5项</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2 font-semibold text-gray-900">
-                  <i class="fa-solid fa-folder text-gray-500"></i><span>医疗健康数据</span>
-                </div>
-                <span class="text-xs px-2 py-1 rounded-full bg-gray-50 border border-gray-200 text-gray-700">启用</span>
-              </div>
-              <div class="mt-2 pl-6 space-y-2 text-sm text-gray-700">
-                <div class="flex items-center justify-between">
-                  <span>体检报告</span>
-                  <span class="text-xs text-gray-500">4项</span>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span>门诊记录</span>
-                  <span class="text-xs text-gray-500">6项</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2 font-semibold text-gray-900">
-                  <i class="fa-solid fa-folder text-gray-500"></i><span>社保公积金</span>
-                </div>
-                <span class="text-xs px-2 py-1 rounded-full bg-gray-50 border border-gray-200 text-gray-700">启用</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-span-8 space-y-6">
-          <div class="bg-white border border-gray-100 rounded-lg shadow-sm">
+        <div class="col-span-12 space-y-12">
+          <div class="bg-white border border-gray-100 rounded-lg shadow-sm flex flex-col h-full">
+            <!-- Search and Actions Header -->
             <div class="p-4 border-b border-gray-100 flex items-center justify-between">
-              <div class="text-sm font-semibold text-gray-900">目录配置</div>
+              <div class="flex items-center space-x-3 w-1/2">
+                <div class="relative w-full">
+                  <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                  <input type="text" placeholder="检索目录名称或编码" class="w-full bg-gray-50 border border-gray-200 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition">
+                </div>
+              </div>
               <div class="flex items-center gap-2">
-                <button class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50">启用</button>
-                <button class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50">停用</button>
+                <button class="text-sm px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-sm transition" onclick="window.location.href='admin_catalog_add.html'">
+                  <i class="fa-solid fa-plus mr-1"></i> 新增目录
+                </button>
               </div>
             </div>
-            <div class="p-4 grid grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-medium text-gray-500 mb-1">目录名称</label>
-                <input class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500" value="基础身份数据">
-              </div>
-              <div>
-                <label class="block text-xs font-medium text-gray-500 mb-1">目录编码</label>
-                <input class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500 font-mono" value="CAT_BASE_IDENTITY">
-              </div>
-              <div class="col-span-2">
-                <label class="block text-xs font-medium text-gray-500 mb-1">用户端说明</label>
-                <input class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500" value="用于认领与核验身份相关数据。">
-              </div>
-            </div>
-          </div>
 
-          <div class="bg-white border border-gray-100 rounded-lg shadow-sm">
-            <div class="p-4 border-b border-gray-100 flex items-center justify-between">
-              <div class="text-sm font-semibold text-gray-900">字段映射</div>
-              <button class="text-sm px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700"><i class="fa-solid fa-plus mr-1"></i>新增映射</button>
-            </div>
-            <div class="overflow-x-auto">
+            <!-- Catalog List Table -->
+            <div class="flex-1 overflow-x-auto">
               <table class="w-full text-left border-collapse">
                 <thead>
                   <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-200">
-                    <th class="p-4 font-medium">展示名</th>
-                    <th class="p-4 font-medium">数据源系统</th>
-                    <th class="p-4 font-medium">表</th>
-                    <th class="p-4 font-medium">字段</th>
-                    <th class="p-4 font-medium">可认领</th>
-                    <th class="p-4 font-medium">可授权</th>
-                    <th class="p-4 font-medium">可纠错</th>
+                    <th class="p-4 font-medium w-10"><input type="checkbox" class="rounded text-blue-500"></th>
+                    <th class="p-4 font-medium">目录名称</th>
+                    <th class="p-4 font-medium">目录编码</th>
+                    <th class="p-4 font-medium">归属分类</th>
+                    <th class="p-4 font-medium">数据项数</th>
                     <th class="p-4 font-medium">状态</th>
                     <th class="p-4 font-medium">操作</th>
                   </tr>
                 </thead>
                 <tbody class="text-sm">
+                  <!-- Row 1 -->
                   <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-                    <td class="p-4 font-medium text-gray-900">婚姻状态</td>
-                    <td class="p-4 text-gray-700">民政系统</td>
-                    <td class="p-4 text-gray-700 font-mono">t_civil</td>
-                    <td class="p-4 text-gray-700 font-mono">marriage_status</td>
-                    <td class="p-4"><span class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">是</span></td>
-                    <td class="p-4"><span class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">是</span></td>
-                    <td class="p-4"><span class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">是</span></td>
-                    <td class="p-4"><span class="text-xs px-2 py-1 rounded bg-blue-50 text-blue-700 border border-blue-100">启用</span></td>
+                    <td class="p-4"><input type="checkbox" class="rounded text-blue-500"></td>
+                    <td class="p-4 font-bold text-gray-800">基础身份信息</td>
+                    <td class="p-4 text-gray-500 font-mono text-xs">CAT_BASE_ID</td>
+                    <td class="p-4 text-gray-600">基础身份数据</td>
+                    <td class="p-4"><span class="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-xs font-medium border border-blue-100">8 项</span></td>
+                    <td class="p-4"><span class="text-green-600 bg-green-50 px-2 py-1 rounded text-xs border border-green-100">已发布</span></td>
                     <td class="p-4">
-                      <span class="text-blue-600 hover:text-blue-800 font-medium cursor-pointer">编辑</span>
+                      <span class="text-blue-600 hover:text-blue-800 font-medium cursor-pointer">配置</span>
                       <span class="text-gray-300 mx-2">|</span>
-                      <span class="text-red-600 hover:text-red-700 font-medium cursor-pointer">删除</span>
+                      <span class="text-gray-500 hover:text-gray-800 font-medium cursor-pointer">停用</span>
                     </td>
                   </tr>
+                  <!-- Row 2 -->
                   <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-                    <td class="p-4 font-medium text-gray-900">户籍地址</td>
-                    <td class="p-4 text-gray-700">公安系统</td>
-                    <td class="p-4 text-gray-700 font-mono">t_police_hj</td>
-                    <td class="p-4 text-gray-700 font-mono">address</td>
-                    <td class="p-4"><span class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">是</span></td>
-                    <td class="p-4"><span class="text-xs px-2 py-1 rounded bg-gray-50 text-gray-700 border border-gray-100">否</span></td>
-                    <td class="p-4"><span class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">是</span></td>
-                    <td class="p-4"><span class="text-xs px-2 py-1 rounded bg-blue-50 text-blue-700 border border-blue-100">启用</span></td>
+                    <td class="p-4"><input type="checkbox" class="rounded text-blue-500"></td>
+                    <td class="p-4 font-bold text-gray-800">户籍信息</td>
+                    <td class="p-4 text-gray-500 font-mono text-xs">CAT_BASE_HJ</td>
+                    <td class="p-4 text-gray-600">基础身份数据</td>
+                    <td class="p-4"><span class="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-xs font-medium border border-blue-100">5 项</span></td>
+                    <td class="p-4"><span class="text-green-600 bg-green-50 px-2 py-1 rounded text-xs border border-green-100">已发布</span></td>
+                    <td class="p-4">
+                      <span class="text-blue-600 hover:text-blue-800 font-medium cursor-pointer">配置</span>
+                      <span class="text-gray-300 mx-2">|</span>
+                      <span class="text-gray-500 hover:text-gray-800 font-medium cursor-pointer">停用</span>
+                    </td>
+                  </tr>
+                  <!-- Row 3 -->
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                    <td class="p-4"><input type="checkbox" class="rounded text-blue-500"></td>
+                    <td class="p-4 font-bold text-gray-800">门诊就诊记录</td>
+                    <td class="p-4 text-gray-500 font-mono text-xs">CAT_MED_OP</td>
+                    <td class="p-4 text-gray-600">医疗健康数据</td>
+                    <td class="p-4"><span class="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-xs font-medium border border-blue-100">12 项</span></td>
+                    <td class="p-4"><span class="text-orange-600 bg-orange-50 px-2 py-1 rounded text-xs border border-orange-100">暂存</span></td>
                     <td class="p-4">
                       <span class="text-blue-600 hover:text-blue-800 font-medium cursor-pointer">编辑</span>
                       <span class="text-gray-300 mx-2">|</span>
-                      <span class="text-red-600 hover:text-red-700 font-medium cursor-pointer">删除</span>
+                      <span class="text-green-600 hover:text-green-800 font-medium cursor-pointer">发布</span>
+                      <span class="text-gray-300 mx-2">|</span>
+                      <span class="text-red-600 hover:text-red-800 font-medium cursor-pointer">删除</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="p-4 border-t border-gray-100 text-sm text-gray-500">配置变更将影响用户端可认领与可授权范围。</div>
+            
+            <!-- Pagination -->
+            <div class="p-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
+                <div>共 32 条目录记录</div>
+                <div class="flex items-center space-x-2">
+                    <button class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50 transition"><i class="fa-solid fa-angle-left"></i></button>
+                    <button class="w-8 h-8 flex items-center justify-center bg-blue-600 text-white rounded font-medium shadow-sm">1</button>
+                    <button class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50 transition">2</button>
+                    <button class="w-8 h-8 flex items-center justify-center border border-gray-300 rounded hover:bg-gray-50 transition"><i class="fa-solid fa-angle-right"></i></button>
+                </div>
+            </div>
+
           </div>
         </div>
       </div>
