@@ -117,7 +117,7 @@
                 <div class="text-sm text-gray-500">工单号</div>
                 <div class="mt-1 text-xl font-bold text-gray-900 font-mono">CT-20251024-001</div>
                 <div class="mt-2 flex items-center gap-2">
-                  <span class="text-xs px-2 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-100">待审核</span>
+                  <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-700 border border-green-100">已通过</span>
                   <span class="text-xs text-gray-500">提交时间：2025-10-24 10:12</span>
                 </div>
               </div>
@@ -171,27 +171,25 @@
 
         <div class="col-span-1 space-y-6">
           <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
-            <div class="text-sm font-semibold text-gray-900">审核处理</div>
-            <div class="mt-4">
-              <div class="text-xs text-gray-500 mb-2">处理动作</div>
-              <div class="space-y-2 text-sm">
-                <label class="flex items-center gap-2">
-                  <input type="radio" name="action" checked class="text-blue-600">
-                  <span>通过</span>
-                </label>
-                <label class="flex items-center gap-2">
-                  <input type="radio" name="action" class="text-blue-600">
-                  <span>驳回</span>
-                </label>
+            <div class="text-sm font-semibold text-gray-900">处理信息</div>
+            <div class="mt-4 space-y-4">
+              <div>
+                <div class="text-xs text-gray-500 mb-1">审核结果</div>
+                <div class="text-sm font-medium text-green-600">已通过</div>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 mb-1">审核时间</div>
+                <div class="text-sm text-gray-800">2025-10-24 14:30:22</div>
+              </div>
+              <div>
+                <div class="text-xs text-gray-500 mb-1">审核意见</div>
+                <div class="text-sm text-gray-700 bg-gray-50 p-3 rounded border border-gray-100">
+                  经核实用户提供的材料，婚姻状态确已变更，予以通过并修正数据。
+                </div>
               </div>
             </div>
-            <div class="mt-4">
-              <div class="text-xs text-gray-500 mb-2">审核意见</div>
-              <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500" rows="4" placeholder="请输入审核意见（驳回/需补充为必填）"></textarea>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">提交</button>
-              <a href="./admin_corrections.html" class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 text-center">返回</a>
+            <div class="mt-6">
+              <a href="./admin_corrections.html" class="block w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 text-center">返回列表</a>
             </div>
           </div>
 

@@ -33,7 +33,10 @@
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
+
                     <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
+                    <li><a href="admin_dashboard_results.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">组合检索</a></li>
+                    <li><a href="admin_tag_search.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">标签检索</a></li>
                     <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数图分析</a></li>
                 </ul>
             </li>
@@ -52,15 +55,9 @@
             </li>
             <!-- 自有数据管理 -->
             <li>
-                <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-folder-open w-6"></i> <span class="ml-3">自有数据管理</span>
-                    </div>
-                    <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                </div>
-                <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_own_data_catalog.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">目录管理</a></li>
-                </ul>
+                <a href="admin_own_data_catalog.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fa-solid fa-folder-open w-6"></i> <span class="ml-3">自有数据管理</span>
+                </a>
             </li>
             <!-- 授权管理 -->
             <li>
@@ -74,7 +71,7 @@
                     <li><a href="admin_auth_templates.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">规则配置</a></li>
                     <li><a href="admin_auth_monitor.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">异常监控</a></li>
                     <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证服务</a></li>
-                    <li><a href="admin_auth_records.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">授权统计分析</a></li>
+                    <li><a href="admin_auth_records.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">授权记录</a></li>
                 </ul>
             </li>
             <!-- 数据服务管理 -->
@@ -83,21 +80,15 @@
                     <i class="fa-solid fa-layer-group w-6"></i> <span class="ml-3">数据服务管理</span>
                 </a>
             </li>
-            <!-- 个人中心管理 -->
-            <li>
-                <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-user-gear w-6"></i> <span class="ml-3">个人中心管理</span>
-                    </div>
-                    <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                </div>
-                <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_profile_dashboard_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">仪表盘配置</a></li>
-                </ul>
-            </li>
-            <!-- 监管统计 -->
-            <li>
-                <a href="admin_monitor_stats.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+            <!-- 仪表盘配置 -->
+                <li>
+                    <a href="admin_profile_dashboard_config.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                        <i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
+                    </a>
+                </li>
+            <!-- 监管统计 (Hidden) -->
+                <li class="hidden">
+                    <a href="admin_monitor_stats.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
                     <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">监管统计</span>
                 </a>
             </li>
@@ -226,15 +217,15 @@
                         </a>
                         <a href="admin_data_map.html" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition border border-transparent hover:border-blue-100 group">
                             <i class="fa-solid fa-map-location-dot text-2xl text-gray-400 group-hover:text-blue-500 mb-2"></i>
-                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">3D态势大屏</span>
+                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">数图分析</span>
                         </a>
-                        <a href="admin_corrections.html" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition border border-transparent hover:border-blue-100 group">
+                        <a href="admin_catalog_config.html" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition border border-transparent hover:border-blue-100 group">
                             <i class="fa-solid fa-pen-to-square text-2xl text-gray-400 group-hover:text-blue-500 mb-2"></i>
-                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">纠错工单</span>
+                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">认领数据管理</span>
                         </a>
-                        <a href="admin_monitor_stats.html" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition border border-transparent hover:border-blue-100 group">
+                        <a href="admin_own_data_catalog.html" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition border border-transparent hover:border-blue-100 group">
                             <i class="fa-solid fa-chart-pie text-2xl text-gray-400 group-hover:text-blue-500 mb-2"></i>
-                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">监管统计</span>
+                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">自有数据管理</span>
                         </a>
                     </div>
                 </div>

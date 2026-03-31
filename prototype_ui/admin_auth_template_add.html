@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>纠错工单详情 - 一人一档后台</title>
+  <title>新增授权配置 - 一人一档后台</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -93,130 +93,90 @@
     </div>
 </aside>
 
-  <div class="flex-1 flex flex-col h-full">
-    <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10">
+  <div class="flex-1 flex flex-col h-full overflow-hidden relative">
+    <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
       <div class="flex items-center text-gray-500">
-        <a href="./admin_corrections.html" class="mr-4 text-gray-500 hover:text-gray-800"><i class="fa-solid fa-arrow-left"></i></a>
-        <span class="text-sm">纠错管理 <span class="mx-2">/</span> <span class="text-gray-800 font-medium">工单详情</span></span>
+          <i class="fa-solid fa-arrow-left cursor-pointer hover:text-gray-800 mr-4" onclick="history.back()"></i>
+          <span class="text-sm">授权管理 <span class="mx-2">/</span> <a href="admin_auth_templates.html" class="hover:text-blue-600">授权配置</a> <span class="mx-2">/</span> <span class="text-gray-800 font-medium">新增授权配置</span></span>
       </div>
-      <div class="flex items-center space-x-4">
-        <a href="./index.html" class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50">原型目录</a>
-        <div class="flex items-center cursor-pointer ml-2 border-l border-gray-200 pl-4">
-          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">审</div>
-          <span class="text-sm font-medium">审核员</span>
-        </div>
-      </div>
-    </header>
+  </header>
 
     <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
-      <div class="grid grid-cols-3 gap-6">
-        <div class="col-span-2 space-y-6">
-          <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <div class="text-sm text-gray-500">工单号</div>
-                <div class="mt-1 text-xl font-bold text-gray-900 font-mono">CT-20251024-001</div>
-                <div class="mt-2 flex items-center gap-2">
-                  <span class="text-xs px-2 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-100">待审核</span>
-                  <span class="text-xs text-gray-500">提交时间：2025-10-24 10:12</span>
-                </div>
-              </div>
-              <a href="./admin_user_profile.html" class="text-sm font-medium text-blue-600 hover:text-blue-800">查看用户档案</a>
-            </div>
-            <div class="mt-5 grid grid-cols-2 gap-4">
-              <div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
-                <div class="text-xs text-gray-500">申请人</div>
-                <div class="mt-2 font-semibold text-gray-900">张三（阳光社区）</div>
-                <div class="mt-1 text-sm text-gray-600 font-mono">370781********1234</div>
-              </div>
-              <div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
-                <div class="text-xs text-gray-500">纠错对象</div>
-                <div class="mt-2 font-semibold text-gray-900">基础身份数据 / 婚姻状态</div>
-                <div class="mt-1 text-sm text-gray-600">数据项：基础信息</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
-            <div class="text-sm font-semibold text-gray-900">纠错内容</div>
-            <div class="mt-4">
-              <div class="text-xs text-gray-500">用户说明</div>
-              <div class="mt-2 text-sm text-gray-700 bg-gray-50 border border-gray-100 rounded-lg px-4 py-3">信息已变更，请据实更新。</div>
-            </div>
-          </div>
-
-          <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
-            <div class="flex items-center justify-between">
-              <div class="text-sm font-semibold text-gray-900">证明材料</div>
-              <span class="text-xs text-gray-500">1 个</span>
-            </div>
-            <div class="mt-4 grid grid-cols-2 gap-4">
-              <div class="border border-gray-100 rounded-lg p-4 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-600"><i class="fa-solid fa-image"></i></div>
+      <div class="mx-auto space-y-6 pb-24">
+        
+        <!-- 基础信息配置 -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">基础信息配置</h3>
+            <div class="grid grid-cols-2 gap-6">
                 <div>
-                  <div class="text-sm font-semibold text-gray-900">marriage_proof.jpg</div>
-                  <div class="text-xs text-gray-500 mt-1">图片 · 540KB</div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">场景名称 <span class="text-red-500">*</span></label>
+                    <input type="text" placeholder="例如：公积金贷款额度测算" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                 </div>
-              </div>
-              <div class="border border-gray-100 rounded-lg p-4 flex items-center gap-3 opacity-60">
-                <div class="w-10 h-10 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-600"><i class="fa-solid fa-file"></i></div>
                 <div>
-                  <div class="text-sm font-semibold text-gray-900">无更多材料</div>
-                  <div class="text-xs text-gray-500 mt-1">-</div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">被授权方类型 <span class="text-red-500">*</span></label>
+                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white">
+                        <option value="">请选择被授权方类型</option>
+                        <option value="org">机构</option>
+                        <option value="dept">部门</option>
+                        <option value="corp">企业</option>
+                    </select>
                 </div>
-              </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">有效期策略 <span class="text-red-500">*</span></label>
+                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white">
+                        <option value="">请选择有效期策略</option>
+                        <option value="7">固定 7 天</option>
+                        <option value="30">固定 30 天</option>
+                        <option value="custom">可选区间</option>
+                    </select>
+                </div>
             </div>
-          </div>
         </div>
 
-        <div class="col-span-1 space-y-6">
-          <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
-            <div class="text-sm font-semibold text-gray-900">审核处理</div>
-            <div class="mt-4">
-              <div class="text-xs text-gray-500 mb-2">处理动作</div>
-              <div class="space-y-2 text-sm">
-                <label class="flex items-center gap-2">
-                  <input type="radio" name="action" checked class="text-blue-600">
-                  <span>通过</span>
-                </label>
-                <label class="flex items-center gap-2">
-                  <input type="radio" name="action" class="text-blue-600">
-                  <span>驳回</span>
-                </label>
-              </div>
-            </div>
-            <div class="mt-4">
-              <div class="text-xs text-gray-500 mb-2">审核意见</div>
-              <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500" rows="4" placeholder="请输入审核意见（驳回/需补充为必填）"></textarea>
-            </div>
-            <div class="mt-4 flex gap-2">
-              <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">提交</button>
-              <a href="./admin_corrections.html" class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 text-center">返回</a>
-            </div>
-          </div>
-
-          <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
-            <div class="text-sm font-semibold text-gray-900">处理日志</div>
-            <div class="mt-4 space-y-3 text-sm">
-              <div class="flex items-start gap-3">
-                <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600"><i class="fa-solid fa-flag"></i></div>
+        <!-- 授权内容配置 -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">授权内容与说明</h3>
+            <div class="grid grid-cols-1 gap-6">
                 <div>
-                  <div class="font-medium text-gray-900">创建工单</div>
-                  <div class="text-xs text-gray-500 mt-1">2025-10-24 10:12 · 用户提交</div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">授权范围选择 <span class="text-red-500">*</span></label>
+                    <div class="border border-gray-300 rounded-lg p-4 space-y-3">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-blue-500">
+                            <span class="text-sm text-gray-700">基础身份信息</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-blue-500">
+                            <span class="text-sm text-gray-700">社保信息</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-blue-500">
+                            <span class="text-sm text-gray-700">医疗健康数据（摘要）</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-blue-500">
+                            <span class="text-sm text-gray-700">房产登记信息</span>
+                        </label>
+                    </div>
                 </div>
-              </div>
-              <div class="flex items-start gap-3">
-                <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600"><i class="fa-solid fa-inbox"></i></div>
                 <div>
-                  <div class="font-medium text-gray-900">进入待审核</div>
-                  <div class="text-xs text-gray-500 mt-1">2025-10-24 10:12 · 系统</div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">用途说明 <span class="text-red-500">*</span></label>
+                    <input type="text" placeholder="例如：仅用于本次贷款额度测算，不得用于其他用途。" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
                 </div>
-              </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">风险提示</label>
+                    <textarea rows="3" placeholder="例如：授权范围遵循最小必要原则，您可随时撤销授权。" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                </div>
             </div>
-          </div>
         </div>
+
       </div>
     </main>
+
+    <!-- Bottom Fixed Actions -->
+    <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-end space-x-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+        <button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition" onclick="history.back()">取消</button>
+        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700 transition" onclick="alert('授权配置保存成功！'); window.location.href='admin_auth_templates.html'">保存配置</button>
+    </div>
   </div>
 
   

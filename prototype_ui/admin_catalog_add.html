@@ -34,7 +34,7 @@
         </div>
     </aside>
 
-    <div class="flex-1 flex flex-col h-full overflow-hidden">
+    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
         <!-- Topbar -->
         <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
             <div class="flex items-center text-gray-500">
@@ -44,29 +44,16 @@
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto p-6 bg-gray-50 relative">
-            <div class="max-w-5xl mx-auto space-y-6 pb-20">
+        <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+            <div class="mx-auto space-y-6 pb-24">
                 
                 <!-- 基础信息配置 -->
                 <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
                     <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">基础信息配置</h3>
-                    <div class="grid grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">目录名称 <span class="text-red-500">*</span></label>
                             <input type="text" placeholder="请输入目录名称" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">归属分类 <span class="text-red-500">*</span></label>
-                            <select class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500">
-                                <option value="">请选择归属分类</option>
-                                <option value="1">基础身份数据</option>
-                                <option value="2">医疗健康数据</option>
-                                <option value="3">社保公积金</option>
-                            </select>
-                        </div>
-                        <div class="col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">用户端说明</label>
-                            <textarea rows="2" placeholder="请输入在移动端展示给用户看的目录说明..." class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 resize-none"></textarea>
                         </div>
                     </div>
                 </div>
@@ -122,13 +109,13 @@
                 </div>
 
             </div>
-
-            <!-- Bottom Fixed Actions -->
-            <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-end space-x-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
-                <button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition" onclick="alert('已暂存至草稿箱')">暂存</button>
-                <button class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700 transition" onclick="publishCatalog()">发布目录</button>
-            </div>
         </main>
+
+        <!-- Bottom Fixed Actions -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-end space-x-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+            <button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition" onclick="alert('已暂存至草稿箱')">暂存</button>
+            <button class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700 transition" onclick="publishCatalog()">发布目录</button>
+        </div>
     </div>
 
 <script>
