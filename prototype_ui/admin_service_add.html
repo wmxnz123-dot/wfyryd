@@ -30,31 +30,22 @@
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-
                     <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
-                    <li><a href="admin_dashboard_results.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">组合检索</a></li>
-                    <li><a href="admin_tag_search.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">标签检索</a></li>
                     <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数图分析</a></li>
                 </ul>
             </li>
-            <!-- 认领数据管理 -->
+            <!-- 数据管理 -->
             <li>
                 <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
                     <div class="flex items-center">
-                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">认领数据管理</span>
+                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">数据管理</span>
                     </div>
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">目录管理</a></li>
+                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据目录管理</a></li>
                     <li><a href="admin_corrections.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据纠错处置</a></li>
                 </ul>
-            </li>
-            <!-- 自有数据管理 -->
-            <li>
-                <a href="admin_own_data_catalog.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-folder-open w-6"></i> <span class="ml-3">自有数据管理</span>
-                </a>
             </li>
             <!-- 授权管理 -->
             <li>
@@ -65,9 +56,8 @@
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_auth_templates.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">规则配置</a></li>
                     <li><a href="admin_auth_monitor.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">异常监控</a></li>
-                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证服务</a></li>
+                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证</a></li>
                     <li><a href="admin_auth_records.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">授权记录</a></li>
                 </ul>
             </li>
@@ -83,10 +73,10 @@
                         <i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
                     </a>
                 </li>
-            <!-- 监管统计 (Hidden) -->
+            <!-- 平台运营分析 -->
                 <li class="hidden">
                     <a href="admin_monitor_stats.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">监管统计</span>
+                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">平台运营分析</span>
                 </a>
             </li>
         </ul>
@@ -96,9 +86,9 @@
   <div class="flex-1 flex flex-col h-full overflow-hidden relative">
     <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
       <div class="flex items-center text-gray-500">
-          <i class="fa-solid fa-arrow-left cursor-pointer hover:text-gray-800 mr-4" onclick="history.back()"></i>
-          <span class="text-sm">数据服务管理 <span class="mx-2">/</span> <a href="admin_services_config.html" class="hover:text-blue-600">配置数据服务</a> <span class="mx-2">/</span> <span class="text-gray-800 font-medium">新增数据服务</span></span>
-      </div>
+                <i class="fa-solid fa-arrow-left cursor-pointer hover:text-gray-800 mr-4" onclick="history.back()"></i>
+                <span class="text-sm">数据服务管理 <span class="mx-2">/</span> <a href="admin_services_config.html" class="hover:text-blue-600 transition">配置数据服务</a> <span class="mx-2">/</span> <span class="text-indigo-800 font-medium">新增服务</span></span>
+            </div>
   </header>
 
     <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
@@ -110,77 +100,70 @@
             <div class="grid grid-cols-2 gap-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">服务名称 <span class="text-red-500">*</span></label>
-                    <input type="text" placeholder="例如：办件秒批" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                    <input type="text" id="serviceName" required minlength="2" maxlength="50" placeholder="请输入服务名称" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" onblur="checkUniqueName(this.value)">
+                    <p id="nameError" class="text-indigo-500 text-xs mt-1 hidden">该服务名称已存在，请重新输入</p>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">被授权方类型 <span class="text-red-500">*</span></label>
-                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white">
-                        <option value="">请选择被授权方类型</option>
-                        <option value="org">机构</option>
-                        <option value="dept">部门</option>
-                        <option value="corp">企业</option>
-                    </select>
-                </div>
-                <div class="col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">被授权方类型图标 <span class="text-gray-400 font-normal text-xs ml-2">(建议尺寸 100x100，支持 png/jpg/svg)</span></label>
-                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-500 hover:bg-blue-50 transition cursor-pointer group">
-                        <div class="space-y-1 text-center">
-                            <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400 group-hover:text-blue-500 transition mb-2"></i>
-                            <div class="flex text-sm text-gray-600 justify-center">
-                                <span class="relative cursor-pointer rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
-                                    <span>点击上传</span>
-                                    <input id="file-upload" name="file-upload" type="file" class="sr-only">
-                                </span>
-                                <p class="pl-1">或拖拽文件至此</p>
-                            </div>
-                            <p class="text-xs text-gray-500">PNG, JPG, GIF up to 2MB</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">图标 <span class="text-red-500">*</span></label>
+                    <div class="mt-1 flex items-center">
+                        <div id="iconPreview" class="w-10 h-10 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-400 mr-4 overflow-hidden">
+                            <i class="fa-solid fa-image" id="defaultIconPlaceholder"></i>
+                            <img id="uploadedIcon" src="" class="hidden w-full h-full object-cover">
                         </div>
+                        <label class="cursor-pointer bg-white px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                            <span>上传图标</span>
+                            <input type="file" id="iconInput" class="sr-only" accept="image/*" onchange="previewIcon(this)">
+                        </label>
+                        <span class="ml-3 text-xs text-gray-500">建议尺寸 100x100，支持 png/jpg/svg</span>
                     </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">有效期策略 <span class="text-red-500">*</span></label>
-                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white">
-                        <option value="">请选择有效期策略</option>
-                        <option value="7">固定 7 天</option>
-                        <option value="30">固定 30 天</option>
-                        <option value="custom">可选区间</option>
-                    </select>
+                <div id="iconColorContainer">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">图标颜色 <span class="text-red-500">*</span></label>
+                    <div class="flex items-center space-x-3">
+                        <input type="color" id="iconColorPicker" value="#3B82F6" class="h-9 w-12 rounded border border-gray-300 cursor-pointer" oninput="updateColorHex(this.value)">
+                        <input type="text" id="iconColorHex" value="#3B82F6" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm w-28 focus:outline-none focus:border-blue-500" placeholder="#000000" oninput="updateColorPicker(this.value)">
+                    </div>
+                </div>
+                <div id="iconColorContainer2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">图标背景颜色 <span class="text-red-500">*</span></label>
+                    <div class="flex items-center space-x-3">
+                        <input type="color" id="iconColorPicker" value="#3B82F6" class="h-9 w-12 rounded border border-gray-300 cursor-pointer" oninput="updateColorHex(this.value)">
+                        <input type="text" id="iconColorHex" value="#3B82F6" class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm w-28 focus:outline-none focus:border-blue-500" placeholder="#000000" oninput="updateColorPicker(this.value)">
+                    </div>
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">授权内容与说明 <span class="text-red-500">*</span></label>
+                    <textarea id="authDescription" required minlength="10" maxlength="200" rows="3" placeholder="请输入授权内容与说明（10-50字符）" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 resize-none"></textarea>
                 </div>
             </div>
         </div>
 
         <!-- 授权内容配置 -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-            <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">授权内容与说明</h3>
+            <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">授权数据目录选择 <span class="text-red-500">*</span> <span class="text-xs text-gray-400 font-normal ml-2">（可多选，至少选择一个目录）</span></h3>
             <div class="grid grid-cols-1 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">授权数据选择 <span class="text-red-500">*</span></label>
-                    <div class="border border-gray-300 rounded-lg p-4 space-y-3">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" class="rounded text-blue-500">
-                            <span class="text-sm text-gray-700">基础身份信息</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" class="rounded text-blue-500">
-                            <span class="text-sm text-gray-700">社保信息</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" class="rounded text-blue-500">
-                            <span class="text-sm text-gray-700">医疗健康数据（摘要）</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" class="rounded text-blue-500">
-                            <span class="text-sm text-gray-700">房产登记信息</span>
-                        </label>
+                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50 max-h-64 overflow-y-auto" id="catalogCheckboxes">
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center space-x-2 bg-white p-2 rounded border border-gray-100 hover:border-blue-300 cursor-pointer transition">
+                                <input type="checkbox" name="dataCatalog" value="基础身份信息" class="rounded text-blue-500 w-4 h-4 focus:ring-blue-500">
+                                <span class="text-sm text-gray-700">基础身份信息</span>
+                            </label>
+                            <label class="flex items-center space-x-2 bg-white p-2 rounded border border-gray-100 hover:border-blue-300 cursor-pointer transition">
+                                <input type="checkbox" name="dataCatalog" value="社保信息" class="rounded text-blue-500 w-4 h-4 focus:ring-blue-500">
+                                <span class="text-sm text-gray-700">社保信息</span>
+                            </label>
+                            <label class="flex items-center space-x-2 bg-white p-2 rounded border border-gray-100 hover:border-blue-300 cursor-pointer transition">
+                                <input type="checkbox" name="dataCatalog" value="医疗健康数据（摘要）" class="rounded text-blue-500 w-4 h-4 focus:ring-blue-500">
+                                <span class="text-sm text-gray-700">医疗健康数据（摘要）</span>
+                            </label>
+                            <label class="flex items-center space-x-2 bg-white p-2 rounded border border-gray-100 hover:border-blue-300 cursor-pointer transition">
+                                <input type="checkbox" name="dataCatalog" value="房产登记信息" class="rounded text-blue-500 w-4 h-4 focus:ring-blue-500">
+                                <span class="text-sm text-gray-700">房产登记信息</span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">用途说明 <span class="text-red-500">*</span></label>
-                    <input type="text" placeholder="例如：仅用于本次贷款额度测算，不得用于其他用途。" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">风险提示</label>
-                    <textarea rows="3" placeholder="例如：授权范围遵循最小必要原则，您可随时撤销授权。" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                    <p id="catalogError" class="text-red-500 text-xs mt-1 hidden">可多选，请至少选择一项授权数据目录</p>
                 </div>
             </div>
         </div>
@@ -190,12 +173,108 @@
 
     <!-- Bottom Fixed Actions -->
     <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-end space-x-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
-        <button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition" onclick="history.back()">取消</button>
-        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700 transition" onclick="alert('授权配置保存成功！'); window.location.href='admin_auth_templates.html'">保存配置</button>
+        <button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition" onclick="window.location.href='admin_services_config.html'">取消</button>
+        <button class="px-6 py-2 bg-white border border-blue-600 text-blue-600 rounded-lg font-medium shadow-sm hover:bg-blue-50 transition" onclick="saveService('draft')">暂存</button>
+        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700 transition" onclick="saveService('publish')">发布服务</button>
     </div>
   </div>
 
   
+
+<script>
+    // 模拟唯一性校验
+    const existingNames = ['办件秒批', '电子病历共享'];
+    let isNameValid = true;
+
+    function checkUniqueName(name) {
+        const errorEl = document.getElementById('nameError');
+        if (existingNames.includes(name.trim())) {
+            errorEl.classList.remove('hidden');
+            isNameValid = false;
+        } else {
+            errorEl.classList.add('hidden');
+            isNameValid = true;
+        }
+    }
+
+    function previewIcon(input) {
+        const previewImg = document.getElementById('uploadedIcon');
+        const placeholder = document.getElementById('defaultIconPlaceholder');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewImg.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function updateColorHex(color) {
+        document.getElementById('iconColorHex').value = color.toUpperCase();
+    }
+
+    function updateColorPicker(hex) {
+        if (/^#[0-9A-F]{6}$/i.test(hex)) {
+            document.getElementById('iconColorPicker').value = hex;
+        }
+    }
+
+    function saveService(status) {
+        // 1. 校验服务名称
+        const nameInput = document.getElementById('serviceName');
+        const nameVal = nameInput.value.trim();
+        if (nameVal.length < 2 || nameVal.length > 50) {
+            alert('服务名称需为2-50个字符');
+            nameInput.focus();
+            return;
+        }
+        checkUniqueName(nameVal);
+        if (!isNameValid) {
+            alert('服务名称已存在，请修改');
+            nameInput.focus();
+            return;
+        }
+
+        // 2. 校验图标是否上传
+        const iconInput = document.getElementById('iconInput');
+        if (!iconInput.files || iconInput.files.length === 0) {
+            alert('请上传服务图标');
+            return;
+        }
+
+        // 3. 校验授权内容与说明
+        const descInput = document.getElementById('authDescription');
+        const descVal = descInput.value.trim();
+        if (descVal.length < 10 || descVal.length > 200) {
+            alert('授权内容与说明需为10-200个字符');
+            descInput.focus();
+            return;
+        }
+
+        // 4. 校验授权数据目录选择 (至少一项)
+        const checkboxes = document.querySelectorAll('input[name="dataCatalog"]:checked');
+        const catalogError = document.getElementById('catalogError');
+        if (checkboxes.length === 0) {
+            catalogError.classList.remove('hidden');
+            return;
+        } else {
+            catalogError.classList.add('hidden');
+        }
+
+        // 保存逻辑
+        if (status === 'draft') {
+            alert('服务已暂存（草稿）！');
+        } else {
+            alert('服务发布成功！');
+        }
+        window.location.href = 'admin_services_config.html';
+    }
+</script>
 <script src="admin_sidebar_logic.js"></script>
 </body>
 </html>

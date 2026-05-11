@@ -1,279 +1,660 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>用户档案详情 - 一人一档后台</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>用户档案详情 - 一人一档后台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
-  <aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
-    <div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
-        <i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
-        <span class="text-lg font-bold tracking-wider">一人一档后台</span>
-    </div>
-    <div class="flex-1 overflow-y-auto py-4">
-                <ul class="space-y-1" id="sidebar-menu">
-            <!-- 工作台 -->
-            <li>
-                <a href="admin_workbench.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-desktop w-6"></i> <span class="ml-3">智能工作台</span>
-                </a>
-            </li>
-            <!-- 数据检索管理 -->
-            <li>
-                <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-magnifying-glass w-6"></i> <span class="ml-3">数据检索管理</span>
-                    </div>
-                    <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                </div>
-                <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-
-                    <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
-                    <li><a href="admin_dashboard_results.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">组合检索</a></li>
-                    <li><a href="admin_tag_search.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">标签检索</a></li>
-                    <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数图分析</a></li>
-                </ul>
-            </li>
-            <!-- 认领数据管理 -->
-            <li>
-                <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">认领数据管理</span>
-                    </div>
-                    <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                </div>
-                <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">目录管理</a></li>
-                    <li><a href="admin_corrections.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据纠错处置</a></li>
-                </ul>
-            </li>
-            <!-- 自有数据管理 -->
-            <li>
-                <a href="admin_own_data_catalog.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-folder-open w-6"></i> <span class="ml-3">自有数据管理</span>
-                </a>
-            </li>
-            <!-- 授权管理 -->
-            <li>
-                <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-shield-halved w-6"></i> <span class="ml-3">授权管理</span>
-                    </div>
-                    <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                </div>
-                <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_auth_templates.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">规则配置</a></li>
-                    <li><a href="admin_auth_monitor.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">异常监控</a></li>
-                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证服务</a></li>
-                    <li><a href="admin_auth_records.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">授权记录</a></li>
-                </ul>
-            </li>
-            <!-- 数据服务管理 -->
-            <li>
-                <a href="admin_services_config.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-layer-group w-6"></i> <span class="ml-3">数据服务管理</span>
-                </a>
-            </li>
-            <!-- 仪表盘配置 -->
-                <li>
-                    <a href="admin_profile_dashboard_config.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                        <i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
-                    </a>
-                </li>
-            <!-- 监管统计 (Hidden) -->
-                <li class="hidden">
-                    <a href="admin_monitor_stats.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">监管统计</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+<aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
+<div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
+<i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
+<span class="text-lg font-bold tracking-wider">一人一档后台</span>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1" id="sidebar-menu">
+<!-- 工作台 -->
+<li>
+<a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_workbench.html">
+<i class="fa-solid fa-desktop w-6"></i> <span class="ml-3">智能工作台</span>
+</a>
+</li>
+<!-- 数据检索管理 -->
+<li>
+<div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
+<div class="flex items-center">
+<i class="fa-solid fa-magnifying-glass w-6"></i> <span class="ml-3">数据检索管理</span>
+</div>
+<i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+</div>
+<ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_dashboard.html">数据检索</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_data_map.html">数图分析</a></li>
+</ul>
+</li>
+<!-- 数据管理 -->
+<li>
+<div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
+<div class="flex items-center">
+<i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">数据管理</span>
+</div>
+<i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+</div>
+<ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_catalog_config.html">数据目录管理</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_corrections.html">数据纠错处置</a></li>
+</ul>
+</li>
+<!-- 授权管理 -->
+<li>
+<div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
+<div class="flex items-center">
+<i class="fa-solid fa-shield-halved w-6"></i> <span class="ml-3">授权管理</span>
+</div>
+<i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+</div>
+<ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_auth_monitor.html">异常监控</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_auth_blockchain.html">可信存证</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_auth_records.html">授权记录</a></li>
+</ul>
+</li>
+<!-- 数据服务管理 -->
+<li>
+<a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_services_config.html">
+<i class="fa-solid fa-layer-group w-6"></i> <span class="ml-3">数据服务管理</span>
+</a>
+</li>
+<!-- 仪表盘配置 -->
+<li>
+<a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_profile_dashboard_config.html">
+<i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
+</a>
+</li>
+<!-- 平台运营分析 -->
+<li class="hidden">
+<a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_monitor_stats.html">
+<i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">平台运营分析</span>
+</a>
+</li>
+</ul>
+</div>
 </aside>
-
-  <div class="flex-1 flex flex-col h-full">
-    <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10">
-      <div class="flex items-center text-gray-500">
-        <a href="./admin_dashboard.html" class="mr-4 text-gray-500 hover:text-gray-800"><i class="fa-solid fa-arrow-left"></i></a>
-        <span class="text-sm">数据检索 <span class="mx-2">/</span> <span class="text-gray-800 font-medium">用户档案详情</span></span>
-      </div>
-      <div class="flex items-center space-x-4">
-        <a href="./index.html" class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50">原型目录</a>
-        <div class="flex items-center cursor-pointer ml-2 border-l border-gray-200 pl-4">
-          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">管</div>
-          <span class="text-sm font-medium">超级管理员</span>
-        </div>
-      </div>
-    </header>
-
-    <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
-      <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
-        <div class="flex items-start justify-between gap-6">
-          <div class="flex items-start gap-4">
-            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg">张</div>
-            <div>
-              <div class="flex items-center gap-2">
-                <div class="text-lg font-bold text-gray-900">张三</div>
-                <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-700 border border-green-100"><i class="fa-solid fa-shield-halved mr-1"></i>已实名</span>
-              </div>
-              <div class="mt-1 text-sm text-gray-600 font-mono">身份证号：370781********1234</div>
-              <div class="mt-1 text-sm text-gray-600">所属社区：阳光社区</div>
-              
-              <!-- AI Tags -->
-              <div class="mt-3 flex flex-wrap gap-2 items-center">
-                  <span class="text-xs text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded flex items-center">
-                      <i class="fa-solid fa-robot mr-1"></i> AI 智能画像:
+<div class="flex-1 flex flex-col h-full">
+<header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10">
+<div class="flex items-center text-gray-500">
+    <a href="admin_dashboard.html" class="hover:text-blue-600 transition flex items-center">
+        <i class="fa-solid fa-arrow-left mr-2"></i>
+        <span class="text-sm">返回检索</span>
+    </a>
+    <span class="mx-3 text-gray-300">/</span><span class="text-gray-800 font-medium">个人数字档案</span></span>
+</div>
+<div class="flex items-center space-x-4">
+<a class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50" href="./index.html">原型目录</a>
+<div class="flex items-center cursor-pointer ml-2 border-l border-gray-200 pl-4">
+<div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">管</div>
+<span class="text-sm font-medium">超级管理员</span>
+</div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+<div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
+<div class="flex items-start justify-between gap-6">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-lg">张</div>
+<div>
+<div class="flex items-center gap-2">
+<div class="text-lg font-bold text-gray-900">张三</div>
+</div>
+<div class="mt-1 text-sm text-gray-600 font-mono">
+    身份证号：<span id="idCardValue" data-full="370781195601011234">370781********1234</span>
+</div>
+<div class="mt-1 text-sm text-gray-600">省市县（区）：高新区</div>
+<div class="mt-1 text-sm text-gray-600 flex items-center">
+    户籍住址：<span id="addressValue" data-full="潍坊市高新区阳光社区1号楼2单元301室">潍坊市高新区阳光社区***</span>
+</div>
+<!-- AI Tags -->
+<div class="mt-3 flex flex-wrap gap-2 items-center">
+<span class="text-xs text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded flex items-center">
+<i class="fa-solid fa-cubes mr-1"></i> 个人画像:
                   </span>
-                  <span class="text-xs text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200">适龄未婚</span>
-                  <span class="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">潜在高层次人才</span>
-                  <span class="text-xs text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200">有车一族</span>
-                  <button class="text-xs text-gray-400 hover:text-indigo-600 transition"><i class="fa-solid fa-pen-to-square"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <button class="text-sm px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-50"><i class="fa-solid fa-eye mr-1"></i>明文查看</button>
-            <button class="text-sm px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-50"><i class="fa-solid fa-file-export mr-1"></i>导出档案</button>
-          </div>
+<span class="text-xs text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200">适龄未婚</span>
+<span class="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">潜在高层次人才</span>
+<span class="text-xs text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-200">有车一族</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button id="toggleMaskBtn" class="text-sm px-3 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition flex items-center" onclick="toggleDataMasking()">
+    <i class="fa-solid fa-eye-slash text-gray-500" id="maskIcon"></i>
+</button>
+</div>
+</div>
+<div class="mt-6 bg-white border border-gray-100 rounded-lg shadow-sm flex flex-col h-[600px]">
+<div class="border-b border-gray-100 px-6 shrink-0">
+<div class="flex space-x-8">
+<button class="py-4 px-2 border-b-2 border-blue-600 text-blue-600 font-medium text-sm transition-all" onclick="switchDataTab('public', this)">公共数据</button>
+<button class="py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm transition-all" onclick="switchDataTab('private', this)">自有数据</button>
+</div>
+</div>
+
+<!-- 公共数据内容 -->
+<div id="public-data-content" class="flex-1 flex overflow-hidden">
+    <!-- 左侧目录树 -->
+    <div class="w-64 border-r border-gray-100 bg-gray-50 overflow-y-auto">
+        <div class="p-3 space-y-1">
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg bg-blue-100 text-blue-700 font-medium transition" onclick="switchDirectory('户籍信息', this)">户籍信息</button>
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-200 transition" onclick="switchDirectory('婚姻状态', this)">婚姻状态</button>
+            
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-200 transition" onclick="switchDirectory('门诊记录', this)">门诊记录</button>
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-200 transition" onclick="switchDirectory('体检报告', this)">体检报告</button>
+            
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-200 transition" onclick="switchDirectory('社保缴费记录', this)">社保缴费记录</button>
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-200 transition" onclick="switchDirectory('公积金账户', this)">公积金账户</button>
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-200 transition" onclick="switchDirectory('缴费明细', this)">缴费明细</button>
         </div>
-        <div class="grid grid-cols-4 gap-4 mt-5">
-          <div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
-            <div class="text-xs text-gray-500">数据条目</div>
-            <div class="mt-2 text-2xl font-bold text-gray-900">1,256</div>
-          </div>
-          <div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
-            <div class="text-xs text-gray-500">已认领</div>
-            <div class="mt-2 text-2xl font-bold text-blue-600">15</div>
-          </div>
-          <div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
-            <div class="text-xs text-gray-500">待认领</div>
-            <div class="mt-2 text-2xl font-bold text-red-600">3</div>
-          </div>
-          <div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
-            <div class="text-xs text-gray-500">纠错进行中</div>
-            <div class="mt-2 text-2xl font-bold text-orange-600">1</div>
-          </div>
+    </div>
+    
+        <!-- 右侧数据明细 -->
+    <div class="flex-1 overflow-y-auto p-6 bg-white relative">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-bold text-gray-800" id="dirTitle">户籍信息</h3>
+            <button class="text-sm px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 transition flex items-center text-gray-600" onclick="toggleDirMasking(this)">
+                <i class="fa-solid fa-eye-slash"></i>
+            </button>
         </div>
-      </div>
-
-      <div class="mt-6 bg-white border border-gray-100 rounded-lg shadow-sm">
-        <div class="p-4 border-b border-gray-100 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="text-sm font-semibold text-gray-900">档案信息</span>
-            <span class="text-xs text-gray-500">按目录聚合展示</span>
-          </div>
-          <div class="flex items-center gap-2 text-sm">
-            <button class="px-3 py-1.5 rounded-lg bg-blue-600 text-white">概览</button>
-            <button class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50">纠错记录</button>
-            <button class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50">授权记录</button>
-            <button class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50">自有数据</button>
-          </div>
+        
+        <div id="dirDataContainer" class="space-y-6">
+            <!-- JS 生成 -->
         </div>
+    </div>
+</div>
 
-        <div class="p-4 grid grid-cols-3 gap-4">
-          <div class="border border-gray-100 rounded-lg p-4">
-            <div class="flex items-center justify-between">
-              <div class="font-semibold text-gray-900">基础身份数据</div>
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">2/3 已认领</span>
-            </div>
-            <div class="mt-3 space-y-2 text-sm">
-              <div class="flex items-center justify-between">
-                <span class="text-gray-700">户籍信息</span>
-                <span class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">已认领</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-gray-700">婚姻状态</span>
-                <span class="text-xs px-2 py-1 rounded bg-orange-50 text-orange-700 border border-orange-100">纠错中</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-gray-700">证照信息</span>
-                <span class="text-xs px-2 py-1 rounded bg-gray-50 text-gray-600 border border-gray-100">未认领</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="border border-gray-100 rounded-lg p-4">
-            <div class="flex items-center justify-between">
-              <div class="font-semibold text-gray-900">医疗健康数据</div>
-              <span class="text-xs px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100">0/2 已认领</span>
-            </div>
-            <div class="mt-3 space-y-2 text-sm">
-              <div class="flex items-center justify-between">
-                <span class="text-gray-700">体检报告</span>
-                <span class="text-xs px-2 py-1 rounded bg-gray-50 text-gray-600 border border-gray-100">未认领</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-gray-700">门诊记录</span>
-                <span class="text-xs px-2 py-1 rounded bg-gray-50 text-gray-600 border border-gray-100">未认领</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="border border-gray-100 rounded-lg p-4">
-            <div class="flex items-center justify-between">
-              <div class="font-semibold text-gray-900">社保公积金</div>
-              <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">5/5 已认领</span>
-            </div>
-            <div class="mt-3 space-y-2 text-sm">
-              <div class="flex items-center justify-between">
-                <span class="text-gray-700">社保缴费记录</span>
-                <span class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">已认领</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-gray-700">公积金账户</span>
-                <span class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">已认领</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-gray-700">缴费明细</span>
-                <span class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">已认领</span>
-              </div>
-            </div>
-          </div>
+<!-- 自有数据内容 -->
+<div id="private-data-content" class="flex-1 flex overflow-hidden hidden">
+    <!-- 左侧目录树 -->
+    <div class="w-64 border-r border-gray-100 bg-gray-50 overflow-y-auto">
+        <div class="p-3 space-y-1">
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg bg-blue-100 text-blue-700 font-medium transition" onclick="switchDirectory('学历信息', this, true)">学历信息</button>
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-200 transition" onclick="switchDirectory('房产信息', this, true)">房产信息</button>
+            <button class="w-full text-left px-3 py-2 text-sm rounded-lg text-gray-600 hover:bg-gray-200 transition" onclick="switchDirectory('体检信息', this, true)">体检信息</button>
         </div>
-
-        <div class="p-4 border-t border-gray-100">
-          <div class="text-sm font-semibold text-gray-900">近期纠错</div>
-          <div class="mt-3 overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-              <thead>
-                <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-200">
-                  <th class="p-3 font-medium">工单号</th>
-                  <th class="p-3 font-medium">纠错对象</th>
-                  <th class="p-3 font-medium">原值</th>
-                  <th class="p-3 font-medium">修正值</th>
-                  <th class="p-3 font-medium">状态</th>
-                  <th class="p-3 font-medium">操作</th>
-                </tr>
-              </thead>
-              <tbody class="text-sm">
-                <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-                  <td class="p-3 font-mono text-gray-700">CT-20251024-001</td>
-                  <td class="p-3 text-gray-700">婚姻状态</td>
-                  <td class="p-3 text-gray-700">未婚</td>
-                  <td class="p-3 text-gray-700">已婚</td>
-                  <td class="p-3"><span class="text-orange-700 bg-orange-50 px-2 py-1 rounded text-xs border border-orange-100">待审核</span></td>
-                  <td class="p-3"><a href="./admin_correction_detail.html" class="text-blue-600 hover:text-blue-800 font-medium">查看</a></td>
-                </tr>
-                <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
-                  <td class="p-3 font-mono text-gray-700">CT-20251020-002</td>
-                  <td class="p-3 text-gray-700">联系电话</td>
-                  <td class="p-3 text-gray-700">138****0000</td>
-                  <td class="p-3 text-gray-700">13911112222</td>
-                  <td class="p-3"><span class="text-purple-700 bg-purple-50 px-2 py-1 rounded text-xs border border-purple-100">需补充</span></td>
-                  <td class="p-3"><a href="./admin_correction_detail.html" class="text-blue-600 hover:text-blue-800 font-medium">查看</a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    </div>
+    
+    <!-- 右侧数据明细 -->
+    <div class="flex-1 overflow-y-auto p-6 bg-white relative">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-bold text-gray-800" id="privateDirTitle">学历信息</h3>
         </div>
-      </div>
-    </main>
-  </div>
+        
+        <div id="privateDirDataContainer" class="space-y-6">
+            <!-- JS 生成 -->
+        </div>
+    </div>
+</div>
+</div>
+</main>
+</div>
 
-  
+<!-- 数据详情弹窗 -->
+<div id="dataDetailModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col">
+        <div class="flex justify-between items-center p-6 border-b border-gray-100">
+            <div class="flex items-center gap-3">
+                <h3 id="modalTitle" class="text-lg font-bold text-gray-800">数据详情</h3>
+                <span id="modalStatus" class="text-xs px-2 py-1 rounded bg-green-50 text-green-700 border border-green-100">已认领</span>
+            </div>
+            <button onclick="closeDataDetail()" class="text-gray-400 hover:text-gray-600 transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="p-6 overflow-y-auto flex-1">
+            <div class="space-y-6">
+                <!-- Meta Info -->
+                <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="text-gray-500">数据目录：</span>
+                            <span id="modalCategory" class="text-gray-900 font-medium">公共数据</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">更新时间：</span>
+                            <span class="text-gray-900 font-mono">2025-10-25 14:30:00</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">数据来源：</span>
+                            <span class="text-gray-900">市公安局数据共享接口</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-500">存证状态：</span>
+                            <span class="text-green-600 flex items-center gap-1"><i class="fa-solid fa-link"></i> 已上链</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Fields -->
+                <div>
+                    <h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-list-ul text-blue-500"></i> 数据明细
+                    </h4>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <tbody class="divide-y divide-gray-100" id="modalDataFields">
+                                <!-- Generated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Preview Area for Custom Data -->
+                <div id="customDataPreview" class="hidden mt-6">
+                    <h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                        <i class="fa-regular fa-image text-blue-500"></i> 附件预览
+                    </h4>
+                    <div class="border border-gray-200 rounded-lg bg-gray-50 h-64 flex flex-col items-center justify-center text-gray-400">
+                        <i class="fa-solid fa-file-pdf text-4xl mb-2"></i>
+                        <span class="text-sm">点击可预览或下载该文件</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex justify-end gap-3 p-4 border-t border-gray-100 bg-gray-50 rounded-b-xl">
+            <button onclick="closeDataDetail()" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition text-sm font-medium">关闭</button>
+        </div>
+    </div>
+</div>
+
 <script src="admin_sidebar_logic.js"></script>
+<script>
+    let isMasked = true;
+
+    function toggleDataMasking() {
+        isMasked = !isMasked;
+        const icon = document.getElementById('maskIcon');
+        const idCardSpan = document.getElementById('idCardValue');
+        const addressSpan = document.getElementById('addressValue');
+        
+        if (isMasked) {
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+            idCardSpan.innerText = '370781********1234';
+            addressSpan.innerText = '潍坊市高新区阳光社区***';
+        } else {
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+            idCardSpan.innerText = idCardSpan.getAttribute('data-full');
+            addressSpan.innerText = addressSpan.getAttribute('data-full');
+        }
+    }
+
+    let currentDirData = [];
+    let isDirMasked = true;
+
+    function switchDataTab(tabId, btn) {
+        // Update tabs
+        const tabs = btn.parentElement.querySelectorAll('button');
+        tabs.forEach(t => {
+            t.classList.remove('border-blue-600', 'text-blue-600');
+            t.classList.add('border-transparent', 'text-gray-500');
+        });
+        btn.classList.remove('border-transparent', 'text-gray-500');
+        btn.classList.add('border-blue-600', 'text-blue-600');
+
+        // Update content
+        document.getElementById('public-data-content').classList.add('hidden');
+        document.getElementById('private-data-content').classList.add('hidden');
+        document.getElementById(tabId + '-data-content').classList.remove('hidden');
+
+        // Default selections
+        if (tabId === 'public') {
+            const firstBtn = document.querySelector('#public-data-content button');
+            if(firstBtn) switchDirectory('户籍信息', firstBtn);
+        } else {
+            const firstBtn = document.querySelector('#private-data-content button');
+            if(firstBtn) switchDirectory('学历信息', firstBtn, true);
+        }
+    }
+
+    function switchDirectory(dirName, btn, isPrivate = false) {
+        // Update active state in sidebar
+        const sidebar = btn.closest('.w-64');
+        const buttons = sidebar.querySelectorAll('button');
+        buttons.forEach(b => {
+            b.classList.remove('bg-blue-100', 'text-blue-700', 'font-medium');
+            b.classList.add('text-gray-600', 'hover:bg-gray-200');
+        });
+        btn.classList.remove('text-gray-600', 'hover:bg-gray-200');
+        btn.classList.add('bg-blue-100', 'text-blue-700', 'font-medium');
+
+        // Render Data
+        const fields = mockDataMap[dirName] || [{ label: '暂无数据', value: '-' }];
+        
+        if (isPrivate) {
+            document.getElementById('privateDirTitle').innerText = dirName;
+            currentDirData = fields;
+            isDirMasked = true;
+            renderDirData('privateDirDataContainer');
+        } else {
+            document.getElementById('dirTitle').innerText = dirName;
+            currentDirData = fields;
+            isDirMasked = true; // Reset mask state
+            renderDirData('dirDataContainer');
+            
+            // Reset button text
+            const btn = document.querySelector('#public-data-content button[onclick="toggleDirMasking(this)"]');
+            if (btn) btn.innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
+        }
+    }
+
+    function renderDirData(containerId) {
+        const container = document.getElementById(containerId);
+        
+        // 检查数据结构：如果是数组的数组，代表有多条记录（例如：门诊记录）
+        const isMultiRecord = currentDirData.length > 0 && Array.isArray(currentDirData[0]);
+        
+        if (isMultiRecord) {
+            // 检查是否为自有数据且选择不公开 (在多条记录的场景下，可以检查第一条记录是否有该标识)
+            const isGovDataField = currentDirData[0].find(f => f.label === '是否用于政务数据收集');
+            const isNotPublic = isGovDataField && isGovDataField._isGovData === 'no';
+
+            if (isNotPublic) {
+                container.innerHTML = `
+                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm h-48 flex flex-col items-center justify-center bg-gray-50/50">
+                        <i class="fa-solid fa-lock text-4xl text-gray-300 mb-3"></i>
+                        <div class="text-gray-500 font-medium text-sm">用户未公开</div>
+                        <div class="text-gray-400 text-xs mt-1">该数据仅供用户个人使用，未授权政务收集</div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = currentDirData.map((record, index) => {
+                    const rowsHtml = record.map(f => {
+                        // 过滤掉内部控制字段不显示
+                        if (f.label === '是否用于政务数据收集') return '';
+                        let displayValue = applyMasking(f.label, f.value);
+                        return `
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 bg-gray-50/50 w-1/3 text-gray-500 font-medium border-r border-gray-100">${f.label}</td>
+                                <td class="px-4 py-3 text-gray-900">${displayValue}</td>
+                            </tr>
+                        `;
+                    }).join('');
+                    
+                    return `
+                        <div class="border border-gray-200 rounded-lg overflow-hidden mb-6 shadow-sm">
+                            <div class="bg-blue-50 px-4 py-2 border-b border-gray-200 text-blue-700 font-medium text-sm flex items-center">
+                                <i class="fa-solid fa-layer-group mr-2"></i> 记录 #${index + 1}
+                            </div>
+                            <table class="w-full text-left text-sm">
+                                <tbody class="divide-y divide-gray-100">
+                                    ${rowsHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                }).join('');
+            }
+        } else {
+            // 检查是否为自有数据且选择不公开
+            const isGovDataField = currentDirData.find(f => f.label === '是否用于政务数据收集');
+            const isNotPublic = isGovDataField && isGovDataField._isGovData === 'no';
+
+            if (isNotPublic) {
+                container.innerHTML = `
+                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm h-48 flex flex-col items-center justify-center bg-gray-50/50">
+                        <i class="fa-solid fa-lock text-4xl text-gray-300 mb-3"></i>
+                        <div class="text-gray-500 font-medium text-sm">用户未公开</div>
+                        <div class="text-gray-400 text-xs mt-1">该数据仅供用户个人使用，未授权政务收集</div>
+                    </div>
+                `;
+            } else {
+                // 单条记录的常规展示
+                const rowsHtml = currentDirData.map(f => {
+                    // 过滤掉内部控制字段不显示
+                    if (f.label === '是否用于政务数据收集') return '';
+                    let displayValue = applyMasking(f.label, f.value);
+                    return `
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 bg-gray-50/50 w-1/3 text-gray-500 font-medium border-r border-gray-100">${f.label}</td>
+                            <td class="px-4 py-3 text-gray-900">${displayValue}</td>
+                        </tr>
+                    `;
+                }).join('');
+                
+                container.innerHTML = `
+                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                        <table class="w-full text-left text-sm">
+                            <tbody class="divide-y divide-gray-100">
+                                ${rowsHtml}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    function applyMasking(label, value) {
+        let displayValue = value;
+        if (isDirMasked) {
+            // 姓名脱敏
+            if ((label.includes('姓名') || label.includes('医师') || label.includes('产权人') || label.includes('共有人')) && displayValue.length > 1) {
+                displayValue = displayValue.charAt(0) + '*' + (displayValue.length > 2 ? displayValue.charAt(displayValue.length - 1) : '');
+            } 
+            // 身份证号脱敏
+            else if (label.includes('身份证号')) {
+                displayValue = displayValue.replace(/^(.{6})(.*)(.{4})$/, '$1********$3');
+            } 
+            // 地址脱敏
+            else if (label.includes('地址') || label.includes('住址') || label.includes('坐落')) {
+                displayValue = displayValue.replace(/(.{10}).*/, '$1***');
+            }
+        }
+        return displayValue;
+    }
+
+    function toggleDirMasking(btn) {
+        isDirMasked = !isDirMasked;
+        if (isDirMasked) {
+            btn.innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
+        } else {
+            btn.innerHTML = `<i class="fa-solid fa-eye"></i>`;
+        }
+        // 根据当前所处的 tab 渲染对应容器
+        const activeTab = document.getElementById('public-data-content').classList.contains('hidden') ? 'private' : 'public';
+        const containerId = activeTab === 'public' ? 'dirDataContainer' : 'privateDirDataContainer';
+        renderDirData(containerId);
+    }
+
+    function createWatermark(text) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 300;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        
+        ctx.translate(150, 100);
+        ctx.rotate(-25 * Math.PI / 180);
+        ctx.font = '16px sans-serif';
+        ctx.fillStyle = 'rgba(156, 163, 175, 0.15)';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, 0, 0);
+        
+        const watermarkDiv = document.createElement('div');
+        watermarkDiv.style.position = 'fixed';
+        watermarkDiv.style.top = '0';
+        watermarkDiv.style.left = '0';
+        watermarkDiv.style.width = '100%';
+        watermarkDiv.style.height = '100%';
+        watermarkDiv.style.backgroundImage = `url(${canvas.toDataURL('image/png')})`;
+        watermarkDiv.style.pointerEvents = 'none';
+        watermarkDiv.style.zIndex = '9999';
+        
+        document.body.appendChild(watermarkDiv);
+    }
+
+    // Initialize first directory on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const firstBtn = document.querySelector('#public-data-content button');
+        if (firstBtn) switchDirectory('户籍信息', firstBtn);
+        
+        // 初始化水印
+        createWatermark('zhangsan 13801002010');
+    });
+
+    // 模拟不同目录的数据结构
+    const mockDataMap = {
+        '户籍信息': [
+            { label: '姓名', value: '张三' },
+            { label: '性别', value: '男' },
+            { label: '民族', value: '汉族' },
+            { label: '出生日期', value: '1956-01-01' },
+            { label: '身份证号', value: '370781195601011234' },
+            { label: '户籍地址', value: '山东省潍坊市高新区阳光社区1号楼2单元301室' },
+            { label: '签发机关', value: '潍坊市公安局高新分局' }
+        ],
+        '婚姻状态': [
+            { label: '当前状态', value: '已婚' },
+            { label: '配偶姓名', value: '李四' },
+            { label: '登记日期', value: '1980-05-01' },
+            { label: '登记机关', value: '潍坊市高新区民政局' }
+        ],
+        '社保缴费记录': [
+            { label: '参保状态', value: '正常参保' },
+            { label: '参保地', value: '潍坊市本级' },
+            { label: '单位名称', value: '潍坊高新科技开发有限公司' },
+            { label: '最近缴费月', value: '2025-09' },
+            { label: '缴费基数', value: '6500.00 元' }
+        ],
+        '门诊记录': [
+            [
+                { label: '就诊日期', value: '2025-08-15' },
+                { label: '就诊医院', value: '潍坊市人民医院' },
+                { label: '就诊科室', value: '呼吸内科' },
+                { label: '诊断结果', value: '上呼吸道感染' },
+                { label: '主治医师', value: '王明' }
+            ],
+            [
+                { label: '就诊日期', value: '2024-11-02' },
+                { label: '就诊医院', value: '高新区中医院' },
+                { label: '就诊科室', value: '消化内科' },
+                { label: '诊断结果', value: '急性肠胃炎' },
+                { label: '主治医师', value: '李华' }
+            ],
+            [
+                { label: '就诊日期', value: '2023-05-20' },
+                { label: '就诊医院', value: '潍坊市人民医院' },
+                { label: '就诊科室', value: '口腔科' },
+                { label: '诊断结果', value: '牙髓炎' },
+                { label: '主治医师', value: '张强' }
+            ]
+        ],
+        '学历信息': [
+            [
+                { label: '学历类别', value: '普通高等教育' },
+                { label: '学历层次', value: '本科' },
+                { label: '毕业院校', value: '山东大学' },
+                { label: '专业', value: '计算机科学与技术' },
+                { label: '入学时间', value: '2014-09-01' },
+                { label: '毕业时间', value: '2018-06-30' },
+                { label: '学习形式', value: '普通全日制' },
+                { label: '证书编号', value: '104221201805001234' }
+            ],
+            [
+                { label: '学历类别', value: '普通高等教育' },
+                { label: '学历层次', value: '硕士研究生' },
+                { label: '毕业院校', value: '山东大学' },
+                { label: '专业', value: '软件工程' },
+                { label: '入学时间', value: '2018-09-01' },
+                { label: '毕业时间', value: '2021-06-30' },
+                { label: '学习形式', value: '普通全日制' },
+                { label: '证书编号', value: '104221202105005678' }
+            ]
+        ],
+        '房产信息': [
+            { label: '产权人', value: '张三' },
+            { label: '共有人', value: '李四' },
+            { label: '不动产权证书号', value: '鲁(2020)潍坊市不动产权第0012345号' },
+            { label: '坐落', value: '山东省潍坊市高新区阳光社区1号楼2单元301室' },
+            { label: '房屋用途', value: '住宅' },
+            { label: '建筑面积', value: '128.50 平方米' },
+            { label: '登记时间', value: '2020-05-15' }
+        ],
+        '体检信息': [
+            { label: '文件名', value: '个人近期体检报告.pdf' },
+            { label: '文件大小', value: '2.4 MB' },
+            { label: '上传时间', value: '2025-10-15 14:30:22' },
+            { label: '体检机构', value: '潍坊市人民医院' },
+            { label: '体检日期', value: '2025-10-10' },
+            { label: '是否用于政务数据收集', value: '否', _isGovData: 'no' }
+        ],
+        '职业资格证书': [
+            { label: '文件名', value: '职业资格证书.jpg' },
+            { label: '文件大小', value: '1.1 MB' },
+            { label: '上传时间', value: '2025-09-22 09:15:00' },
+            { label: '证书名称', value: '一级建造师' },
+            { label: '发证机关', value: '住房和城乡建设部' },
+            { label: '是否用于政务数据收集', value: '是', _isGovData: 'yes' }
+        ],
+        '学位认证报告': [
+            { label: '文件名', value: '学位认证报告.pdf' },
+            { label: '文件大小', value: '1.8 MB' },
+            { label: '上传时间', value: '2025-08-10 11:20:45' },
+            { label: '认证机构', value: '教育部学位与研究生教育发展中心' },
+            { label: '报告编号', value: 'CDGDC202508101234' },
+            { label: '是否用于政务数据收集', value: '否', _isGovData: 'no' }
+        ]
+    };
+
+    function showDataDetail(category, itemName, status) {
+        document.getElementById('dataDetailModal').classList.remove('hidden');
+        document.getElementById('modalTitle').innerText = itemName;
+        document.getElementById('modalCategory').innerText = category;
+        
+        // 设置状态样式
+        const statusEl = document.getElementById('modalStatus');
+        statusEl.innerText = status;
+        statusEl.className = 'text-xs px-2 py-1 rounded border ';
+        if (status === '已认领') {
+            statusEl.classList.add('bg-green-50', 'text-green-700', 'border-green-100');
+        } else if (status === '自有') {
+            statusEl.classList.add('bg-blue-50', 'text-blue-700', 'border-blue-100');
+        } else if (status === '未认领') {
+            statusEl.classList.add('bg-gray-50', 'text-gray-600', 'border-gray-200');
+        } else {
+            statusEl.classList.add('bg-orange-50', 'text-orange-700', 'border-orange-100');
+        }
+
+        // 渲染数据明细
+        const tbody = document.getElementById('modalDataFields');
+        const fields = mockDataMap[itemName] || [
+            { label: '数据项1', value: '暂无数据' },
+            { label: '数据项2', value: '暂无数据' }
+        ];
+        
+        tbody.innerHTML = fields.map(f => `
+            <tr class="hover:bg-gray-50">
+                <td class="px-4 py-3 bg-gray-50/50 w-1/3 text-gray-500 font-medium border-r border-gray-100">${f.label}</td>
+                <td class="px-4 py-3 text-gray-900">${f.value}</td>
+            </tr>
+        `).join('');
+
+        // 处理自有数据的附件预览
+        const previewEl = document.getElementById('customDataPreview');
+        if (category === '自有数据') {
+            previewEl.classList.remove('hidden');
+        } else {
+            previewEl.classList.add('hidden');
+        }
+    }
+
+    function closeDataDetail() {
+        document.getElementById('dataDetailModal').classList.add('hidden');
+    }
+</script>
 </body>
 </html>
-

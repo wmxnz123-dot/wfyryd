@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人专属数据空间App - 扫一扫</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #000; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #000; min-height: 100vh; position: relative; overflow: hidden; }
+        
+        /* Scanning Animation */
+        .scan-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #3b82f6, transparent);
+            box-shadow: 0 0 8px #3b82f6;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: scan 2s infinite linear;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Scanner Frame Corners */
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-color: #3b82f6;
+            border-style: solid;
+        }
+        .corner-tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; border-top-left-radius: 8px; }
+        .corner-tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; border-top-right-radius: 8px; }
+        .corner-bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; border-bottom-left-radius: 8px; }
+        .corner-br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; border-bottom-right-radius: 8px; }
+    </style>
+</head>
+<body>
+<div class="mobile-view text-white flex flex-col">
+    <!-- Topbar (Transparent) -->
+    <div class="px-4 py-4 flex items-center justify-between z-50 relative">
+        <a href="app_home.html" class="w-10 h-10 bg-black/40 rounded-full flex items-center justify-center backdrop-blur-md">
+            <i class="fa-solid fa-angle-left text-xl"></i>
+        </a>
+        <h1 class="text-lg font-bold tracking-widest text-shadow">扫一扫</h1>
+        <button class="w-10 h-10 bg-black/40 rounded-full flex items-center justify-center backdrop-blur-md">
+            <i class="fa-regular fa-image text-lg"></i>
+        </button>
+    </div>
+
+    <!-- Scanner Area -->
+    <div class="flex-1 flex flex-col items-center justify-center relative z-10 -mt-10">
+        <!-- Text Hint -->
+        <p class="text-white/80 text-sm mb-6 tracking-wide">将二维码/条码放入框内，即可自动扫描</p>
+        
+        <!-- Scanner Box -->
+        <div class="w-64 h-64 relative">
+            <!-- Semi-transparent overlay to simulate camera cutout -->
+            <div class="absolute -inset-[100vh] bg-black/60 z-[-1]"></div>
+            
+            <!-- Clear Window -->
+            <div class="w-full h-full relative z-10 border border-white/20 rounded-lg">
+                <!-- 4 Corners -->
+                <div class="corner corner-tl"></div>
+                <div class="corner corner-tr"></div>
+                <div class="corner corner-bl"></div>
+                <div class="corner corner-br"></div>
+                
+                <!-- Animated Scan Line -->
+                <div class="scan-line"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Controls -->
+        <div class="mt-16 flex space-x-12">
+            <button class="flex flex-col items-center space-y-2 opacity-100 transition">
+                <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-md">
+                    <i class="fa-solid fa-qrcode text-2xl text-blue-400"></i>
+                </div>
+                <span class="text-xs text-blue-400 font-medium">扫码</span>
+            </button>
+            <button class="flex flex-col items-center space-y-2 opacity-60 hover:opacity-100 transition" onclick="toggleFlashlight(this)">
+                <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md" id="flashIconBg">
+                    <i class="fa-solid fa-bolt text-2xl text-white" id="flashIcon"></i>
+                </div>
+                <span class="text-xs text-white" id="flashText">轻触照亮</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let isFlashOn = false;
+    function toggleFlashlight(btn) {
+        isFlashOn = !isFlashOn;
+        const icon = document.getElementById('flashIcon');
+        const iconBg = document.getElementById('flashIconBg');
+        const text = document.getElementById('flashText');
+        
+        if(isFlashOn) {
+            icon.classList.remove('text-white');
+            icon.classList.add('text-yellow-400');
+            iconBg.classList.remove('bg-white/10');
+            iconBg.classList.add('bg-white/30');
+            text.innerText = '轻触关闭';
+            btn.classList.remove('opacity-60');
+            btn.classList.add('opacity-100');
+        } else {
+            icon.classList.remove('text-yellow-400');
+            icon.classList.add('text-white');
+            iconBg.classList.remove('bg-white/30');
+            iconBg.classList.add('bg-white/10');
+            text.innerText = '轻触照亮';
+            btn.classList.remove('opacity-100');
+            btn.classList.add('opacity-60');
+        }
+    }
+
+    // Simulate scan success after 3 seconds for demonstration
+    setTimeout(() => {
+        // window.location.href = 'app_auth_confirm.html'; // Example redirect
+    }, 3000);
+</script>
+</body>
+</html>

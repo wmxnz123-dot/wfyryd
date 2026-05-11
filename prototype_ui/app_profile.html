@@ -22,38 +22,78 @@
 <body>
 <div class="mobile-view">
     <!-- Top Section: Personal Info -->
-    <div class="bg-gradient text-white p-5 pb-8 rounded-b-3xl shadow-md relative">
-        <div class="flex justify-between items-start mb-4">
-            <h1 class="text-xl font-bold">个人中心</h1>
-            <a href="app_settings.html" class="text-white text-xl p-1 focus:outline-none">
-                <i class="fa-solid fa-gear"></i>
-            </a>
+    <div class="relative pt-4 pb-2 px-4 mb-4">
+        <!-- Background Gradient matching the image style -->
+        <div class="absolute top-0 left-0 w-full h-[200px] bg-gradient-to-br from-blue-500 to-blue-600 rounded-b-[30px] z-0 overflow-hidden shadow-md">
+            <!-- Tilted/Slanted background graphic elements matching the image but in unified blue tone -->
+            <div class="absolute right-[-40px] top-[10px] w-[180px] h-[300px] bg-white/10 rotate-[25deg] rounded-[40px]"></div>
+            <div class="absolute right-[40px] top-[-60px] w-[140px] h-[200px] bg-white/5 rotate-[25deg] rounded-[30px]"></div>
+            
+            <!-- Soft glowing orbs -->
+            <div class="absolute right-[-20px] top-[40px] w-32 h-32 bg-blue-700 opacity-30 rounded-full blur-2xl"></div>
+            <div class="absolute left-[-20px] bottom-[20px] w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
         </div>
-        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm">
-            <div class="flex items-center space-x-4 mb-3">
-                <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-600 font-bold text-xl flex-shrink-0">
-                    <span id="displayAvatar">张</span>
-                </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <h2 class="text-xl font-bold" id="displayName">张*</h2>
-                        <button id="toggleEye" class="text-white/80 hover:text-white focus:outline-none">
-                            <i id="eyeIcon" class="fa-solid fa-eye-slash"></i>
-                        </button>
+
+        <!-- Header / Title -->
+        <div class="relative z-10 flex justify-between items-center text-white mb-4 px-1">
+            <h1 class="text-xl font-bold">个人中心</h1>
+        </div>
+
+        <!-- Main Card Overlay -->
+        <div class="relative z-10 bg-white rounded-[24px] shadow-[0_15px_40px_rgba(79,124,255,0.2)] overflow-hidden">
+            <!-- Top Content of Card -->
+            <div class="p-5 pb-4">
+                <div class="flex justify-between">
+                    <!-- Left: Info -->
+                    <div class="flex flex-col pt-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <h2 class="text-2xl font-bold text-gray-800" id="displayName">张*</h2>
+                            <div class="flex items-center gap-1.5">
+                                <span class="bg-pink-50 text-pink-400 text-[10px] w-[18px] h-[18px] rounded-md flex items-center justify-center border border-pink-100">
+                                    <i class="fa-solid fa-venus"></i>
+                                </span>
+                                <!-- Added eye icon here after gender -->
+                                <button id="toggleEye" class="text-gray-400 hover:text-blue-500 focus:outline-none transition ml-1">
+                                    <i id="eyeIcon" class="fa-solid fa-eye-slash text-base"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="text-[13px] text-gray-500 space-y-1.5 mt-2.5">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-regular fa-id-card text-gray-400 w-3.5 text-center text-xs"></i>
+                                <span id="displayIdCard">370781********1234</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-regular fa-map text-gray-400 w-3.5 text-center text-xs"></i>
+                                <span>山东省 潍坊市</span>
+                            </div>
+                            <div class="flex items-start gap-1.5">
+                                <i class="fa-solid fa-location-dot text-gray-400 w-3.5 text-center mt-1 text-xs"></i>
+                                <span id="displayAddress" class="break-words max-w-[200px] leading-snug">高新区阳光社区***</span>
+                            </div>
+                        </div>
                     </div>
-                    <span class="inline-block mt-1 px-2 py-0.5 bg-green-400 bg-opacity-50 text-xs rounded-full border border-green-300">
-                        <i class="fa-solid fa-check-circle mr-1"></i>实名认证
-                    </span>
+                    
+                    <!-- Right: Avatar -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-[84px] h-[84px] rounded-full p-[3px] bg-gradient-to-tr from-blue-300 via-blue-100 to-white shadow-[0_10px_25px_rgba(79,124,255,0.4)] relative mb-2">
+                            <div class="w-full h-full bg-blue-50 rounded-full flex items-center justify-center text-blue-500 overflow-hidden border-[3px] border-white">
+                                <!-- Using displayAvatar logic to put text character if no image -->
+                                <span id="displayAvatar" class="text-3xl font-bold">张</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="space-y-2 mt-4 text-sm text-blue-50">
-                <div class="flex items-center">
-                    <i class="fa-regular fa-id-card w-5 text-center mr-2"></i>
-                    <span id="displayIdCard">370781********1234</span>
-                </div>
-                <div class="flex items-start">
-                    <i class="fa-solid fa-location-dot w-5 text-center mr-2 mt-0.5"></i>
-                    <span id="displayAddress">山东省潍坊市***</span>
+
+            <!-- Bottom Blue Banner inside card -->
+            <div class="bg-gradient-to-r from-blue-500 to-blue-400 px-5 py-3 text-white flex items-center justify-between relative overflow-hidden rounded-b-2xl">
+                <!-- Diagonal cut effect -->
+                <div class="absolute right-[60px] top-0 bottom-0 w-12 bg-white/20 skew-x-[-25deg]"></div>
+                
+                <div class="text-sm font-medium relative z-10 flex items-center">
+                    入驻 <span class="font-bold text-base mx-1">128</span> 天
                 </div>
             </div>
         </div>
@@ -65,9 +105,6 @@
             <h3 class="font-bold text-gray-800 flex items-center">
                 <i class="fa-solid fa-user-tag text-blue-500 mr-2"></i>个人画像
             </h3>
-            <a href="app_ai_chat.html" class="text-xs bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-3 py-1.5 rounded-full shadow-sm flex items-center hover:opacity-90 transition">
-                <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i> AI 一键生成简历/报告
-            </a>
         </div>
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 relative flex justify-center items-center h-48 overflow-hidden">
             <!-- Background Decoration -->
@@ -88,133 +125,250 @@
         </div>
     </div>
 
-    <!-- Bottom Section: Data Dashboard -->
-    <div class="px-4 mt-6 mb-8">
-        <h3 class="font-bold text-gray-800 mb-4 flex items-center">
-            <i class="fa-solid fa-chart-pie text-blue-500 mr-2"></i>数据仪表盘
+    <!-- Bottom Section: Life Timeline Dashboard -->
+    <div class="px-4 mt-6 mb-20">
+        <h3 class="font-bold text-gray-800 text-lg mb-6 flex items-center justify-between">
+            <div class="flex items-center">
+                <i class="fa-solid fa-timeline text-blue-500 mr-2"></i>数据仪表盘
+            </div>
+            <span class="text-xs font-normal text-gray-400">记录您的数字人生</span>
         </h3>
         
-        <!-- Category 1: 五险一金 -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-4 overflow-hidden">
-            <div class="bg-gray-50 px-4 py-2 border-b border-gray-100 flex items-center">
-                <div class="w-1 h-4 bg-blue-500 rounded-full mr-2"></div>
-                <h4 class="font-bold text-sm text-gray-700">五险一金</h4>
+        <div class="relative ml-2 border-l-2 border-dashed border-blue-100 pb-4">
+            <!-- Node 1: 出生起步 -->
+            <div class="mb-8 ml-6 relative">
+                <div class="absolute -left-[35px] top-0 w-4 h-4 rounded-full bg-blue-500 border-4 border-blue-100 z-10"></div>
+                <div class="flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-bold text-gray-800 text-base">出生起步</h4>
+                        <span class="text-xs text-gray-400">数字根基</span>
+                    </div>
+                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <!-- Items list -->
+                        <div class="flex items-center justify-between p-3 border-b border-gray-50 active:bg-gray-50 transition" onclick="window.location.href='app_item_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-address-card"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">居民身份证</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-3 active:bg-gray-50 transition" onclick="window.location.href='app_item_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-book-open"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">居民户口簿</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="p-4 space-y-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-shield-heart text-blue-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">社保信息</span>
-                    </div>
-                    <a href="app_item_detail.html" class="px-3 py-1 bg-white border border-gray-200 text-gray-600 text-xs rounded-full hover:bg-gray-50">查看</a>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-briefcase-medical text-green-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">医保信息</span>
-                    </div>
-                    <a href="app_item_detail.html" class="px-3 py-1 bg-white border border-gray-200 text-gray-600 text-xs rounded-full hover:bg-gray-50">查看</a>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-building-columns text-yellow-500 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">公积金信息</span>
-                    </div>
-                    <a href="app_claim_catalog.html" class="px-3 py-1 bg-blue-50 border border-blue-100 text-blue-600 text-xs rounded-full hover:bg-blue-100 font-medium">去认领</a>
-                </div>
-            </div>
-        </div>
 
-        <!-- Category 2: 电子证照 -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-4 overflow-hidden">
-            <div class="bg-gray-50 px-4 py-2 border-b border-gray-100 flex items-center">
-                <div class="w-1 h-4 bg-indigo-500 rounded-full mr-2"></div>
-                <h4 class="font-bold text-sm text-gray-700">电子证照</h4>
+            <!-- Node 2: 求学成长 -->
+            <div class="mb-8 ml-6 relative">
+                <div class="absolute -left-[35px] top-0 w-4 h-4 rounded-full bg-indigo-500 border-4 border-indigo-100 z-10"></div>
+                <div class="flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-bold text-gray-800 text-base">求学成长</h4>
+                        <span class="text-xs text-gray-400">知识积淀</span>
+                    </div>
+                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <div class="flex items-center justify-between p-3 border-b border-gray-50 active:bg-gray-50 transition" onclick="window.location.href='app_item_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">毕业证书</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-3 active:bg-gray-50 transition" onclick="window.location.href='app_item_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-award"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">学位证书</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="p-4 space-y-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-regular fa-id-card text-indigo-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">居民身份证</span>
-                    </div>
-                    <a href="app_item_detail.html" class="px-3 py-1 bg-white border border-gray-200 text-gray-600 text-xs rounded-full hover:bg-gray-50">查看</a>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-address-card text-indigo-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">电子社保卡</span>
-                    </div>
-                    <a href="app_item_detail.html" class="px-3 py-1 bg-white border border-gray-200 text-gray-600 text-xs rounded-full hover:bg-gray-50">查看</a>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-car text-gray-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">机动车驾驶证</span>
-                    </div>
-                    <a href="app_claim_catalog.html" class="px-3 py-1 bg-blue-50 border border-blue-100 text-blue-600 text-xs rounded-full hover:bg-blue-100 font-medium">去认领</a>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-house-chimney-user text-gray-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">居住证</span>
-                    </div>
-                    <a href="app_claim_catalog.html" class="px-3 py-1 bg-blue-50 border border-blue-100 text-blue-600 text-xs rounded-full hover:bg-blue-100 font-medium">去认领</a>
-                </div>
 
-                <!-- 自有数据示例 (已上传) -->
-                <div class="flex justify-between items-center pt-2 border-t border-gray-50">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-file-contract text-orange-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800 mr-2">租房合同</span>
-                        <span class="text-[10px] text-orange-600 bg-orange-50 border border-orange-100 px-1.5 py-0.5 rounded">自有</span>
+            <!-- Node 3: 职场奋斗 -->
+            <div class="mb-8 ml-6 relative">
+                <div class="absolute -left-[35px] top-0 w-4 h-4 rounded-full bg-green-500 border-4 border-green-100 z-10"></div>
+                <div class="flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-bold text-gray-800 text-base">职场奋斗</h4>
+                        <span class="text-xs text-gray-400">社会价值</span>
                     </div>
-                    <a href="app_upload_detail.html" class="px-3 py-1 bg-white border border-gray-200 text-gray-600 text-xs rounded-full hover:bg-gray-50">查看</a>
+                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <div class="flex items-center justify-between p-3 border-b border-gray-50 active:bg-gray-50 transition" onclick="window.location.href='app_item_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-shield-heart"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">社保信息</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border-b border-gray-50 active:bg-gray-50 transition" onclick="window.location.href='app_item_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-briefcase-medical"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">医保信息</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border-b border-gray-50 active:bg-gray-50 transition" onclick="window.location.href='app_claim_catalog.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-gray-50 text-gray-400 flex items-center justify-center mr-3"> 
+                                    <i class="fa-solid fa-building-columns"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">公积金信息</p>
+                                </div>
+                            </div>
+                            <span class="text-xs text-blue-500 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-full">去认领</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 active:bg-gray-50 transition" onclick="window.location.href='app_item_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">个税信息</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Category 3: 医疗健康 -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-4 overflow-hidden">
-            <div class="bg-gray-50 px-4 py-2 border-b border-gray-100 flex items-center">
-                <div class="w-1 h-4 bg-green-500 rounded-full mr-2"></div>
-                <h4 class="font-bold text-sm text-gray-700">医疗健康</h4>
+            <!-- Node 4: 安家立业 -->
+            <div class="mb-8 ml-6 relative">
+                <div class="absolute -left-[35px] top-0 w-4 h-4 rounded-full bg-orange-500 border-4 border-orange-100 z-10"></div>
+                <div class="flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-bold text-gray-800 text-base">安家立业</h4>
+                        <span class="text-xs text-gray-400">财富积累</span>
+                    </div>
+                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <div class="flex items-center justify-between p-3 border-b border-gray-50 active:bg-gray-50 transition" onclick="window.location.href='app_claim_catalog.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-house"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">不动产登记证明</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border-b border-gray-50 active:bg-gray-50 transition" onclick="window.location.href='app_claim_catalog.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-car"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">机动车行驶证</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-3 active:bg-gray-50 transition" onclick="window.location.href='app_upload_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-file-contract"></i>
+                                </div>
+                                <div class="flex items-center">
+                                    <p class="text-sm font-medium text-gray-700 mr-2">租房合同</p>
+                                    <span class="text-[10px] text-orange-600 bg-orange-50 border border-orange-100 px-1 py-0.5 rounded">自有</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="p-4 space-y-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-heart-pulse text-green-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">基础生理信息</span>
+
+            <!-- Node 5: 健康生活 -->
+            <div class="mb-2 ml-6 relative">
+                <div class="absolute -left-[35px] top-0 w-4 h-4 rounded-full bg-pink-500 border-4 border-pink-100 z-10"></div>
+                <div class="flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-bold text-gray-800 text-base">健康生活</h4>
+                        <span class="text-xs text-gray-400">生命守护</span>
                     </div>
-                    <a href="app_item_detail.html" class="px-3 py-1 bg-white border border-gray-200 text-gray-600 text-xs rounded-full hover:bg-gray-50">查看</a>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-hospital text-green-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">门诊/住院记录</span>
+                    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                        <div class="flex items-center justify-between p-3 border-b border-gray-50 active:bg-gray-50 transition" onclick="window.location.href='app_item_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">基础生理信息</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border-b border-gray-50 active:bg-gray-50 transition" onclick="window.location.href='app_item_detail.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-hospital-user"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">门诊/住院记录</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-3 active:bg-gray-50 transition" onclick="window.location.href='app_upload.html'">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-lg bg-gray-50 text-gray-400 flex items-center justify-center mr-3">
+                                    <i class="fa-solid fa-file-medical"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">体检报告</p>
+                                </div>
+                            </div>
+                            <span class="text-xs text-blue-500 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-full">去上传</span>
+                        </div>
                     </div>
-                    <a href="app_item_detail.html" class="px-3 py-1 bg-white border border-gray-200 text-gray-600 text-xs rounded-full hover:bg-gray-50">查看</a>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-qrcode text-green-400 w-5 mr-2"></i>
-                        <span class="text-sm text-gray-800">健康卡/就诊码</span>
-                    </div>
-                    <a href="app_item_detail.html" class="px-3 py-1 bg-white border border-gray-200 text-gray-600 text-xs rounded-full hover:bg-gray-50">查看</a>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
     <!-- Bottom Tab Bar -->
     <div class="fixed bottom-0 left-0 w-full flex justify-center z-50 pointer-events-none">
-        <div class="w-full max-w-[390px] bg-white border-t border-gray-200 flex justify-around py-2 pointer-events-auto shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+        <div class="w-full max-w-[390px] bg-white border-t border-gray-200 flex justify-around py-2 pointer-events-auto shadow-[0_-2px_10px_rgba(0,0,0,0.05)] relative z-[60]">
             <a href="app_home.html" class="flex flex-col items-center text-gray-400 hover:text-blue-600 w-1/2">
                 <i class="fa-solid fa-house text-xl mb-1"></i>
-                <span class="text-[10px]">首页</span>
+                <span class="text-xs">首页</span>
             </a>
             <a href="app_profile.html" class="flex flex-col items-center text-blue-600 w-1/2 border-l border-gray-100">
                 <i class="fa-solid fa-user text-xl mb-1"></i>
-                <span class="text-[10px]">我的</span>
+                <span class="text-xs">我的</span>
             </a>
         </div>
     </div>
@@ -236,13 +390,13 @@
             masked: {
                 name: '张*',
                 idCard: '370781********1234',
-                address: '山东省潍坊市***',
+                address: '高新区阳光社区***',
                 avatar: '张'
             },
             unmasked: {
                 name: '张三',
                 idCard: '370781199001011234',
-                address: '山东省潍坊市高新区阳光社区1号楼2单元301室',
+                address: '高新区阳光社区1号楼2单元301室',
                 avatar: '张' // Avatar usually stays the same, but just in case
             }
         };

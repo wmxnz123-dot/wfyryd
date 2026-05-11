@@ -1,213 +1,1168 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>一人一档后台管理系统 - 原型</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>一人一档后台管理系统 - 数据检索</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+        .ai-pulse-btn {
+            animation: pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
-
-        <!-- Sidebar -->
-    <aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
-    <div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
-        <i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
-        <span class="text-lg font-bold tracking-wider">一人一档后台</span>
-    </div>
-    <div class="flex-1 overflow-y-auto py-4">
-                <ul class="space-y-1" id="sidebar-menu">
-            <!-- 工作台 -->
-            <li>
-                <a href="admin_workbench.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-desktop w-6"></i> <span class="ml-3">智能工作台</span>
-                </a>
-            </li>
-            <!-- 数据检索管理 -->
-            <li>
-                <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-magnifying-glass w-6"></i> <span class="ml-3">数据检索管理</span>
-                    </div>
-                    <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                </div>
-                <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-
-                    <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
-                    <li><a href="admin_dashboard_results.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">组合检索</a></li>
-                    <li><a href="admin_tag_search.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">标签检索</a></li>
-                    <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数图分析</a></li>
-                </ul>
-            </li>
-            <!-- 认领数据管理 -->
-            <li>
-                <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">认领数据管理</span>
-                    </div>
-                    <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                </div>
-                <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">目录管理</a></li>
-                    <li><a href="admin_corrections.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据纠错处置</a></li>
-                </ul>
-            </li>
-            <!-- 自有数据管理 -->
-            <li>
-                <a href="admin_own_data_catalog.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-folder-open w-6"></i> <span class="ml-3">自有数据管理</span>
-                </a>
-            </li>
-            <!-- 授权管理 -->
-            <li>
-                <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
-                    <div class="flex items-center">
-                        <i class="fa-solid fa-shield-halved w-6"></i> <span class="ml-3">授权管理</span>
-                    </div>
-                    <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                </div>
-                <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_auth_templates.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">规则配置</a></li>
-                    <li><a href="admin_auth_monitor.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">异常监控</a></li>
-                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证服务</a></li>
-                    <li><a href="admin_auth_records.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">授权记录</a></li>
-                </ul>
-            </li>
-            <!-- 数据服务管理 -->
-            <li>
-                <a href="admin_services_config.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-layer-group w-6"></i> <span class="ml-3">数据服务管理</span>
-                </a>
-            </li>
-            <!-- 仪表盘配置 -->
-                <li>
-                    <a href="admin_profile_dashboard_config.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                        <i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
-                    </a>
-                </li>
-            <!-- 监管统计 (Hidden) -->
-                <li class="hidden">
-                    <a href="admin_monitor_stats.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">监管统计</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+<!-- Sidebar -->
+<aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
+<div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
+<i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
+<span class="text-lg font-bold tracking-wider">一人一档后台</span>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1" id="sidebar-menu">
+<li>
+<a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_workbench.html">
+<i class="fa-solid fa-desktop w-6"></i> <span class="ml-3">智能工作台</span>
+</a>
+</li>
+<li>
+<div class="flex items-center justify-between px-6 py-3 text-white bg-blue-600 transition" onclick="toggleMenu(this)">
+<div class="flex items-center">
+<i class="fa-solid fa-magnifying-glass w-6"></i> <span class="ml-3">数据检索管理</span>
+</div>
+<i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+</div>
+<ul class="pl-14 py-2 space-y-3 text-sm bg-gray-800/50 block">
+<li><a class="text-white font-medium relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:bg-blue-500 before:rounded-full" href="admin_dashboard.html">数据检索</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_data_map.html">数图分析</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_search_logs.html">短信验证记录</a></li>
+</ul>
+</li>
+<!-- 数据管理 -->
+<li>
+<div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" onclick="toggleMenu(this)">
+<div class="flex items-center">
+<i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">数据管理</span>
+</div>
+<i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+</div>
+<ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_catalog_config.html">数据目录管理</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_corrections.html">数据纠错处置</a></li>
+</ul>
+</li>
+<!-- 授权管理 -->
+<li>
+<div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" onclick="toggleMenu(this)">
+<div class="flex items-center">
+<i class="fa-solid fa-shield-halved w-6"></i> <span class="ml-3">授权管理</span>
+</div>
+<i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+</div>
+<ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_auth_monitor.html">异常监控</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_auth_blockchain.html">可信存证</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_auth_records.html">授权记录</a></li>
+</ul>
+</li>
+<!-- 数据服务管理 -->
+<li>
+<a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_services_config.html">
+<i class="fa-solid fa-layer-group w-6"></i> <span class="ml-3">数据服务管理</span>
+</a>
+</li>
+<!-- 仪表盘配置 -->
+<li>
+<a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_profile_dashboard_config.html">
+<i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
+</a>
+</li>
+<!-- 平台运营分析 -->
+<li class="hidden">
+<a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_monitor_stats.html">
+<i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">平台运营分析</span>
+</a>
+</li>
+</ul>
+</div>
 </aside>
-
-    <!-- Main Content -->
-    <div class="flex-1 flex flex-col h-full">
-        <!-- Topbar -->
-        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10">
-            <div class="flex items-center text-gray-500">
-                <i class="fa-solid fa-bars cursor-pointer hover:text-gray-800 mr-4"></i>
-                <span class="text-sm">数据检索 <span class="mx-2">/</span> <span class="text-gray-800 font-medium">检索用户信息</span></span>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col h-full overflow-hidden">
+<!-- Topbar -->
+<header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
+<div class="flex items-center text-gray-500">
+                <i class="fa-solid fa-bars hover:text-gray-800 mr-4"></i>
+                <span class="text-sm">数据检索 <span class="mx-2">/</span> <span class="text-gray-800 font-medium" id="breadcrumb-current">智能检索</span></span>
             </div>
-            <div class="flex items-center space-x-4">
-                
-                <i class="fa-regular fa-bell text-gray-500 hover:text-gray-800 cursor-pointer text-lg mx-2"></i>
-                <div class="flex items-center cursor-pointer ml-4 border-l border-gray-200 pl-4">
-                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">管</div>
-                    <span class="text-sm font-medium">超级管理员</span>
-                    <i class="fa-solid fa-angle-down text-gray-400 text-xs ml-2"></i>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Workspace -->
-        <main class="flex-1 overflow-y-auto p-6 bg-gray-50 relative">
-            <!-- Decorative Background Elements (Light Theme) -->
-            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-                <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100/50 blur-[100px] rounded-full"></div>
-                <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-100/50 blur-[100px] rounded-full"></div>
-                <!-- Network Grid Pattern (Darker for light bg) -->
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgwLDAsMCwwLjA1KSIvPjwvc3ZnPg==')] opacity-50"></div>
-            </div>
-            <div class="relative z-10 flex flex-col items-center justify-center min-h-full py-10">
-                <div class="flex items-center justify-center space-x-4 text-sm mb-5 max-w-4xl">
-                        <span class="text-gray-500"><i class="fa-solid fa-fire text-orange-500 mr-2"></i>热门搜索：</span>
-                        <div class="flex flex-wrap justify-center gap-3">
-                            <span class="px-4 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-600 cursor-pointer transition-colors shadow-sm">高层次人才</span>
-                            <span class="px-4 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-600 cursor-pointer transition-colors shadow-sm">适龄入园儿童</span>
-                            <span class="px-4 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-600 cursor-pointer transition-colors shadow-sm">退役军人</span>
-                            <span class="px-4 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-600 cursor-pointer transition-colors shadow-sm">低保户群体</span>
-                            <span class="px-4 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 rounded-full text-gray-600 cursor-pointer transition-colors shadow-sm">高新技术企业</span>
-                        </div>
-                    </div>
-                <!-- Main Search Bar (Combined Keyword & AI) -->
-                <div class="w-full max-w-4xl bg-white rounded-2xl p-2 flex flex-col shadow-xl border border-blue-100 mb-12 relative group transition-all duration-300">
-                    <!-- Search Input Area -->
-                    <div class="flex items-center w-full px-2 py-1">
-                        <div class="px-3 text-blue-500 flex items-center justify-center">
-                            <i class="fa-solid fa-sparkles text-xl animate-pulse"></i>
-                        </div>
-                        <input type="text" placeholder="支持关键词检索，或输入自然语言（如：找出高新区65岁以上的老人）" class="flex-1 bg-transparent border-none outline-none px-2 py-4 text-gray-800 placeholder-gray-400 text-lg">
-                        
-                        <!-- AI Voice / Image Input options -->
-                        <div class="flex items-center space-x-2 px-3 border-r border-gray-100 mr-3">
-                            <button class="w-10 h-10 rounded-full text-gray-400 hover:text-blue-500 hover:bg-blue-50 flex items-center justify-center transition-colors" title="语音输入">
-                                <i class="fa-solid fa-microphone text-lg"></i>
-                            </button>
-                            <button class="w-10 h-10 rounded-full text-gray-400 hover:text-blue-500 hover:bg-blue-50 flex items-center justify-center transition-colors" title="上传文件分析">
-                                <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
-                            </button>
-                        </div>
-
-                        <!-- Main Search Button -->
-                        <button class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 h-14 rounded-xl flex items-center justify-center shadow-md transition-all duration-200 transform group-hover:scale-[1.02] font-bold text-lg" onclick="window.location.href='admin_smart_search_results.html'">
-                            智能检索
+<div class="flex items-center space-x-4">
+<div class="flex items-center ml-4 border-gray-200 pl-4">
+<div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">管</div>
+<span class="text-sm font-medium">超级管理员</span>
+</div>
+</div>
+</header>
+<!-- Tab Navigation -->
+<div class="bg-white border-b border-gray-200 px-6 shrink-0 z-10">
+<div class="flex space-x-8" id="searchTabs">
+<button class="tab-btn py-4 px-2 border-b-2 border-blue-600 text-blue-600 font-medium text-sm transition-all" data-tab="basic" onclick="switchTab('basic')">
+                    数据检索
+                </button>
+<button class="tab-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm transition-all" data-tab="combined" onclick="switchTab('combined')">
+                    组合检索
+                </button>
+<button class="tab-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm transition-all" data-tab="advanced" onclick="switchTab('advanced')">
+                    高级检索
+                </button>
+</div>
+</div>
+<!-- Main Workspace -->
+<main class="flex-1 overflow-y-auto p-6 bg-gray-50 relative">
+<!-- 1. 数据检索 Tab 内容 (Basic Search) -->
+<div class="tab-content relative z-10 flex flex-col items-center pt-10 pb-10" id="basic-search-content">
+<!-- Decorative Background Elements -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100/50 blur-[100px] rounded-full"></div>
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgwLDAsMCwwLjA1KSIvPjwvc3ZnPg==')] opacity-50"></div>
+</div>
+<div class="relative z-10 w-full flex flex-col items-center">
+<div class="w-full max-w-4xl bg-white rounded-2xl p-2 flex flex-col shadow-xl border border-gray-200 mb-12 relative transition-all duration-300">
+<div class="flex items-center w-full px-2 py-1">
+<div class="px-2 flex items-center justify-center">
+<i class="fa-solid fa-search text-gray-400 text-xl"></i>
+</div>
+<input class="flex-1 bg-transparent border-none outline-none px-2 py-4 text-gray-800 placeholder-gray-400 text-lg" id="basic-search-input" placeholder="请输入关键词进行检索（如：姓名、身份证号等）" type="text"/>
+<div class="flex space-x-2">
+<button class="bg-gray-100 hover:bg-gray-200 text-gray-600 px-6 h-14 rounded-xl flex items-center justify-center transition-all duration-200 font-bold text-base" onclick="resetBasicSearch()">
+                                    重置
+                                </button>
+<button class="bg-blue-600 hover:bg-blue-700 text-white px-8 h-14 rounded-xl flex items-center justify-center shadow-md transition-all duration-200 font-bold text-lg" onclick="performBasicSearch()">
+                                    检索
+                                </button>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center py-16 w-full max-w-4xl" id="basic-search-empty-state">
+<div class="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mb-4 text-gray-300">
+<i class="fa-solid fa-folder-open text-5xl"></i>
+</div>
+<h3 class="text-lg font-medium text-gray-600 mb-2">暂无检索数据</h3>
+<p class="text-sm text-gray-400">请输入关键词进行检索，或者切换到组合检索/高级检索模式。</p>
+</div>
+<!-- 检索结果列表 (初始隐藏) -->
+<div class="w-full bg-white rounded-lg shadow-sm border border-gray-100 hidden" id="basic-search-results">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<span class="text-sm text-gray-500">为您找到相关结果 <span class="font-bold text-blue-600">4</span> 条</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+<tr>
+<th class="p-4 font-medium w-16 text-center">序号</th><th class="p-4 font-medium">姓名</th>
+<th class="p-4 font-medium">性别</th>
+<th class="p-4 font-medium">身份证号</th>
+<th class="p-4 font-medium">出生日期</th>
+<th class="p-4 font-medium">民族</th>
+<th class="p-4 font-medium">省市县（区）</th>
+<th class="p-4 font-medium">户籍住址</th>
+<th class="p-4 font-medium text-center">操作</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-gray-100">
+<tr class="hover:bg-gray-50 transition">
+<td class="p-4 font-medium text-gray-800 text-center">1</td><td class="p-4 font-medium text-gray-800">张*三</td>
+<td class="p-4">男</td>
+<td class="p-4 font-mono">370781********1234</td>
+<td class="p-4">1956-01-01</td>
+<td class="p-4">汉族</td>
+<td class="p-4">山东省潍坊市高新区</td>
+<td class="p-4 truncate max-w-[200px]" title="潍坊市高新区阳光社区***">潍坊市高新区阳光社区***</td>
+<td class="p-4 text-center">
+    <button onclick="showVerifyModal('张*三')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-3 py-1.5 rounded transition">查看人员档案</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition">
+<td class="p-4 font-medium text-gray-800 text-center">2</td><td class="p-4 font-medium text-gray-800">张*三</td>
+<td class="p-4">男</td>
+<td class="p-4 font-mono">370702********5678</td>
+<td class="p-4">1979-11-20</td>
+<td class="p-4">汉族</td>
+<td class="p-4">山东省潍坊市奎文区</td>
+<td class="p-4 truncate max-w-[200px]" title="潍坊市奎文区幸福社区***">潍坊市奎文区幸福社区***</td>
+<td class="p-4 text-center">
+    <button onclick="showVerifyModal('张*三')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-3 py-1.5 rounded transition">查看人员档案</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition">
+<td class="p-4 font-medium text-gray-800 text-center">3</td><td class="p-4 font-medium text-gray-800">张*三</td>
+<td class="p-4">女</td>
+<td class="p-4 font-mono">370705********9012</td>
+<td class="p-4">1992-06-18</td>
+<td class="p-4">汉族</td>
+<td class="p-4">山东省潍坊市奎文区</td>
+<td class="p-4 truncate max-w-[200px]" title="潍坊市奎文区东苑社区***">潍坊市奎文区东苑社区***</td>
+<td class="p-4 text-center">
+    <button onclick="showVerifyModal('张*三')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-3 py-1.5 rounded transition">查看人员档案</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition">
+<td class="p-4 font-medium text-gray-800 text-center">4</td><td class="p-4 font-medium text-gray-800">张*三</td>
+<td class="p-4">男</td>
+<td class="p-4 font-mono">370782********3456</td>
+<td class="p-4">1953-02-28</td>
+<td class="p-4">汉族</td>
+<td class="p-4">山东省潍坊市诸城市</td>
+<td class="p-4 truncate max-w-[200px]" title="潍坊市诸城市龙泉社区***">潍坊市诸城市龙泉社区***</td>
+<td class="p-4 text-center">
+    <button onclick="showVerifyModal('张*三')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-3 py-1.5 rounded transition">查看人员档案</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-gray-100 flex items-center justify-between bg-white rounded-b-lg">
+<div class="text-sm text-gray-500">
+                                共 <span class="font-medium text-gray-800">4</span> 条记录，当前第 <span class="font-medium text-gray-800">1</span>/1 页
+                            </div>
+<div class="flex items-center space-x-2">
+<button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled="">上一页</button>
+<button class="px-3 py-1 border border-blue-500 bg-blue-50 rounded text-sm text-blue-600 font-medium">1</button>
+<button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled="">下一页</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. 组合检索 Tab 内容 (Combined Search) -->
+<div class="tab-content hidden flex flex-col gap-6" id="combined-search-content">
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-lg font-bold text-gray-800"><i class="fa-solid fa-layer-group text-blue-500 mr-2"></i>组合检索条件</h2>
+<div class="flex space-x-3">
+<button class="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition" onclick="resetCombinedSearch()">重置</button>
+<button class="bg-blue-600 text-white px-6 py-2 rounded-lg text-sm font-medium shadow-sm hover:bg-blue-700 transition" onclick="performCombinedSearch()">查询</button>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-4" id="combined-search-fields">
+<!-- Row 1 -->
+<div>
+<label class="block text-xs font-medium text-gray-500 mb-1.5">姓名</label>
+<input class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 focus:bg-white focus:border-blue-500 outline-none transition" placeholder="请输入姓名" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-medium text-gray-500 mb-1.5">身份证号</label>
+<input class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 focus:bg-white focus:border-blue-500 outline-none transition" placeholder="请输入身份证号" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-medium text-gray-500 mb-1.5">性别</label>
+<select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 focus:bg-white focus:border-blue-500 outline-none transition">
+<option value="">全部</option>
+<option>男</option>
+<option>女</option>
+</select>
+</div>
+<div>
+<label class="block text-xs font-medium text-gray-500 mb-1.5">出生日期范围</label>
+<div class="flex items-center space-x-2">
+<input class="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm bg-gray-50 text-gray-500 focus:bg-white focus:border-blue-500 outline-none transition" type="date"/>
+<span class="text-gray-400">-</span>
+<input class="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm bg-gray-50 text-gray-500 focus:bg-white focus:border-blue-500 outline-none transition" type="date"/>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="hidden advanced-field">
+<label class="block text-xs font-medium text-gray-500 mb-1.5">民族</label>
+<select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 focus:bg-white focus:border-blue-500 outline-none transition">
+<option value="">全部民族</option>
+<option>汉族</option>
+<option>少数民族</option>
+</select>
+</div>
+<div class="hidden advanced-field">
+<label class="block text-xs font-medium text-gray-500 mb-1.5">省市县（区）</label>
+<select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 focus:bg-white focus:border-blue-500 outline-none transition">
+<option value="">全部地市</option>
+<option>潍坊市</option>
+</select>
+</div>
+<div class="hidden advanced-field">
+<label class="block text-xs font-medium text-gray-500 mb-1.5">户籍住址</label>
+<input class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 focus:bg-white focus:border-blue-500 outline-none transition" placeholder="请输入地址关键词" type="text"/>
+</div>
+<!-- Row 3 (Hidden by default) -->
+<!-- Row 3 (Hidden by default) -->
+<div class="hidden advanced-field">
+<label class="block text-xs font-medium text-gray-500 mb-1.5">重点标签</label>
+<select class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 focus:bg-white focus:border-blue-500 outline-none transition">
+<option value="">全部</option>
+<option>退役军人</option>
+<option>低保户</option>
+<option>高层次人才</option>
+</select>
+</div>
+</div>
+<div class="flex justify-center mt-4">
+<button class="text-blue-500 hover:text-blue-600 text-sm flex items-center transition" onclick="toggleCombinedFields(this)">
+<span>展开更多条件</span>
+<i class="fa-solid fa-chevron-down ml-1 text-xs"></i>
+</button>
+</div>
+</div>
+<!-- 初始空状态 -->
+<div class="flex flex-col items-center justify-center py-16 w-full" id="combined-search-empty-state">
+<div class="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mb-4 text-gray-300">
+<i class="fa-solid fa-layer-group text-5xl"></i>
+</div>
+<h3 class="text-lg font-medium text-gray-600 mb-2">暂无检索数据</h3>
+<p class="text-sm text-gray-400">请在上方选择组合条件并点击查询按钮。</p>
+</div>
+<!-- 结果列表 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 hidden" id="combined-results">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<span class="text-sm text-gray-500">已匹配 <span class="font-bold text-blue-600">2</span> 条数据</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+<tr>
+<th class="p-4 font-medium w-16 text-center">序号</th><th class="p-4 font-medium">姓名</th>
+<th class="p-4 font-medium">性别</th>
+<th class="p-4 font-medium">身份证号</th>
+<th class="p-4 font-medium">出生日期</th>
+<th class="p-4 font-medium">民族</th>
+<th class="p-4 font-medium">省市县（区）</th>
+<th class="p-4 font-medium">户籍住址</th>
+<th class="p-4 font-medium">重点标签</th>
+<th class="p-4 font-medium text-center">操作</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-gray-100">
+<tr class="hover:bg-gray-50 transition">
+<td class="p-4 font-medium text-gray-800 text-center">1</td><td class="p-4 font-medium text-gray-800">张*三</td>
+<td class="p-4">男</td>
+<td class="p-4 font-mono">370781********1234</td>
+<td class="p-4">1956-01-01</td>
+<td class="p-4">汉族</td>
+<td class="p-4">山东省潍坊市高新区</td>
+<td class="p-4 truncate max-w-[200px]" title="潍坊市高新区阳光社区***">潍坊市高新区阳光社区***</td>
+<td class="p-4">
+<span class="px-2 py-1 bg-red-50 text-red-600 rounded text-xs border border-red-100">低保户</span>
+</td>
+<td class="p-4 text-center">
+    <button onclick="showVerifyModal('张*三')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-3 py-1.5 rounded transition">查看人员档案</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition">
+<td class="p-4 font-medium text-gray-800 text-center">2</td><td class="p-4 font-medium text-gray-800">李*四</td>
+<td class="p-4">女</td>
+<td class="p-4 font-mono">370781********5678</td>
+<td class="p-4">1959-09-10</td>
+<td class="p-4">汉族</td>
+<td class="p-4">山东省潍坊市高新区</td>
+<td class="p-4 truncate max-w-[200px]" title="潍坊市高新区阳光社区***">潍坊市高新区阳光社区***</td>
+<td class="p-4">
+<span class="px-2 py-1 bg-green-50 text-green-600 rounded text-xs border border-green-100">退役军人</span>
+<span class="px-2 py-1 bg-blue-50 text-blue-600 rounded text-xs border border-blue-100 ml-1">高层次人才</span>
+</td>
+<td class="p-4 text-center">
+    <button onclick="showVerifyModal('王*五')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-3 py-1.5 rounded transition">查看人员档案</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-gray-100 flex items-center justify-between bg-white rounded-b-lg">
+<div class="text-sm text-gray-500">
+                                共 <span class="font-medium text-gray-800">3</span> 条记录，当前第 <span class="font-medium text-gray-800">1</span>/1 页
+                            </div>
+<div class="flex items-center space-x-2">
+<button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled="">上一页</button>
+<button class="px-3 py-1 border border-blue-500 bg-blue-50 rounded text-sm text-blue-600 font-medium">1</button>
+<button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled="">下一页</button>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. 高级检索 Tab 内容 (Advanced Search) -->
+<div class="tab-content hidden flex flex-col gap-6" id="advanced-search-content">
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 relative transition-all duration-300" id="advanced-search-box">
+<div class="flex items-center justify-between mb-6 border-b border-gray-100 pb-3">
+<h3 class="font-bold text-gray-700 text-lg flex items-center"><i class="fa-solid fa-filter text-blue-500 mr-2"></i>高级检索条件生成器</h3>
+</div>
+<div class="flex flex-col items-center w-full" id="queryBuilder">
+<div class="flex w-full items-stretch justify-center relative gap-8" id="advanced-conditions">
+<!-- Left Group (Group 1) -->
+<div class="flex-1 max-w-[500px] border-r border-gray-100 border-dashed pr-8 relative">
+<!-- Condition 1 -->
+<div class="flex items-center space-x-2 mb-4">
+<div class="w-16 text-center text-sm font-bold text-gray-700">第一组</div>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-32 outline-none focus:border-blue-500">
+<option>姓名</option>
+<option>身份证号</option>
+<option>出生日期</option>
+<option>性别</option>
+<option>民族</option>
+<option>省市县（区）</option>
+<option>户籍住址</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-24 outline-none focus:border-blue-500">
+<option>包含</option>
+<option>=</option>
+</select>
+<input class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-blue-500" type="text"/>
+</div>
+<!-- Condition 2 -->
+<div class="flex items-center space-x-2 mb-4 hidden advanced-field">
+<select class="border border-gray-200 rounded text-gray-600 px-2 py-2 text-sm bg-white w-16 outline-none focus:border-blue-500 text-center">
+<option>并且</option>
+<option>或者</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-32 outline-none focus:border-blue-500">
+<option>身份证号</option>
+<option>姓名</option>
+<option>出生日期</option>
+<option>性别</option>
+<option>民族</option>
+<option>省市县（区）</option>
+<option>户籍住址</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-24 outline-none focus:border-blue-500">
+<option>=</option>
+<option>包含</option>
+</select>
+<input class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-blue-500" type="text"/>
+</div>
+<!-- Condition 3 -->
+<div class="flex items-center space-x-2 mb-4 hidden advanced-field">
+<select class="border border-gray-200 rounded text-gray-600 px-2 py-2 text-sm bg-white w-16 outline-none focus:border-blue-500 text-center">
+<option>并且</option>
+<option>或者</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-32 outline-none focus:border-blue-500">
+<option>出生日期</option>
+<option>姓名</option>
+<option>身份证号</option>
+<option>性别</option>
+<option>民族</option>
+<option>省市县（区）</option>
+<option>户籍住址</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-24 outline-none focus:border-blue-500">
+<option>包含</option>
+<option>=</option>
+</select>
+<input class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-blue-500" type="text"/>
+</div>
+</div>
+<!-- Middle Connector -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 z-10 flex items-center justify-center h-full pointer-events-none">
+<select class="border border-gray-200 rounded px-4 py-2 text-sm bg-white shadow-sm text-gray-700 outline-none focus:border-blue-500 pointer-events-auto">
+<option>或者</option>
+<option>并且</option>
+</select>
+</div>
+<!-- Right Group (Group 2) -->
+<div class="flex-1 max-w-[500px] pl-8 relative">
+<!-- Condition 1 -->
+<div class="flex items-center space-x-2 mb-4">
+<div class="w-16 text-center text-sm font-bold text-gray-700">第二组</div>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-32 outline-none focus:border-blue-500">
+<option>性别</option>
+<option>姓名</option>
+<option>身份证号</option>
+<option>出生日期</option>
+<option>民族</option>
+<option>省市县（区）</option>
+<option>户籍住址</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-24 outline-none focus:border-blue-500">
+<option>=</option>
+<option>包含</option>
+</select>
+<input class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-blue-500" type="text"/>
+</div>
+<!-- Condition 2 -->
+<div class="flex items-center space-x-2 mb-4 hidden advanced-field">
+<select class="border border-gray-200 rounded text-gray-600 px-2 py-2 text-sm bg-white w-16 outline-none focus:border-blue-500 text-center">
+<option>并且</option>
+<option>或者</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-32 outline-none focus:border-blue-500">
+<option>民族</option>
+<option>姓名</option>
+<option>身份证号</option>
+<option>出生日期</option>
+<option>性别</option>
+<option>省市县（区）</option>
+<option>户籍住址</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-24 outline-none focus:border-blue-500">
+<option>=</option>
+<option>包含</option>
+</select>
+<input class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-blue-500" type="text"/>
+</div>
+<!-- Condition 3 -->
+<div class="flex items-center space-x-2 mb-4 hidden advanced-field">
+<select class="border border-gray-200 rounded text-gray-600 px-2 py-2 text-sm bg-white w-16 outline-none focus:border-blue-500 text-center">
+<option>并且</option>
+<option>或者</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-32 outline-none focus:border-blue-500">
+<option>省市县（区）</option>
+<option>姓名</option>
+<option>身份证号</option>
+<option>出生日期</option>
+<option>性别</option>
+<option>民族</option>
+<option>户籍住址</option>
+</select>
+<select class="border border-gray-200 rounded text-gray-600 px-3 py-2 text-sm bg-white w-24 outline-none focus:border-blue-500">
+<option>=</option>
+<option>包含</option>
+</select>
+<input class="border border-gray-200 rounded px-3 py-2 text-sm flex-1 outline-none focus:border-blue-500" type="text"/>
+</div>
+</div>
+</div>
+<!-- Bottom Buttons -->
+<div class="flex justify-center items-center mt-6 space-x-4 w-full relative">
+<button class="bg-white border border-gray-200 hover:bg-gray-50 text-gray-600 px-8 py-2 rounded text-sm transition font-medium" onclick="resetAdvancedSearch()">重置</button>
+<button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 rounded text-sm shadow-sm transition font-medium" onclick="performAdvancedSearch()">搜索</button>
+<!-- Collapse icon -->
+<button class="absolute right-0 text-blue-600 hover:text-blue-800 transition bg-blue-50 w-8 h-8 rounded-full flex items-center justify-center" onclick="toggleAdvancedSearch(this)">
+<i class="fa-solid fa-angles-up text-sm transition-transform duration-300" id="advanced-toggle-icon"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- 初始空状态 -->
+<div class="flex flex-col items-center justify-center py-16 w-full" id="advanced-search-empty-state">
+<div class="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mb-4 text-gray-300">
+<i class="fa-solid fa-filter text-5xl"></i>
+</div>
+<h3 class="text-lg font-medium text-gray-600 mb-2">暂无检索数据</h3>
+<p class="text-sm text-gray-400">请配置高级检索规则并点击“开始检索”。</p>
+</div>
+<!-- 结果列表 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 hidden" id="advanced-results">
+<div class="p-4 border-b border-gray-100 flex justify-between items-center">
+<span class="text-sm text-gray-500">已匹配 <span class="font-bold text-blue-600">3</span> 条数据</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+<tr>
+<th class="p-4 font-medium w-16 text-center">序号</th><th class="p-4 font-medium">姓名</th>
+<th class="p-4 font-medium">性别</th>
+<th class="p-4 font-medium">身份证号</th>
+<th class="p-4 font-medium">出生日期</th>
+<th class="p-4 font-medium">民族</th>
+<th class="p-4 font-medium">省市县（区）</th>
+<th class="p-4 font-medium">户籍住址</th>
+<th class="p-4 font-medium text-center">操作</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-gray-100">
+<tr class="hover:bg-gray-50 transition">
+<td class="p-4 font-medium text-gray-800 text-center">1</td><td class="p-4 font-medium text-gray-800">王*五</td>
+<td class="p-4">男</td>
+<td class="p-4 font-mono">370781********9012</td>
+<td class="p-4">1952-08-15</td>
+<td class="p-4">汉族</td>
+<td class="p-4">山东省潍坊市奎文区</td>
+<td class="p-4 truncate max-w-[200px]">潍坊市奎文区幸福社区3号楼</td>
+<td class="p-4 text-center">
+    <button onclick="showVerifyModal('王*五')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-3 py-1.5 rounded transition">查看人员档案</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition">
+<td class="p-4 font-medium text-gray-800 text-center">2</td><td class="p-4 font-medium text-gray-800">赵*六</td>
+<td class="p-4">女</td>
+<td class="p-4 font-mono">370781********3456</td>
+<td class="p-4">1958-10-15</td>
+<td class="p-4">汉族</td>
+<td class="p-4">山东省潍坊市奎文区</td>
+<td class="p-4 truncate max-w-[200px]">潍坊市奎文区幸福社区4号楼</td>
+<td class="p-4 text-center">
+    <button onclick="showVerifyModal('赵*六')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-3 py-1.5 rounded transition">查看人员档案</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- AI Semantic Search Drawer Overlay -->
+<div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300" id="aiDrawerOverlay" onclick="toggleAIDrawer()"></div>
+<!-- AI Semantic Search Drawer -->
+<div class="fixed top-0 right-0 h-full w-[800px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col border-l border-gray-100" id="aiDrawer">
+<div class="h-16 flex items-center justify-between px-6 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white shrink-0">
+<div class="flex items-center">
+<div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white mr-3 shadow-sm">
+<i class="fa-solid fa-robot text-sm"></i>
+</div>
+<span class="font-bold text-gray-800 text-lg">AI 语义检索</span>
+</div>
+<div class="flex items-center space-x-3">
+<div class="relative" id="historyDropdownContainer-dashboard">
+<button class="text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 transition px-3 py-1.5 rounded-lg text-sm font-medium flex items-center shadow-sm" onclick="toggleHistoryDropdown('dashboard', event)">
+<i class="fa-solid fa-clock-rotate-left mr-1.5"></i> 对话记录
+                                <i class="fa-solid fa-chevron-down ml-1.5 text-xs"></i>
+</button>
+<!-- History Dropdown -->
+<div class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-100 hidden z-50 overflow-hidden transform origin-top-right transition-all" id="historyDropdown-dashboard">
+<div class="p-3 text-xs font-bold text-gray-500 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                                    历史对话记录
+                                    <span class="bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded text-[10px]">最近</span>
+</div>
+<div class="max-h-60 overflow-y-auto">
+<a class="block p-3 hover:bg-blue-50 border-b border-gray-50 transition group" href="#">
+<div class="text-sm text-gray-800 font-medium truncate mb-1 group-hover:text-blue-600">帮我统计一下高新区65岁以上的老人的数量</div>
+<div class="text-xs text-gray-400">今天 10:24</div>
+</a>
+<a class="block p-3 hover:bg-blue-50 border-b border-gray-50 transition group" href="#">
+<div class="text-sm text-gray-800 font-medium truncate mb-1 group-hover:text-blue-600">帮我统计一下本市1950年及以后出生所有退役军人的联系方式数量</div>
+<div class="text-xs text-gray-400">昨天 16:30</div>
+</a>
+</div>
+</div>
+</div>
+<button class="text-white bg-blue-600 hover:bg-blue-700 transition px-3 py-1.5 rounded-lg text-sm font-medium flex items-center shadow-sm" onclick="startNewChat('aiMessageList')">
+<i class="fa-solid fa-plus mr-1.5 text-xs"></i> 创建对话
                         </button>
-                    </div>
-                    
-                    <!-- Search Mode Indicators (Optional hints) -->
-                    <div class="px-5 pb-2 pt-1 flex items-center justify-between text-xs text-gray-400">
-                        <div class="flex items-center space-x-4">
-                            <span class="flex items-center text-blue-500 font-medium bg-blue-50 px-2 py-1 rounded">
-                                <i class="fa-solid fa-robot mr-1.5"></i> AI 语义引擎已激活
-                            </span>
-                            <span>自动识别关键词与自然语言意图</span>
-                        </div>
-                    </div>
+<div class="h-4 w-px bg-gray-200 mx-1"></div>
+<button class="text-gray-400 hover:text-gray-600 transition w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100" onclick="toggleAIDrawer()">
+<i class="fa-solid fa-xmark text-lg"></i>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-6" id="aiMessageList">
+<div class="flex items-start">
+<div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3 shrink-0 shadow-sm border border-blue-200">
+<i class="fa-solid fa-robot text-lg"></i>
+</div>
+<div class="bg-blue-50 p-4 rounded-2xl rounded-tl-sm border border-blue-100 text-sm text-gray-700 max-w-[85%] leading-relaxed shadow-sm">
+                            您好！我是您的数据智能助手。您可以直接用自然语言描述您想要查找的人群。例如：
+                            <div class="mt-3 space-y-2">
+<button class="block w-full text-left px-4 py-2 bg-white text-blue-700 rounded-lg border border-blue-100 hover:border-blue-300 hover:shadow-sm transition" onclick="fillAIInput('帮我统计一下高新区65岁以上的老人的数量')">帮我统计一下高新区65岁以上的老人的数量</button>
+<button class="block w-full text-left px-4 py-2 bg-white text-blue-700 rounded-lg border border-blue-100 hover:border-blue-300 hover:shadow-sm transition" onclick="fillAIInput('帮我统计一下本市1950年及以后出生所有退役军人的联系方式数量')">帮我统计一下本市1950年及以后出生所有退役军人的联系方式数量</button>
+</div>
+</div>
+</div>
+</div>
+<div class="p-5 border-t border-gray-100 bg-gray-50 shrink-0">
+<div class="relative bg-white rounded-xl shadow-sm border border-gray-200 focus-within:border-blue-400 focus-within:ring-1 focus-within:ring-blue-400 transition-all">
+<textarea class="w-full bg-transparent border-none px-4 py-3 text-sm focus:outline-none resize-none" id="aiSearchInput" placeholder="请输入您的检索需求..." rows="3"></textarea>
+<!-- Bottom Toolbar inside Input Area -->
+<div class="flex justify-between items-center px-3 pb-3">
+<div class="flex items-center space-x-2">
+<!-- AI Model Selector Dropdown -->
+<select class="bg-blue-50 border border-blue-100 text-blue-700 text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-400 cursor-pointer font-medium" onchange="switchAIModel(this.value)">
+<option selected="" value="search">🔍 AI 语义检索</option>
+<option value="trend">🪄 AI 态势推演</option>
+<option class="hidden" value="report">📊 AI 智能报告生成</option>
+</select>
+<div class="h-4 w-px bg-gray-200 mx-1"></div>
+<button class="text-gray-400 hover:text-blue-600 transition w-8 h-8 rounded flex items-center justify-center" title="语音输入"><i class="fa-solid fa-microphone text-sm"></i></button>
+<button class="text-gray-400 hover:text-blue-600 transition w-8 h-8 rounded flex items-center justify-center" title="上传附件"><i class="fa-solid fa-paperclip text-sm"></i></button>
+<button class="text-gray-400 hover:text-blue-600 transition px-2 py-1 rounded text-xs flex items-center" title="关联上下文">
+<i class="fa-regular fa-square-check mr-1"></i> 关联上下文
+                                </button>
+</div>
+<button class="bg-blue-600 text-white rounded-lg px-4 py-1.5 hover:bg-blue-700 transition font-medium text-sm shadow-sm" onclick="performAISearch()">
+                                发送 <i class="fa-solid fa-paper-plane ml-1.5 text-xs"></i>
+</button>
+</div>
+</div>
+<div class="text-center mt-2">
+<span class="text-[10px] text-gray-400">内容由 AI 生成，可能会产生误导，请核实关键信息</span>
+</div>
+</div>
+</div>
+<!-- AI Assistant Floating Button -->
+<button class="absolute right-6 bottom-1/3 w-14 h-14 bg-gradient-to-r from-blue-600 to-blue-600 text-white rounded-full shadow-lg hover:shadow-2xl flex items-center justify-center transition-transform hover:scale-110 z-40 group ai-pulse-btn" onclick="toggleAIDrawer()">
+<i class="fa-solid fa-robot text-2xl group-hover:rotate-12 transition-transform duration-300"></i>
+</button>
+</main>
+
+<!-- 验证弹窗 -->
+<div id="verifyModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-bold text-gray-800">安全验证</h3>
+            <button onclick="closeVerifyModal()" class="text-gray-400 hover:text-gray-600 transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mb-6">
+            <p class="text-sm text-gray-600 mb-4">为保护个人隐私数据，查看人员详细档案前需要进行短信验证码核验。</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">已绑定手机号</label>
+                    <input type="text" value="138****0010" disabled class="w-full bg-gray-50 border border-gray-200 rounded px-3 py-2 text-sm text-gray-500 cursor-not-allowed">
                 </div>
-
-                <!-- Feature Cards -->
-                <div class="grid grid-cols-3 gap-8 w-full max-w-4xl mb-16">
-                    <!-- Card 1 (Combined) -->
-                    <button class="bg-white hover:bg-blue-50/50 border border-gray-200 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 group" onclick="window.location.href='admin_dashboard_results.html'">
-                        <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
-                            <i class="fa-solid fa-layer-group text-3xl text-blue-600"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">组合检索</h3>
-                        <p class="text-xs text-gray-500">多条件、多维度、基于画像标签的交叉组合筛选</p>
-                    </button>
-
-                    <!-- Card 2 (Advanced) -->
-                    <button class="bg-white hover:bg-purple-50/50 border border-gray-200 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 group" onclick="alert('该功能正在建设中，敬请期待！')">
-                        <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors">
-                            <i class="fa-solid fa-filter text-3xl text-purple-600"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">高级检索</h3>
-                        <p class="text-xs text-gray-500">通过复杂逻辑表达式进行深度挖掘</p>
-                    </button>
-
-                    <!-- Card 3 (Tag Search) -->
-                    <button class="bg-white hover:bg-amber-50/50 border border-gray-200 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 group" onclick="window.location.href='admin_tag_search.html'">
-                        <div class="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-4 group-hover:bg-amber-200 transition-colors">
-                            <i class="fa-solid fa-tags text-3xl text-amber-600"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">标签检索</h3>
-                        <p class="text-xs text-gray-500">基于画像标签进行智能检索</p>
-                    </button>
+                
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">短信验证码</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="verifyCodeInput" placeholder="请输入6位验证码" class="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
+                        <button id="sendCodeBtn" onclick="sendCode(this)" class="bg-blue-50 text-blue-600 border border-blue-100 px-4 py-2 rounded text-sm font-medium hover:bg-blue-100 transition whitespace-nowrap">获取验证码</button>
+                    </div>
+                    <p id="verifyError" class="text-red-500 text-xs mt-1 hidden">验证码错误，请重新输入（测试请输入 123456）</p>
                 </div>
-
-
-
             </div>
-        </main>
+        </div>
+        
+        <div class="flex justify-end gap-3 border-t border-gray-100 pt-4">
+            <button onclick="closeVerifyModal()" class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded hover:bg-gray-50 transition text-sm font-medium">取消</button>
+            <button onclick="submitVerify()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-sm font-medium shadow-sm">立即验证</button>
+        </div>
     </div>
+</div>
 
+</div>
+<script>
+    // Tab 切换逻辑
+    function switchTab(tabId) {
+        // 隐藏/显示内容
+        document.querySelectorAll('.tab-content').forEach(content => {
+            if (content.id === tabId + '-search-content') {
+                content.classList.remove('hidden');
+            } else {
+                content.classList.add('hidden');
+            }
+        });
 
-  
+        // 切换按钮高亮样式
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            if (btn.getAttribute('data-tab') === tabId) {
+                btn.classList.add('border-blue-600', 'text-blue-600');
+                btn.classList.remove('border-transparent', 'text-gray-500');
+            } else {
+                btn.classList.remove('border-blue-600', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            }
+        });
+
+        // 更新面包屑文本
+        const titles = { 'basic': '数据检索', 'combined': '组合检索', 'advanced': '高级检索' };
+        document.getElementById('breadcrumb-current').innerText = titles[tabId];
+    }
+
+    // 组合检索逻辑
+    function toggleCombinedFields(btn) {
+        const fields = document.querySelectorAll('.advanced-field');
+        const icon = btn.querySelector('i');
+        const text = btn.querySelector('span');
+        
+        let isHidden = fields[0].classList.contains('hidden');
+        if (isHidden) {
+            fields.forEach(f => f.classList.remove('hidden'));
+            text.innerText = '收起条件';
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        } else {
+            fields.forEach(f => f.classList.add('hidden'));
+            text.innerText = '展开更多条件';
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        }
+    }
+
+    function performCombinedSearch() {
+        document.getElementById('combined-search-empty-state').classList.add('hidden');
+        document.getElementById('combined-results').classList.remove('hidden');
+    }
+
+    function resetCombinedSearch() {
+        const container = document.getElementById('combined-search-content');
+        container.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+        container.querySelectorAll('input').forEach(i => i.value = '');
+        
+        document.getElementById('combined-results').classList.add('hidden');
+        document.getElementById('combined-search-empty-state').classList.remove('hidden');
+    }
+
+    // 高级检索逻辑
+    function performAdvancedSearch() {
+        document.getElementById('advanced-search-empty-state').classList.add('hidden');
+        document.getElementById('advanced-results').classList.remove('hidden');
+    }
+
+    function resetAdvancedSearch() {
+        const queryBuilder = document.getElementById('queryBuilder');
+        queryBuilder.querySelectorAll('input').forEach(i => i.value = '');
+        queryBuilder.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+        
+        document.getElementById('advanced-results').classList.add('hidden');
+        document.getElementById('advanced-search-empty-state').classList.remove('hidden');
+    }
+
+    function toggleAdvancedSearch(btn) {
+        const conditions = document.getElementById('advanced-conditions');
+        const icon = document.getElementById('advanced-toggle-icon');
+        const box = document.getElementById('advanced-search-box');
+        
+        // 获取所有带有 advanced-field 类的行
+        const rowsToToggle = conditions.querySelectorAll('.advanced-field');
+        
+        let isHidden = rowsToToggle[0].classList.contains('hidden');
+        
+        if (isHidden) {
+            // Expand
+            rowsToToggle.forEach(row => row.classList.remove('hidden'));
+            icon.classList.remove('rotate-180');
+            box.classList.remove('pb-4');
+        } else {
+            // Collapse
+            rowsToToggle.forEach(row => row.classList.add('hidden'));
+            icon.classList.add('rotate-180');
+            box.classList.add('pb-4');
+        }
+    }
+
+    // 高级检索添加规则
+    function addQueryRule() {
+        const queryBuilder = document.getElementById('queryBuilder');
+        const addButton = queryBuilder.querySelector('button.w-full');
+        
+        const newRule = document.createElement('div');
+        newRule.className = 'flex items-center space-x-3 bg-gray-50 p-3 rounded-lg border border-gray-100';
+        newRule.innerHTML = `
+            <select class="border border-gray-300 rounded px-3 py-1.5 text-sm bg-white text-blue-600 font-medium">
+                <option>并且 (AND)</option>
+                <option>或者 (OR)</option>
+            </select>
+            <select class="border border-gray-300 rounded px-3 py-1.5 text-sm bg-white w-48">
+                                <option>选择字段</option>
+                                <option>姓名</option>
+                                <option>身份证号</option>
+                                <option>出生日期</option>
+                                <option>性别</option>
+                                <option>民族</option>
+                                <option>省市县（区）</option>
+                                
+                                <option>户籍住址</option>
+                            </select>
+            <select class="border border-gray-300 rounded px-3 py-1.5 text-sm bg-white w-32">
+                <option>选择操作符</option>
+                <option>等于</option>
+                <option>包含</option>
+                <option>大于等于</option>
+            </select>
+            <input type="text" placeholder="输入值" class="border border-gray-300 rounded px-3 py-1.5 text-sm w-48">
+            <button class="text-red-500 hover:text-red-700 ml-auto transition" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash-can"></i></button>
+        `;
+        
+        queryBuilder.insertBefore(newRule, addButton);
+    }
+
+    // 普通检索逻辑
+    function performBasicSearch() {
+        document.getElementById('basic-search-empty-state').classList.add('hidden');
+        document.getElementById('basic-search-results').classList.remove('hidden');
+    }
+
+    function resetBasicSearch() {
+        const input = document.getElementById('basic-search-input');
+        if (input) input.value = '';
+        
+        document.getElementById('basic-search-results').classList.add('hidden');
+        document.getElementById('basic-search-empty-state').classList.remove('hidden');
+    }
+
+    // AI Drawer 逻辑
+    const aiDrawer = document.getElementById('aiDrawer');
+    const aiDrawerOverlay = document.getElementById('aiDrawerOverlay');
+    const aiSearchInput = document.getElementById('aiSearchInput');
+
+    let countdownInterval;
+    function sendCode(btn) {
+        if (btn.disabled) return;
+        btn.disabled = true;
+        btn.classList.add('opacity-50', 'cursor-not-allowed');
+        
+        let seconds = 60;
+        btn.innerText = `${seconds}s后重发`;
+        
+        countdownInterval = setInterval(() => {
+            seconds--;
+            if (seconds <= 0) {
+                clearInterval(countdownInterval);
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                btn.innerText = '获取验证码';
+            } else {
+                btn.innerText = `${seconds}s后重发`;
+            }
+        }, 1000);
+    }
+
+    function showVerifyModal(name) {
+        document.getElementById('verifyModal').classList.remove('hidden');
+        document.getElementById('verifyCodeInput').value = '';
+        document.getElementById('verifyError').classList.add('hidden');
+        
+        // 重置验证码按钮状态
+        const btn = document.getElementById('sendCodeBtn');
+        clearInterval(countdownInterval);
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        btn.innerText = '获取验证码';
+    }
+
+    function closeVerifyModal() {
+        document.getElementById('verifyModal').classList.add('hidden');
+    }
+
+    function submitVerify() {
+        const code = document.getElementById('verifyCodeInput').value.trim();
+        if (code === '123456') {
+            closeVerifyModal();
+            window.location.href = 'admin_user_profile.html';
+        } else {
+            document.getElementById('verifyError').classList.remove('hidden');
+        }
+    }
+
+    function toggleHistoryDropdown(id, event) {
+        if(event) event.stopPropagation();
+        const dropdown = document.getElementById('historyDropdown-' + id);
+        if (dropdown) {
+            if (dropdown.classList.contains('hidden')) {
+                // close other dropdowns first
+                document.querySelectorAll('[id^="historyDropdown-"]').forEach(el => el.classList.add('hidden'));
+                dropdown.classList.remove('hidden');
+                dropdown.classList.add('scale-100', 'opacity-100');
+            } else {
+                dropdown.classList.add('hidden');
+                dropdown.classList.remove('scale-100', 'opacity-100');
+            }
+        }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const dropdowns = document.querySelectorAll('[id^="historyDropdown-"]');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.classList.contains('hidden') && !dropdown.parentElement.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+
+    function startNewChat(listId) {
+        const messageList = document.getElementById(listId);
+        if (messageList) {
+            // Keep the first welcome message, remove the rest
+            const welcomeMsg = messageList.firstElementChild;
+            messageList.innerHTML = '';
+            if (welcomeMsg) {
+                messageList.appendChild(welcomeMsg);
+            }
+        }
+    }
+
+    function toggleAIDrawer() {
+        if (aiDrawer.classList.contains('translate-x-full')) {
+            aiDrawerOverlay.classList.remove('hidden');
+            // Trigger reflow
+            void aiDrawerOverlay.offsetWidth;
+            aiDrawerOverlay.classList.add('opacity-100');
+            aiDrawerOverlay.classList.remove('opacity-0');
+            
+            aiDrawer.classList.remove('translate-x-full');
+            aiDrawer.classList.add('translate-x-0');
+            
+            setTimeout(() => {
+                if(aiSearchInput) aiSearchInput.focus();
+            }, 300);
+        } else {
+            aiDrawerOverlay.classList.remove('opacity-100');
+            aiDrawerOverlay.classList.add('opacity-0');
+            
+            aiDrawer.classList.remove('translate-x-0');
+            aiDrawer.classList.add('translate-x-full');
+            
+            setTimeout(() => {
+                aiDrawerOverlay.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    function switchAIModel(model) {
+        if (model === 'trend') {
+            window.location.href = 'admin_data_map.html?open_drawer=true';
+        } else if (model === 'report') {
+            window.location.href = 'admin_monitor_stats.html?open_drawer=true';
+        }
+    }
+
+    // Check if we need to open drawer automatically (from redirect)
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('open_drawer') === 'true') {
+            setTimeout(() => {
+                toggleAIDrawer();
+            }, 500);
+        }
+    });
+
+    function fillAIInput(text) {
+        if(aiSearchInput) {
+            aiSearchInput.value = text;
+            aiSearchInput.focus();
+        }
+    }
+
+    function performAISearch() {
+        const query = aiSearchInput.value.trim();
+        if (!query) return;
+        
+        aiSearchInput.value = '';
+        const messageList = document.getElementById('aiMessageList');
+        
+        // User Message
+        const userMsgHtml = `
+            <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-4 rounded-2xl rounded-tr-sm shadow-sm text-sm text-white max-w-[85%] leading-relaxed">
+                    ${query}
+                </div>
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 ml-3 shrink-0 shadow-sm border border-blue-200">
+                    <span class="text-sm font-bold">管</span>
+                </div>
+            </div>
+        `;
+        messageList.insertAdjacentHTML('beforeend', userMsgHtml);
+        messageList.scrollTop = messageList.scrollHeight;
+        
+        // Loading Message
+        const loadingId = 'loading-' + Date.now();
+        const loadingHtml = `
+            <div class="flex items-start" id="${loadingId}">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3 shrink-0 shadow-sm border border-blue-200">
+                    <i class="fa-solid fa-robot text-lg"></i>
+                </div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                </div>
+            </div>
+        `;
+        messageList.insertAdjacentHTML('beforeend', loadingHtml);
+        messageList.scrollTop = messageList.scrollHeight;
+        
+        // Simulate Result
+        setTimeout(() => {
+            document.getElementById(loadingId).remove();
+            const aiMsgHtml = `
+                <div class="flex items-start">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3 shrink-0 shadow-sm border border-blue-200">
+                        <i class="fa-solid fa-robot text-lg"></i>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 text-sm text-gray-700 w-full max-w-[85%] leading-relaxed">
+                        <div class="flex items-center space-x-2 mb-4 text-gray-800">
+                            <i class="fa-solid fa-chart-pie text-blue-600"></i>
+                            <span class="font-bold text-base">统计分析结果</span>
+                        </div>
+                        
+                        <p class="mb-4 text-gray-600">根据您的检索需求，经过对数据库相关维度的实时计算，得到以下统计数据：</p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 relative overflow-hidden">
+                                <i class="fa-solid fa-users text-4xl text-blue-100 absolute right-2 bottom-2"></i>
+                                <div class="text-blue-600 text-xs font-medium mb-1 relative z-10">符合条件总数</div>
+                                <div class="text-3xl font-bold text-blue-700 flex items-baseline relative z-10">
+                                    32,541 <span class="text-sm font-normal text-blue-600 ml-1">人</span>
+                                </div>
+                            </div>
+                            <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100 relative overflow-hidden">
+                                <i class="fa-solid fa-chart-area text-4xl text-indigo-100 absolute right-2 bottom-2"></i>
+                                <div class="text-indigo-600 text-xs font-medium mb-1 relative z-10">占整体总人口比例</div>
+                                <div class="text-3xl font-bold text-indigo-700 flex items-baseline relative z-10">
+                                    14.2 <span class="text-sm font-normal text-indigo-600 ml-1">%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                            <div class="text-xs font-medium text-gray-500 mb-3">性别分布结构</div>
+                            <div class="flex items-center justify-between text-sm mb-2">
+                                <span class="text-gray-600 flex items-center"><span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span>男性 (15,294人)</span>
+                                <span class="font-medium text-gray-800">47%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 47%"></div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between text-sm mb-2">
+                                <span class="text-gray-600 flex items-center"><span class="w-2 h-2 rounded-full bg-pink-500 mr-2"></span>女性 (17,247人)</span>
+                                <span class="font-medium text-gray-800">53%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-pink-500 h-2 rounded-full" style="width: 53%"></div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex items-center justify-end space-x-3">
+                            <button class="text-blue-600 hover:text-blue-800 text-xs font-medium flex items-center transition px-2 py-1 rounded hover:bg-blue-50">
+                                <i class="fa-solid fa-chart-line mr-1"></i> 查看多维推演
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messageList.insertAdjacentHTML('beforeend', aiMsgHtml);
+            messageList.scrollTop = messageList.scrollHeight;
+        }, 1500);
+    }
+
+    // 添加水印功能
+    function createWatermark(text) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 300;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        
+        ctx.translate(150, 100);
+        ctx.rotate(-25 * Math.PI / 180);
+        ctx.font = '16px sans-serif';
+        ctx.fillStyle = 'rgba(156, 163, 175, 0.15)'; // text-gray-400 with 15% opacity
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, 0, 0);
+        
+        const watermarkDiv = document.createElement('div');
+        watermarkDiv.style.position = 'fixed';
+        watermarkDiv.style.top = '0';
+        watermarkDiv.style.left = '0';
+        watermarkDiv.style.width = '100%';
+        watermarkDiv.style.height = '100%';
+        watermarkDiv.style.backgroundImage = `url(${canvas.toDataURL('image/png')})`;
+        watermarkDiv.style.pointerEvents = 'none';
+        watermarkDiv.style.zIndex = '9999'; // 确保在最顶层
+        
+        document.body.appendChild(watermarkDiv);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 初始化水印
+        createWatermark('zhangsan 13801002010');
+    });
+</script>
 <script src="admin_sidebar_logic.js"></script>
 </body>
 </html>

@@ -1,123 +1,322 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新增认领目录 - 一人一档后台</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>新增目录 - 一人一档后台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
-    
-    <!-- Sidebar -->
-    <aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
-        <div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
-            <i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
-            <span class="text-lg font-bold tracking-wider">一人一档后台</span>
-        </div>
-        <div class="flex-1 overflow-y-auto py-4">
-            <ul class="space-y-1" id="sidebar-menu">
-                <!-- 仅保留认领数据管理展开作为示例 -->
-                <li>
-                    <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">认领数据管理</span>
-                        </div>
-                        <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                    </div>
-                    <ul class="pl-14 py-2 space-y-3 text-sm bg-gray-800/50">
-                        <li><a href="admin_catalog_config.html" class="text-white relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:bg-blue-500 before:rounded-full font-medium">目录管理</a></li>
-                        <li><a href="admin_corrections.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据纠错处置</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </aside>
-
-    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
-        <!-- Topbar -->
-        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
-            <div class="flex items-center text-gray-500">
+<!-- Sidebar -->
+<aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
+<div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
+<i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
+<span class="text-lg font-bold tracking-wider">一人一档后台</span>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1" id="sidebar-menu">
+<!-- 仅保留认领数据管理展开作为示例 -->
+<li>
+<div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer">
+<div class="flex items-center">
+<i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">数据管理</span>
+</div>
+<i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+</div>
+<ul class="pl-14 py-2 space-y-3 text-sm bg-gray-800/50">
+<li><a class="text-white relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:bg-blue-500 before:rounded-full font-medium" href="admin_catalog_config.html">数据目录管理</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_corrections.html">数据纠错处置</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Topbar -->
+<header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
+<div class="flex items-center text-gray-500">
                 <i class="fa-solid fa-arrow-left cursor-pointer hover:text-gray-800 mr-4" onclick="history.back()"></i>
-                <span class="text-sm">认领数据管理 <span class="mx-2">/</span> <a href="admin_catalog_config.html" class="hover:text-blue-600">目录管理</a> <span class="mx-2">/</span> <span class="text-gray-800 font-medium">新增目录</span></span>
+                <span class="text-sm">数据管理 <span class="mx-2">/</span> <a href="admin_catalog_config.html" class="hover:text-blue-600 transition">数据目录管理</a> <span class="mx-2">/</span> <span class="text-gray-800 font-medium">新增目录</span></span>
             </div>
-        </header>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto p-6 bg-gray-50">
+<div class="mx-auto space-y-6 pb-24">
+<!-- 基础信息配置 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+<h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">基础信息配置</h3>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">目录名称 <span class="text-red-500">*</span></label>
+<input class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="请输入目录名称" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">目录图标 <span class="text-gray-400 font-normal text-xs ml-1">(可输入 FontAwesome 图标类名)</span></label>
+<div class="flex items-center space-x-3">
+<input class="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="例如: fa-solid fa-file-lines" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">数据来源 <span class="text-red-500">*</span></label>
+<div class="flex items-center space-x-6 h-[38px]">
+<label class="flex items-center cursor-pointer">
+<input checked="" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="dataSource" onchange="toggleDataSource(this)" type="radio" value="claimed"/>
+<span class="ml-2 text-sm text-gray-700">公共数据</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="dataSource" onchange="toggleDataSource(this)" type="radio" value="owned"/>
+<span class="ml-2 text-sm text-gray-700">自有数据</span>
+</label>
+</div>
+</div>
+<div id="deptContainer">
+<label class="block text-sm font-medium text-gray-700 mb-2">数据来源部门 <span class="text-red-500">*</span></label>
+<input class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="请输入部门名称" type="text"/>
+</div>
 
-        <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
-            <div class="mx-auto space-y-6 pb-24">
-                
-                <!-- 基础信息配置 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                    <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">基础信息配置</h3>
-                    <div class="grid grid-cols-1 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">目录名称 <span class="text-red-500">*</span></label>
-                            <input type="text" placeholder="请输入目录名称" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+<div id="dataTypeContainer">
+<label class="block text-sm font-medium text-gray-700 mb-2">数据类型 <span class="text-red-500">*</span></label>
+<div class="flex items-center space-x-6 h-[38px]">
+<label class="flex items-center cursor-pointer">
+<input checked="" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="dataType" onchange="toggleDataType(this)" type="radio" value="table"/>
+<span class="ml-2 text-sm text-gray-700">库表</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="dataType" onchange="toggleDataType(this)" type="radio" value="api"/>
+<span class="ml-2 text-sm text-gray-700">接口</span>
+</label>
+</div>
+</div>
+<div id="isTagContainer">
+<label class="block text-sm font-medium text-gray-700 mb-2">是否作为标签展示 <span class="text-red-500">*</span></label>
+<div class="flex items-center space-x-6 h-[38px]">
+<label class="flex items-center cursor-pointer">
+<input class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="isTag" onchange="toggleTagInput(this)" type="radio" value="yes"/>
+<span class="ml-2 text-sm text-gray-700">是</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input checked="" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="isTag" onchange="toggleTagInput(this)" type="radio" value="no"/>
+<span class="ml-2 text-sm text-gray-700">否</span>
+</label>
+</div>
+</div>
+<div class="hidden" id="tagNameContainer">
+<label class="block text-sm font-medium text-gray-700 mb-2">标签名称 <span class="text-red-500">*</span></label>
+<input class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="请输入标签名称" type="text"/>
+</div>
+<div class="hidden" id="isMultiDataContainer">
+<label class="block text-sm font-medium text-gray-700 mb-2">是否添加多条数据 <span class="text-red-500">*</span></label>
+<div class="flex items-center space-x-6 h-[38px]">
+<label class="flex items-center cursor-pointer">
+<input class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="isMultiData" type="radio" onchange="updateTitleColVisibility()" value="yes"/>
+<span class="ml-2 text-sm text-gray-700">是</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input checked="" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="isMultiData" type="radio" onchange="updateTitleColVisibility()" value="no"/>
+<span class="ml-2 text-sm text-gray-700">否</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- 接口信息配置 (仅在选择接口时显示) -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 hidden" id="apiInfoSection">
+<h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">接口信息</h3>
+<div class="grid grid-cols-2 gap-6 mb-6">
+<div class="col-span-2">
+<label class="block text-sm font-medium text-gray-700 mb-2">接口URL <span class="text-red-500">*</span></label>
+<input class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="例如: https://api.example.com/v1/user/info" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">请求类型 <span class="text-red-500">*</span></label>
+<div class="flex items-center space-x-6 h-[38px]">
+<label class="flex items-center cursor-pointer">
+<input checked="" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="reqType" type="radio" value="GET"/>
+<span class="ml-2 text-sm text-gray-700">GET</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500" name="reqType" type="radio" value="POST"/>
+<span class="ml-2 text-sm text-gray-700">POST</span>
+</label>
+</div>
+</div>
+<div class="col-span-2">
+<label class="block text-sm font-medium text-gray-700 mb-2">上传适配器 <span class="text-red-500">*</span></label>
+<div class="flex items-center justify-center w-full">
+<label class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 hover:border-blue-400 transition">
+<div class="flex flex-col items-center justify-center pt-5 pb-6">
+<i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-400 mb-3"></i>
+<p class="mb-2 text-sm text-gray-500"><span class="font-semibold text-blue-600">点击上传</span> 或拖拽文件至此处</p>
+<p class="text-xs text-gray-400">支持 .jar, .zip, .java 等适配器文件</p>
+</div>
+<input class="hidden" type="file">
+</input></label>
+</div>
+</div>
+<div class="col-span-2">
+<label class="block text-sm font-medium text-gray-700 mb-2">接口描述</label>
+<textarea class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="请输入接口功能描述..." rows="3"></textarea>
+</div>
+<!-- 请求参数列表 -->
+<div class="col-span-2 border-t border-gray-100 pt-6">
+<div class="flex items-center justify-between mb-4">
+<label class="block text-sm font-bold text-gray-800">请求参数<span class="text-red-500 mr-1">*</span></label>
+</div>
+<div class="border border-gray-200 rounded-lg overflow-hidden">
+<table class="w-full text-center border-collapse text-sm">
+<thead class="bg-gray-50 text-gray-600 border-b border-gray-200">
+<tr>
+<th class="p-3 font-medium w-16 text-center">序号</th><th class="p-3 font-medium w-1/5">名称</th>
+<th class="p-3 font-medium w-1/4">描述</th>
+<th class="p-3 font-medium w-1/6">位置</th>
+<th class="p-3 font-medium w-1/6">是否必填</th>
+<th class="p-3 font-medium w-1/5">示例值</th>
+<th class="p-3 font-medium w-24">操作</th>
+</tr>
+</thead>
+<tbody id="reqParamList">
+<tr class="border-b border-gray-100 bg-white">
+<td class="p-3 text-center">1</td><td class="p-3"><input class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center" placeholder="英文名" type="text"/></td>
+<td class="p-3"><input class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center" placeholder="中文名" type="text"/></td>
+<td class="p-3">
+<select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+<option value="">请选择</option>
+<option value="query">Query</option>
+<option value="body">Body</option>
+<option value="header">Header</option>
+<option value="path">Path</option>
+</select>
+</td>
+<td class="p-3">
+<select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+<option value="">请选择</option>
+<option value="1">是</option>
+<option value="0">否</option>
+</select>
+</td>
+<td class="p-3"><input class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center" placeholder="请输入" type="text"/></td>
+<td class="p-3">
+<div class="flex justify-center space-x-2 text-sm">
+<button class="text-blue-500 hover:text-blue-700" type="button">完成</button>
+<button class="text-blue-500 hover:text-blue-700" onclick="this.closest('tr').remove()" type="button">删除</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="bg-white border-t border-gray-100 p-2 text-center cursor-pointer hover:bg-gray-50 transition text-gray-500 text-sm" onclick="addReqParamRow()">
+<i class="fa-solid fa-plus mr-1"></i> 添加
+                                </div>
+</div>
+</div>
+<!-- 返回参数列表 -->
+<div class="col-span-2 border-t border-gray-100 pt-6">
+<div class="flex items-center justify-between mb-4">
+<label class="block text-sm font-bold text-gray-800">返回参数<span class="text-red-500 mr-1">*</span></label>
+</div>
+<div class="border border-gray-200 rounded-lg overflow-hidden">
+<table class="w-full text-center border-collapse text-sm">
+<thead class="bg-gray-50 text-gray-600 border-b border-gray-200">
+<tr>
+<th class="p-3 font-medium w-16 text-center">序号</th><th class="p-3 font-medium w-1/3">名称</th>
+<th class="p-3 font-medium w-1/2">描述</th>
+<th class="p-3 font-medium w-24">操作</th>
+</tr>
+</thead>
+<tbody id="resParamList">
+<tr class="border-b border-gray-100 bg-white">
+<td class="p-3 text-center">1</td><td class="p-3"><input class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center" placeholder="英文名" type="text"/></td>
+<td class="p-3"><input class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center" placeholder="中文名" type="text"/></td>
+<td class="p-3">
+<div class="flex justify-center space-x-2 text-sm">
+<button class="text-blue-500 hover:text-blue-700" type="button">完成</button>
+<button class="text-blue-500 hover:text-blue-700" onclick="this.closest('tr').remove()" type="button">删除</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="bg-white border-t border-gray-100 p-2 text-center cursor-pointer hover:bg-gray-50 transition text-gray-500 text-sm" onclick="addResParamRow()">
+<i class="fa-solid fa-plus mr-1"></i> 添加
+                                </div>
+</div>
+</div>
+<!-- 返回示例 (原错误代码) -->
+<div class="col-span-2 border-t border-gray-100 pt-6">
+<label class="block text-sm font-bold text-gray-800 mb-4">返回示例<span class="text-red-500 mr-1">*</span></label>
+<textarea class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 leading-relaxed" placeholder="请输入接口返回的 JSON 或 XML 示例代码..." rows="6"></textarea>
+</div>
+</div>
+</div>
+<!-- 模型/字段信息配置 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+<h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2" id="fieldsSectionTitle">表信息</h3>
+<!-- Alert Info -->
+<div class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded-lg flex items-start mb-6 text-sm" id="tableAlertInfo">
+<i class="fa-solid fa-circle-exclamation mt-0.5 mr-2 text-yellow-500"></i>
+<div>
+                            表英文名即物理化表名称，多个单词之间请用下划线进行拼接。下方字段配置处因后台已内置多个字段，包括主键[id]、创建时间[create_time]、创建人[create_by]、更新时间[update_time]、更新人[update_by]，所以无需在列表中重复添加，只需关注业务字段即可。
                         </div>
-                    </div>
-                </div>
-
-                <!-- 数据源及表配置 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                    <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">数据源配置</h3>
-                    <div class="grid grid-cols-2 gap-6 items-end">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">选择数据源 <span class="text-red-500">*</span></label>
-                            <select id="dataSourceSelect" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500" onchange="checkSourceSelection()">
-                                <option value="">请选择数据源系统</option>
-                                <option value="police">公安系统 (Police_DB)</option>
-                                <option value="medical">卫健委系统 (Health_DB)</option>
-                                <option value="civil">民政系统 (Civil_DB)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">选择数据表 <span class="text-red-500">*</span></label>
-                            <select id="dataTableSelect" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed" disabled onchange="fetchTableFields()">
-                                <option value="">请先选择数据源</option>
-                                <!-- Options will be populated via JS -->
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 信息项配置 (动态拉取) -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 hidden" id="fieldsConfigSection">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-base font-bold text-gray-800 border-l-4 border-blue-500 pl-2">信息项配置 (已拉取)</h3>
-                        <span class="text-xs bg-green-50 text-green-600 px-2 py-1 rounded border border-green-100"><i class="fa-solid fa-check-circle mr-1"></i>成功拉取字段</span>
-                    </div>
-                    
-                    <div class="overflow-x-auto border border-gray-200 rounded-lg">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
-                                    <th class="p-3 font-medium w-10 text-center"><input type="checkbox" class="rounded" checked id="selectAllFields"></th>
-                                    <th class="p-3 font-medium">源字段名</th>
-                                    <th class="p-3 font-medium">字段类型</th>
-                                    <th class="p-3 font-medium">展示名称(可修改)</th>
-                                    <th class="p-3 font-medium text-center">可认领</th>
-                                    <th class="p-3 font-medium text-center">可授权</th>
-                                    <th class="p-3 font-medium text-center">可纠错</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-sm" id="fieldsTableBody">
-                                <!-- JS Populated -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-
-        <!-- Bottom Fixed Actions -->
-        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-end space-x-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
-            <button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition" onclick="alert('已暂存至草稿箱')">暂存</button>
-            <button class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700 transition" onclick="publishCatalog()">发布目录</button>
-        </div>
-    </div>
-
+</div>
+<!-- Model Name Inputs (仅在选择库表时显示) -->
+<div class="grid grid-cols-2 gap-6 mb-8" id="tableNamesSection">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2"><span class="text-red-500 mr-1">*</span>表英文名</label>
+<select class="w-full border border-gray-300 rounded px-4 py-2 text-sm focus:outline-none focus:border-blue-500 bg-white" id="tableEngNameSelect" onchange="onTableSelectChange(this)">
+<option value="">请选择表</option>
+<option value="ts_data_base_info">ts_data_base_info</option>
+<option value="ts_data_address">ts_data_address</option>
+<option value="ts_data_medical">ts_data_medical</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2"><span class="text-red-500 mr-1">*</span>表中文名</label>
+<input class="w-full border border-gray-300 rounded px-4 py-2 text-sm focus:outline-none focus:border-blue-500" id="tableChNameInput" placeholder="请输入表中文名" type="text"/>
+</div>
+</div>
+<!-- Field Configuration Table -->
+<div class="mb-2">
+<h4 class="text-sm font-bold text-gray-700">字段配置 <span class="text-xs font-normal text-gray-500 ml-1">（拖动可改变字段排列顺序）</span></h4>
+</div>
+<div class="border border-gray-200 rounded-lg overflow-x-auto">
+<table class="w-full text-center border-collapse text-sm whitespace-nowrap">
+<thead class="text-sm">
+<tr class="bg-gray-50 text-gray-600 border-b border-gray-200">
+<th class="p-3 font-medium w-16 text-center">序号</th><th class="p-3 font-medium w-12"></th>
+<th class="p-3 font-medium">字段英文名</th>
+<th class="p-3 font-medium">字段中文名</th>
+<th class="p-3 font-medium">类型</th>
+<th class="p-3 font-medium">长度</th>
+<th class="p-3 font-medium">显示类型</th>
+<th class="p-3 font-medium">字典类型</th>
+<th class="p-3 font-medium">非空</th>
+<th class="p-3 font-medium">脱敏显示</th>
+<th class="p-3 font-medium">脱敏规则</th>
+<th class="p-3 font-medium">显示状态</th>
+<th class="p-3 font-medium">是否为主键</th>
+<th class="p-3 font-medium is-title-col hidden">是否为标题展示</th>
+<th class="p-3 font-medium">操作</th>
+</tr>
+</thead>
+<tbody class="text-gray-700" id="tableFieldsBody">
+<!-- 初始为空，由 JS 动态渲染 -->
+<tr class="empty-row">
+<td class="p-8 text-center text-gray-400" colspan="15">请先在上方选择表英文名</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Fixed Actions -->
+<div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 flex justify-end space-x-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+<button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition" onclick="alert('已暂存至草稿箱')">暂存</button>
+<button class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium shadow-sm hover:bg-blue-700 transition" onclick="publishCatalog()">发布目录</button>
+</div>
+</div>
 <script>
     // 模拟数据源联动逻辑
     const mockTables = {
@@ -142,8 +341,248 @@
             { field: 'visit_date', type: 'DATETIME', name: '就诊时间' },
             { field: 'department', type: 'VARCHAR(50)', name: '就诊科室' },
             { field: 'diagnosis', type: 'TEXT', name: '诊断结果' }
+        ],
+        'ts_data_base_info': [
+            { engName: 'id_card', chName: '身份证号', type: 'varchar', length: 18 },
+            { engName: 'name', chName: '姓名', type: 'varchar', length: 50 },
+            { engName: 'gender', chName: '性别', type: 'int', length: 11 },
+            { engName: 'phone', chName: '手机号', type: 'varchar', length: 20 }
+        ],
+        'ts_data_address': [
+            { engName: 'street', chName: '所属镇街', type: 'varchar', length: 255 },
+            { engName: 'community', chName: '所属社区', type: 'varchar', length: 255 },
+            { engName: 'detail_address', chName: '详细地址', type: 'varchar', length: 500 }
+        ],
+        'ts_data_medical': [
+            { engName: 'hospital', chName: '就诊医院', type: 'varchar', length: 100 },
+            { engName: 'visit_time', chName: '就诊时间', type: 'datetime', length: 0 },
+            { engName: 'department', chName: '科室', type: 'varchar', length: 50 }
         ]
     };
+
+    const tableChNames = {
+        'ts_data_base_info': '人口基础信息表',
+        'ts_data_address': '户籍地址表',
+        'ts_data_medical': '门诊就诊记录表'
+    };
+
+    function onTableSelectChange(selectElem) {
+        const selectedValue = selectElem.value;
+        const chNameInput = document.getElementById('tableChNameInput');
+        const tbody = document.getElementById('tableFieldsBody');
+
+        if (selectedValue && tableChNames[selectedValue]) {
+            // 自动带出表中文名
+            chNameInput.value = tableChNames[selectedValue];
+            
+            // 渲染对应字段
+            const fields = mockFields[selectedValue] || [];
+            tbody.innerHTML = '';
+            
+            if (fields.length > 0) {
+                fields.forEach(f => {
+                    const tr = document.createElement('tr');
+                    tr.className = 'border-b border-gray-100 hover:bg-gray-50 transition cursor-move';
+                    tr.setAttribute('draggable', 'true');
+                    tr.setAttribute('ondragstart', 'dragStart(event)');
+                    tr.setAttribute('ondragover', 'dragOver(event)');
+                    tr.setAttribute('ondrop', 'drop(event)');
+                    
+                    tr.innerHTML = `
+<td class="p-3 text-center text-gray-500 index-cell"></td>
+                        <td class="p-3 text-gray-400 hover:text-blue-500 cursor-grab" onmousedown="this.parentElement.setAttribute('draggable', true)" onmouseup="this.parentElement.removeAttribute('draggable')"><i class="fa-solid fa-arrows-up-down-left-right"></i></td>
+                        <td class="p-3"><input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none bg-gray-100 text-gray-500 text-center" value="${f.engName}" readonly data-non-editable="true"></td>
+                        <td class="p-3"><input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent text-center" value="${f.chName}" readonly></td>
+                        <td class="p-3">
+                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none bg-gray-100 text-gray-500" disabled data-non-editable="true">
+                                <option value="varchar" ${f.type === 'varchar' ? 'selected' : ''}>varchar</option>
+                                <option value="int" ${f.type === 'int' ? 'selected' : ''}>int</option>
+                                <option value="datetime" ${f.type === 'datetime' ? 'selected' : ''}>datetime</option>
+                            </select>
+                        </td>
+                        <td class="p-3"><input type="number" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none bg-gray-100 text-gray-500 text-center" value="${f.length}" readonly data-non-editable="true"></td>
+                        <td class="p-3">
+                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent" disabled>
+                                <option value="text" selected>文本</option>
+                                <option value="cascade">级联</option>
+                                <option value="select">下拉框</option>
+                            </select>
+                        </td>
+                        <td class="p-3"><input type="text" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent text-center" value="-" readonly></td>
+                        <td class="p-3">
+                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent" disabled>
+                                <option value="no" selected>否</option>
+                                <option value="yes">是</option>
+                            </select>
+                        </td>
+                        <td class="p-3">
+                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent" disabled>
+                                <option value="no" selected>否</option>
+                                <option value="yes">是</option>
+                            </select>
+                        </td>
+                        <td class="p-3"><input type="text" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent text-center" value="-" readonly></td>
+                        <td class="p-3 text-center">
+                            <button class="text-blue-600 hover:text-blue-800 transition" onclick="toggleVisibility(this)">
+                                <i class="fa-solid fa-eye" title="显示状态"></i>
+                            </button>
+                        </td>
+                        <td class="p-3 text-center">
+                            <input type="radio" name="isPrimaryKey" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer disabled:opacity-50" disabled>
+                        </td>
+                        <td class="p-3 is-title-col hidden text-center">
+                            <input type="radio" name="isTitleDisplay" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer disabled:opacity-50" disabled>
+                        </td>
+                        <td class="p-3">
+                            <div class="flex items-center justify-center space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 transition" onclick="toggleEditRow(this)">编辑</button>
+                                <button class="text-red-500 hover:text-red-700 transition" onclick="deleteRow(this)"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+            updateRowIndices();
+            updateTitleColVisibility();
+        } else {
+            chNameInput.value = '';
+            tbody.innerHTML = '<tr class="empty-row"><td colspan="15" class="p-8 text-center text-gray-400">请先在上方选择表英文名</td></tr>';
+        }
+    }
+
+    function toggleTagInput(radio) {
+        const container = document.getElementById('tagNameContainer');
+        if (radio.value === 'yes') {
+            container.classList.remove('hidden');
+        } else {
+            container.classList.add('hidden');
+        }
+    }
+
+    function toggleDataSource(select) {
+        const dataTypeContainer = document.getElementById('dataTypeContainer');
+        const isTagContainer = document.getElementById('isTagContainer');
+        const tagNameContainer = document.getElementById('tagNameContainer');
+        const isMultiDataContainer = document.getElementById('isMultiDataContainer');
+        const deptContainer = document.getElementById('deptContainer');
+        
+        if (select.value === 'owned') {
+            dataTypeContainer.classList.add('hidden');
+            isTagContainer.classList.add('hidden');
+            tagNameContainer.classList.add('hidden'); // Ensure tag name is hidden when switching to owned
+            isMultiDataContainer.classList.remove('hidden');
+            deptContainer.classList.add('hidden');
+            updateTitleColVisibility();
+        } else {
+            dataTypeContainer.classList.remove('hidden');
+            isTagContainer.classList.remove('hidden');
+            isMultiDataContainer.classList.add('hidden');
+            deptContainer.classList.remove('hidden');
+            
+            // Restore tag name visibility if "yes" was previously checked
+            const isTagYes = document.querySelector('input[name="isTag"][value="yes"]').checked;
+            if (isTagYes) {
+                tagNameContainer.classList.remove('hidden');
+            }
+            updateTitleColVisibility();
+        }
+    }
+
+    function toggleDataType(radio) {
+        const apiInfoSection = document.getElementById('apiInfoSection');
+        const fieldsSectionTitle = document.getElementById('fieldsSectionTitle');
+        const tableNamesSection = document.getElementById('tableNamesSection');
+        const tableAlertInfo = document.getElementById('tableAlertInfo');
+        
+        if (radio.value === 'api') {
+            apiInfoSection.classList.remove('hidden');
+            // Change section title
+            fieldsSectionTitle.innerText = '字段信息';
+            // Hide table name inputs and alert
+            tableNamesSection.classList.add('hidden');
+            tableAlertInfo.classList.add('hidden');
+            
+            // Auto populate some dummy fields for API mode just for demonstration
+            const tbody = document.getElementById('tableFieldsBody');
+            tbody.innerHTML = '';
+            mockFields['ts_data_base_info'].forEach(f => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-gray-100 hover:bg-gray-50 transition cursor-move';
+                tr.setAttribute('draggable', 'true');
+                tr.setAttribute('ondragstart', 'dragStart(event)');
+                tr.setAttribute('ondragover', 'dragOver(event)');
+                tr.setAttribute('ondrop', 'drop(event)');
+                
+                tr.innerHTML = `
+<td class="p-3 text-center text-gray-500 index-cell"></td>
+                    <td class="p-3 text-gray-400 hover:text-blue-500 cursor-grab" onmousedown="this.parentElement.setAttribute('draggable', true)" onmouseup="this.parentElement.removeAttribute('draggable')"><i class="fa-solid fa-arrows-up-down-left-right"></i></td>
+                    <td class="p-3"><input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none bg-gray-100 text-gray-500 text-center" value="${f.engName}" readonly data-non-editable="true"></td>
+                    <td class="p-3"><input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent text-center" value="${f.chName}" readonly></td>
+                    <td class="p-3">
+                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none bg-gray-100 text-gray-500" disabled data-non-editable="true">
+                                <option value="varchar" ${f.type === 'varchar' ? 'selected' : ''}>varchar</option>
+                                <option value="int" ${f.type === 'int' ? 'selected' : ''}>int</option>
+                                <option value="datetime" ${f.type === 'datetime' ? 'selected' : ''}>datetime</option>
+                            </select>
+                        </td>
+                    <td class="p-3"><input type="number" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none bg-gray-100 text-gray-500 text-center" value="${f.length}" readonly data-non-editable="true"></td>
+                    <td class="p-3">
+                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent" disabled>
+                                <option value="text" selected>文本</option>
+                                <option value="cascade">级联</option>
+                                <option value="select">下拉框</option>
+                            </select>
+                        </td>
+                    <td class="p-3"><input type="text" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent text-center" value="-" readonly></td>
+                    <td class="p-3">
+                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent" disabled>
+                                <option value="no" selected>否</option>
+                                <option value="yes">是</option>
+                            </select>
+                        </td>
+                    <td class="p-3">
+                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent" disabled>
+                                <option value="no" selected>否</option>
+                                <option value="yes">是</option>
+                            </select>
+                        </td>
+                    <td class="p-3"><input type="text" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-transparent text-center" value="-" readonly></td>
+                    <td class="p-3 text-center">
+                            <button class="text-blue-600 hover:text-blue-800 transition" onclick="toggleVisibility(this)">
+                                <i class="fa-solid fa-eye" title="显示状态"></i>
+                            </button>
+                        </td>
+                    <td class="p-3 text-center">
+                            <input type="radio" name="isPrimaryKey" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer disabled:opacity-50" disabled>
+                        </td>
+                    <td class="p-3 is-title-col hidden text-center">
+                            <input type="radio" name="isTitleDisplay" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer disabled:opacity-50" disabled>
+                        </td>
+                    <td class="p-3">
+                            <div class="flex items-center justify-center space-x-2">
+                                <button class="text-blue-600 hover:text-blue-800 transition" onclick="toggleEditRow(this)">编辑</button>
+                                <button class="text-red-500 hover:text-red-700 transition" onclick="deleteRow(this)"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            updateRowIndices();
+            updateTitleColVisibility();
+        } else {
+            apiInfoSection.classList.add('hidden');
+            // Revert changes
+            fieldsSectionTitle.innerText = '表信息';
+            tableNamesSection.classList.remove('hidden');
+            tableAlertInfo.classList.remove('hidden');
+            // Reset table fields
+            const tbody = document.getElementById('tableFieldsBody');
+            tbody.innerHTML = '<tr class="empty-row"><td colspan="15" class="p-8 text-center text-gray-400">请先在上方选择表英文名</td></tr>';
+            document.getElementById('tableEngNameSelect').value = '';
+            document.getElementById('tableChNameInput').value = '';
+        }
+    }
 
     function checkSourceSelection() {
         const source = document.getElementById('dataSourceSelect').value;
@@ -203,6 +642,300 @@
         alert('目录发布成功！状态已更新为“已发布”。');
         window.location.href = 'admin_catalog_config.html';
     }
+
+    
+    function updateTitleColVisibility() {
+        const dataSourceElem = document.querySelector('input[name="dataSource"]:checked');
+        const isMultiDataElem = document.querySelector('input[name="isMultiData"]:checked');
+        const dataSource = dataSourceElem ? dataSourceElem.value : '';
+        const isMultiData = isMultiDataElem ? isMultiDataElem.value : '';
+        
+        const cols = document.querySelectorAll('.is-title-col');
+        if (dataSource === 'owned' && isMultiData === 'yes') {
+            cols.forEach(col => col.classList.remove('hidden'));
+        } else {
+            cols.forEach(col => col.classList.add('hidden'));
+        }
+    }
+
+    function updateRowIndices() {
+        const rows = document.querySelectorAll('#tableFieldsBody tr:not(.empty-row)');
+        rows.forEach((tr, index) => {
+            const idxCell = tr.querySelector('.index-cell');
+            if (idxCell) {
+                idxCell.innerText = index + 1;
+            }
+        });
+    }
+
+    // --- Dynamic Field Table Logic ---
+    
+    // Add new row
+    function addFieldRow() {
+        const tbody = document.querySelector('table tbody');
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-gray-100 hover:bg-gray-50 transition cursor-move';
+        tr.setAttribute('draggable', 'true');
+        tr.setAttribute('ondragstart', 'dragStart(event)');
+        tr.setAttribute('ondragover', 'dragOver(event)');
+        tr.setAttribute('ondrop', 'drop(event)');
+        
+        tr.innerHTML = `
+<td class="p-3 text-center text-gray-500 index-cell"></td>
+            <td class="p-3 text-gray-400 hover:text-blue-500 cursor-grab" onmousedown="this.parentElement.setAttribute('draggable', true)" onmouseup="this.parentElement.removeAttribute('draggable')"><i class="fa-solid fa-arrows-up-down-left-right"></i></td>
+            <td class="p-3"><input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-white text-center" placeholder="英文名"></td>
+            <td class="p-3"><input type="text" class="w-full border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-white text-center" placeholder="中文名"></td>
+            <td class="p-3">
+                <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-white">
+                    <option value="varchar" selected>varchar</option>
+                    <option value="int">int</option>
+                    <option value="datetime">datetime</option>
+                </select>
+            </td>
+            <td class="p-3"><input type="number" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-white text-center" value="255"></td>
+            <td class="p-3">
+                <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-white">
+                    <option value="text" selected>文本</option>
+                    <option value="cascade">级联</option>
+                    <option value="select">下拉框</option>
+                </select>
+            </td>
+            <td class="p-3"><input type="text" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-white text-center" value="-"></td>
+            <td class="p-3">
+                <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-white">
+                    <option value="no" selected>否</option>
+                    <option value="yes">是</option>
+                </select>
+            </td>
+            <td class="p-3">
+                <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-white">
+                    <option value="no" selected>否</option>
+                    <option value="yes">是</option>
+                </select>
+            </td>
+            <td class="p-3"><input type="text" class="w-16 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:border-blue-500 bg-white text-center" value="-"></td>
+            <td class="p-3 text-center">
+                <button class="text-blue-600 hover:text-blue-800 transition" onclick="toggleVisibility(this)">
+                    <i class="fa-solid fa-eye" title="显示状态"></i>
+                </button>
+            </td>
+            <td class="p-3 text-center">
+                <input type="radio" name="isPrimaryKey" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer disabled:opacity-50">
+            </td>
+            <td class="p-3 is-title-col hidden text-center">
+                <input type="radio" name="isTitleDisplay" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer disabled:opacity-50">
+            </td>
+            <td class="p-3">
+                <div class="flex items-center justify-center space-x-2">
+                    <button class="text-blue-600 hover:text-blue-800 transition" onclick="toggleEditRow(this)">保存</button>
+                    <button class="text-red-500 hover:text-red-700 transition" onclick="deleteRow(this)"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+        
+        // Scroll to bottom
+        const container = tbody.closest('.overflow-x-auto');
+        container.scrollLeft = 0; // ensure actions are visible
+        tbody.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        updateRowIndices();
+        updateTitleColVisibility();
+    }
+
+    function addReqParamRow() {
+        const tbody = document.getElementById('reqParamList');
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-gray-100 bg-white';
+        tr.innerHTML = `
+            <td class="p-3"><input type="text" placeholder="英文名" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center"></td>
+            <td class="p-3"><input type="text" placeholder="中文名" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center"></td>
+            <td class="p-3">
+                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+                    <option value="">请选择</option>
+                    <option value="query">Query</option>
+                    <option value="body">Body</option>
+                    <option value="header">Header</option>
+                    <option value="path">Path</option>
+                </select>
+            </td>
+            <td class="p-3">
+                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+                    <option value="">请选择</option>
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </td>
+            <td class="p-3"><input type="text" placeholder="请输入" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center"></td>
+            <td class="p-3">
+                <div class="flex justify-center space-x-2 text-sm">
+                    <button type="button" class="text-blue-500 hover:text-blue-700">完成</button>
+                    <button type="button" class="text-blue-500 hover:text-blue-700" onclick="this.closest('tr').remove()">删除</button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    }
+
+    function addResParamRow() {
+        const tbody = document.getElementById('resParamList');
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-gray-100 bg-white';
+        tr.innerHTML = `
+            <td class="p-3"><input type="text" placeholder="英文名" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center"></td>
+            <td class="p-3"><input type="text" placeholder="中文名" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center"></td>
+            <td class="p-3">
+                <div class="flex justify-center space-x-2 text-sm">
+                    <button type="button" class="text-blue-500 hover:text-blue-700">完成</button>
+                    <button type="button" class="text-blue-500 hover:text-blue-700" onclick="this.closest('tr').remove()">删除</button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    }
+
+    // Toggle Edit/Save state for a row
+    function toggleEditRow(btn) {
+        const tr = btn.closest('tr');
+        const inputs = tr.querySelectorAll('input:not([data-non-editable="true"])');
+        const selects = tr.querySelectorAll('select:not([data-non-editable="true"])');
+        
+        if (btn.innerText.trim() === '编辑') {
+            // Switch to Edit mode
+            btn.innerText = '保存';
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    input.removeAttribute('disabled');
+                } else {
+                    input.removeAttribute('readonly');
+                    input.classList.remove('bg-transparent');
+                    input.classList.add('bg-white');
+                }
+            });
+            selects.forEach(select => {
+                select.removeAttribute('disabled');
+                select.classList.remove('bg-transparent', 'text-green-600', 'font-medium');
+                select.classList.add('bg-white');
+            });
+        } else {
+            // Switch to Save mode
+            btn.innerText = '编辑';
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    input.setAttribute('disabled', 'true');
+                } else {
+                    input.setAttribute('readonly', 'true');
+                    input.classList.remove('bg-white');
+                    input.classList.add('bg-transparent');
+                }
+            });
+            selects.forEach(select => {
+                select.setAttribute('disabled', 'true');
+                select.classList.remove('bg-white');
+                select.classList.add('bg-transparent');
+            });
+            
+            // Update colors based on selection logic if needed (e.g. '是' -> green text)
+            selects.forEach(select => {
+                if(select.value === 'yes') {
+                    select.classList.add('text-green-600', 'font-medium');
+                } else {
+                    select.classList.remove('text-green-600', 'font-medium');
+                }
+            });
+        }
+    }
+
+    // Toggle visibility state for a row
+    function toggleVisibility(btn) {
+        const icon = btn.querySelector('i');
+        const tr = btn.closest('tr');
+        if (icon.classList.contains('fa-eye')) {
+            // 切换到隐藏状态
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+            btn.classList.remove('text-blue-600', 'hover:text-blue-800');
+            btn.classList.add('text-gray-400', 'hover:text-gray-600');
+            tr.classList.add('opacity-50'); // 视觉上变暗表示隐藏
+        } else {
+            // 切换到显示状态
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+            btn.classList.remove('text-gray-400', 'hover:text-gray-600');
+            btn.classList.add('text-blue-600', 'hover:text-blue-800');
+            tr.classList.remove('opacity-50');
+        }
+    }
+
+    // Delete a row
+    function deleteRow(btn) {
+        if(confirm('确认删除该字段吗？')) {
+            btn.closest('tr').remove();
+            updateRowIndices();
+        }
+    }
+
+    // --- Drag and Drop Logic ---
+    let draggedRow = null;
+
+    function dragStart(e) {
+        draggedRow = e.target;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', draggedRow.innerHTML);
+        // Make it slightly transparent while dragging
+        setTimeout(() => {
+            draggedRow.classList.add('opacity-50');
+        }, 0);
+    }
+
+    function dragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const targetRow = e.target.closest('tr');
+        if (targetRow && targetRow !== draggedRow && targetRow.tagName === 'TR') {
+            const bounding = targetRow.getBoundingClientRect();
+            const offset = bounding.y + (bounding.height / 2);
+            // Highlight the target row to show drop position
+            targetRow.style.borderTop = e.clientY - offset < 0 ? '2px solid #3b82f6' : '';
+            targetRow.style.borderBottom = e.clientY - offset > 0 ? '2px solid #3b82f6' : '';
+        }
+    }
+
+    function drop(e) {
+        e.preventDefault();
+        const targetRow = e.target.closest('tr');
+        
+        // Reset styles for all rows
+        document.querySelectorAll('#fieldsTableBody tr, tbody tr').forEach(tr => {
+            tr.style.borderTop = '';
+            tr.style.borderBottom = '';
+            tr.classList.remove('opacity-50');
+        });
+
+        if (targetRow && targetRow !== draggedRow && targetRow.tagName === 'TR') {
+            const bounding = targetRow.getBoundingClientRect();
+            const offset = bounding.y + (bounding.height / 2);
+            
+            // Insert before or after based on mouse position relative to center of target
+            if (e.clientY - offset > 0) {
+                targetRow.parentNode.insertBefore(draggedRow, targetRow.nextSibling);
+            } else {
+                targetRow.parentNode.insertBefore(draggedRow, targetRow);
+            }
+            updateRowIndices();
+        }
+    }
+
+    // Make sure opacity resets if drag ends outside
+    document.addEventListener('dragend', () => {
+        if(draggedRow) {
+            draggedRow.classList.remove('opacity-50');
+            document.querySelectorAll('tbody tr').forEach(tr => {
+                tr.style.borderTop = '';
+                tr.style.borderBottom = '';
+            });
+        }
+    });
+
 </script>
 </body>
 </html>

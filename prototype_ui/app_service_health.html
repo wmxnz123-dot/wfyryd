@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>教育信息授权 - 个人专属数据空间</title>
+    <title>健康信息授权 - 个人专属数据空间</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- QR Code Library -->
@@ -55,7 +55,7 @@
         <a href="app_home.html" class="text-gray-600 w-8 h-8 flex items-center justify-center -ml-2">
             <i class="fa-solid fa-angle-left text-xl"></i>
         </a>
-        <h1 class="text-lg font-bold text-gray-800">教育信息授权</h1>
+        <h1 class="text-lg font-bold text-gray-800">健康信息授权</h1>
         <button class="text-gray-600 text-sm font-medium hover:text-blue-600 transition" onclick="openAuthRecordsSheet()">
             授权记录
         </button>
@@ -67,11 +67,11 @@
         <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl p-5 text-white shadow-md mb-5 relative overflow-hidden">
             <div class="relative z-10">
                 <h2 class="text-lg font-bold mb-1">主动授权码</h2>
-                <p class="text-xs text-blue-100 opacity-90 leading-relaxed">
-                    选择下方您需要授权的教育数据目录，生成专属授权码。可用于政务办事、求职入职、资质审核等场景。
+                <p class="text-xs text-indigo-100 opacity-90 leading-relaxed"> 
+                    选择下方您需要授权的健康数据目录，生成专属授权码。可用于政务办事、求职入职、资质审核等场景。
                 </p>
             </div>
-            <i class="fa-solid fa-graduation-cap absolute -right-2 -bottom-4 text-6xl text-white/10"></i>
+            <i class="fa-solid fa-notes-medical absolute -right-2 -bottom-4 text-6xl text-white/10"></i>
         </div>
 
         <div class="flex justify-between items-end mb-3 px-1">
@@ -82,75 +82,117 @@
         <!-- Data Catalog List -->
         <div class="space-y-3" id="dataList">
             <!-- Item 1 -->
-            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-blue-50/50 transition relative overflow-hidden">
+            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-teal-50/50 transition relative overflow-hidden">
                 <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-500 mr-3 flex-shrink-0">
                     <i class="fa-regular fa-id-card text-lg"></i>
                 </div>
                 <div class="flex-1">
-                    <h4 class="font-bold text-gray-800 text-sm mb-1">个人身份基础信息</h4>
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">个人基础信息</h4>
                     <p class="text-xs text-gray-500">姓名、性别、身份证号、民族</p>
                 </div>
                 <div class="ml-3">
-                    <input type="checkbox" class="custom-checkbox data-checkbox" value="身份信息" onchange="updateSelection()">
+                    <input type="checkbox" class="custom-checkbox data-checkbox" value="基础信息" onchange="updateSelection()">
                 </div>
             </label>
 
-            <!-- Item 2 (Unclaimed) -->
+            <!-- Item 2 -->
+            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-teal-50/50 transition">
+                <div class="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-green-500 mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-file-medical text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">健康证信息</h4>
+                    <p class="text-xs text-gray-500">证件编号、发证机关、有效期限</p>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox data-checkbox" value="健康证信息" onchange="updateSelection()">
+                </div>
+            </label>
+
+            <!-- Item 3 -->
+            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-teal-50/50 transition">
+                <div class="w-10 h-10 bg-purple-50 rounded-full flex items-center justify-center text-purple-500 mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-shield-halved text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">无犯罪证明信息</h4>
+                    <p class="text-xs text-gray-500">证明编号、出具机关、出具时间</p>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox data-checkbox" value="无犯罪证明" onchange="updateSelection()">
+                </div>
+            </label>
+
+            <!-- Item 4 -->
+            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-teal-50/50 transition">
+                <div class="w-10 h-10 bg-orange-50 rounded-full flex items-center justify-center text-orange-500 mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-award text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">家政从业资格证 / 培训证信息</h4>
+                    <p class="text-xs text-gray-500">证书编号、培训机构、发证时间</p>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox data-checkbox" value="家政培训证" onchange="updateSelection()">
+                </div>
+            </label>
+            
+            <!-- Item 5 -->
+            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-teal-50/50 transition">
+                <div class="w-10 h-10 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-500 mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-car text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">驾驶证信息</h4>
+                    <p class="text-xs text-gray-500">准驾车型、初次领证日期、有效期限</p>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox data-checkbox" value="驾驶证信息" onchange="updateSelection()">
+                </div>
+            </label>
+            
+            <!-- Item 6 -->
+            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-teal-50/50 transition">
+                <div class="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-red-500 mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-apple-whole text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">营养证信息</h4>
+                    <p class="text-xs text-gray-500">资格等级、发证单位、发证日期</p>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox data-checkbox" value="营养证信息" onchange="updateSelection()">
+                </div>
+            </label>
+
+            <!-- Item 7 (Unclaimed Demo) -->
             <div onclick="showUnclaimedModal()" class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-gray-50 transition">
                 <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 mr-3 flex-shrink-0">
-                    <i class="fa-solid fa-user-graduate text-lg"></i>
+                    <i class="fa-solid fa-house-chimney-user text-lg"></i>
                 </div>
                 <div class="flex-1">
                     <div class="flex items-center mb-1">
-                        <h4 class="font-bold text-gray-600 text-sm">学历信息（学信网）</h4>
+                        <h4 class="font-bold text-gray-600 text-sm">家政信息</h4>
                         <span class="ml-2 text-[10px] bg-orange-50 text-orange-500 px-1.5 py-0.5 rounded border border-orange-100">未认领</span>
                     </div>
-                    <p class="text-xs text-gray-400">毕业院校、专业、学历层次、毕业时间</p>
+                    <p class="text-xs text-gray-400">服务年限、服务类型、客户评价</p>
                 </div>
                 <div class="ml-3">
                     <div class="w-[1.15em] h-[1.15em] border-2 border-gray-200 rounded-[0.25em] bg-gray-50 cursor-not-allowed"></div>
                 </div>
             </div>
 
-            <!-- Item 3 -->
-            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-blue-50/50 transition">
-                <div class="w-10 h-10 bg-purple-50 rounded-full flex items-center justify-center text-purple-500 mr-3 flex-shrink-0">
-                    <i class="fa-solid fa-scroll text-lg"></i>
+            <!-- Item 8 -->
+            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-teal-50/50 transition">
+                <div class="w-10 h-10 bg-rose-50 rounded-full flex items-center justify-center text-rose-500 mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-user-nurse text-lg"></i>
                 </div>
                 <div class="flex-1">
-                    <h4 class="font-bold text-gray-800 text-sm mb-1">学位信息</h4>
-                    <p class="text-xs text-gray-500">学位授予单位、学位类别、证书编号</p>
+                    <h4 class="font-bold text-gray-800 text-sm mb-1">护理信息</h4>
+                    <p class="text-xs text-gray-500">护理等级、专业方向、执业资格</p>
                 </div>
                 <div class="ml-3">
-                    <input type="checkbox" class="custom-checkbox data-checkbox" value="学位信息" onchange="updateSelection()">
-                </div>
-            </label>
-
-            <!-- Item 4 -->
-            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-blue-50/50 transition">
-                <div class="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-green-500 mr-3 flex-shrink-0">
-                    <i class="fa-solid fa-award text-lg"></i>
-                </div>
-                <div class="flex-1">
-                    <h4 class="font-bold text-gray-800 text-sm mb-1">职业技能培训证书</h4>
-                    <p class="text-xs text-gray-500">培训机构、工种名称、技能等级</p>
-                </div>
-                <div class="ml-3">
-                    <input type="checkbox" class="custom-checkbox data-checkbox" value="培训证书" onchange="updateSelection()">
-                </div>
-            </label>
-            
-            <!-- Item 5 -->
-            <label class="flex items-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm cursor-pointer hover:bg-blue-50/50 transition">
-                <div class="w-10 h-10 bg-orange-50 rounded-full flex items-center justify-center text-orange-500 mr-3 flex-shrink-0">
-                    <i class="fa-solid fa-language text-lg"></i>
-                </div>
-                <div class="flex-1">
-                    <h4 class="font-bold text-gray-800 text-sm mb-1">外语等级考试成绩</h4>
-                    <p class="text-xs text-gray-500">四六级成绩、考试时间 (自有数据)</p>
-                </div>
-                <div class="ml-3">
-                    <input type="checkbox" class="custom-checkbox data-checkbox" value="外语成绩" onchange="updateSelection()">
+                    <input type="checkbox" class="custom-checkbox data-checkbox" value="护理信息" onchange="updateSelection()">
                 </div>
             </label>
         </div>
@@ -247,48 +289,48 @@
             
             <!-- List Content -->
             <div class="overflow-y-auto p-4 space-y-3 bg-gray-50/50 flex-1">
-                <!-- Record 1 (Active) -->
-                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                    <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
-                        <div class="flex items-center flex-1">
-                            <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded border border-blue-100 mr-2 font-medium">主动授权</span>
-                            <span class="text-sm font-bold text-gray-800">教育信息</span>
-                        </div>
-                        <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded border border-green-100 flex-shrink-0">有效中</span>
+            <!-- Record 1 (Active) -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
+                    <div class="flex items-center flex-1">
+                        <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded border border-blue-100 mr-2 font-medium">主动授权</span>
+                        <span class="text-sm font-bold text-gray-800">健康信息</span>
                     </div>
-                    <div class="text-xs text-gray-500 space-y-1.5 mb-4">
-                        <p><span class="text-gray-400">授权数据：</span>个人身份基础信息、学位信息</p>
-                        <p><span class="text-gray-400">生成时间：</span>2025-10-24 09:30:00</p>
-                        <p><span class="text-gray-400">授权期限：</span>1天有效 (至 2025-10-25 09:30:00)</p>
-                    </div>
-                    <div class="flex space-x-2 mt-4 pt-3 border-t border-gray-50">
-                        <button class="flex-1 py-1.5 text-xs bg-blue-50 text-blue-600 border border-blue-100 rounded-lg hover:bg-blue-100 transition font-medium" onclick="viewQRCode('1天有效', ['个人身份基础信息', '学位信息'])">
-                            <i class="fa-solid fa-qrcode mr-1"></i> 二维码
-                        </button>
-                        <button class="flex-1 py-1.5 text-xs border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-50 transition font-medium" onclick="window.location.href='app_auth_records.html'">
-                            使用记录
-                        </button>
-                        <button class="flex-1 py-1.5 text-xs border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition font-medium" onclick="openCancelConfirmModal(this)">
-                            取消授权
-                        </button>
-                    </div>
+                    <span class="bg-indigo-50 text-indigo-600 text-[10px] px-2 py-0.5 rounded border border-indigo-100 flex-shrink-0">有效中</span>
                 </div>
+                <div class="text-xs text-gray-500 space-y-1.5 mb-4">
+                    <p><span class="text-gray-400">授权数据：</span>个人基础信息、健康证信息</p>
+                    <p><span class="text-gray-400">生成时间：</span>2025-10-24 09:30:00</p>
+                    <p><span class="text-gray-400">授权期限：</span>1天有效 (至 2025-10-25 09:30:00)</p>
+                </div>
+                <div class="flex space-x-2 mt-4 pt-3 border-t border-gray-50">
+                    <button class="flex-1 py-1.5 text-xs bg-teal-50 text-teal-600 border border-teal-100 rounded-lg hover:bg-teal-100 transition font-medium" onclick="viewQRCode('1天有效', ['个人基础信息', '健康证信息'])">
+                        <i class="fa-solid fa-qrcode mr-1"></i> 二维码
+                    </button>
+                    <button class="flex-1 py-1.5 text-xs border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-50 transition font-medium" onclick="window.location.href='app_auth_records.html'">
+                        使用记录
+                    </button>
+                    <button class="flex-1 py-1.5 text-xs border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition font-medium" onclick="openCancelConfirmModal(this)">
+                        取消授权
+                    </button>
+                </div>
+            </div>
 
-                <!-- Record 2 (Expired) -->
-                <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 opacity-70">
-                    <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
-                        <div class="flex items-center flex-1">
-                            <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded border border-blue-100 mr-2 font-medium">主动授权</span>
-                            <span class="text-sm font-bold text-gray-800">教育信息</span>
-                        </div>
-                        <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200 flex-shrink-0">已过期</span>
+            <!-- Record 2 (Expired) -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 opacity-70">
+                <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
+                    <div class="flex items-center flex-1">
+                        <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded border border-blue-100 mr-2 font-medium">主动授权</span>
+                        <span class="text-sm font-bold text-gray-800">健康信息</span>
                     </div>
-                    <div class="text-xs text-gray-500 space-y-1.5">
-                        <p><span class="text-gray-400">授权数据：</span>个人身份基础信息</p>
-                        <p><span class="text-gray-400">生成时间：</span>2025-10-20 14:15:00</p>
-                        <p><span class="text-gray-400">授权期限：</span>单次有效 (已扫码使用)</p>
-                    </div>
+                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200 flex-shrink-0">已过期</span>
                 </div>
+                <div class="text-xs text-gray-500 space-y-1.5">
+                    <p><span class="text-gray-400">授权数据：</span>个人基础信息</p>
+                    <p><span class="text-gray-400">生成时间：</span>2025-10-20 14:15:00</p>
+                    <p><span class="text-gray-400">授权期限：</span>单次有效 (已扫码使用)</p>
+                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -297,7 +339,7 @@
     <div id="qrModal" class="hidden fixed inset-0 z-[60] bg-black/60 flex flex-col items-center justify-center p-5 backdrop-blur-sm">
         <div class="bg-white w-full max-w-[320px] rounded-2xl overflow-hidden shadow-2xl relative">
             <!-- Modal Header -->
-            <div class="bg-blue-600 p-4 text-center relative">
+            <div class="bg-teal-600 p-4 text-center relative">
                 <button onclick="closeQRModal()" class="absolute right-4 top-4 text-white/80 hover:text-white transition">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
@@ -315,7 +357,7 @@
                         <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 mb-2 shadow-sm">
                             <i class="fa-solid fa-rotate-right text-lg"></i>
                         </div>
-                        <span class="text-sm font-medium text-gray-600">二维码已失效，点击刷新</span>
+                        <span class="text-sm font-medium text-indigo-600">二维码已失效，点击刷新</span>
                     </div>
                 </div>
                 
@@ -451,7 +493,7 @@
             text: "auth_token_" + Date.now(),
             width: 180,
             height: 180,
-            colorDark : "#1e3a8a", // blue-900
+            colorDark : "#0f766e", // teal-700
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
         });
@@ -607,7 +649,7 @@
             text: "auth_token_history_" + Date.now(),
             width: 180,
             height: 180,
-            colorDark : "#1e3a8a",
+            colorDark : "#0f766e",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
         });

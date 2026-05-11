@@ -29,7 +29,6 @@
         </button>
         <button id="tabUnclaimed" class="flex-1 py-3 text-sm text-center tab-inactive transition relative" onclick="switchTab('unclaimed')">
             未认领数据
-            <span class="absolute top-2 right-6 w-2 h-2 bg-red-500 rounded-full"></span>
         </button>
     </div>
 
@@ -45,46 +44,82 @@
     <div class="p-4">
         <!-- Tab 1 Content: 已认领数据 -->
         <div id="contentClaimed" class="space-y-4 block">
-            <!-- Header section for Unclaimed -->
+            <!-- Header section for Claimed -->
             <div class="flex items-center justify-between mb-2">
                 <div class="text-sm text-gray-600">
-                    已认领 <span class="font-bold text-orange-500 text-lg mx-1">12</span> 个数据
+                    已认领 <span class="font-bold text-orange-500 text-lg mx-1">16</span> 个数据
                 </div>
             </div>
             <!-- Item 1 -->
             <a href="app_face_auth.html?target=app_item_detail.html" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
                 <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center">
-                        <i class="fa-solid fa-address-card text-blue-500 text-xl mr-3"></i>
+                        <i class="fa-solid fa-address-card text-blue-500 text-lg mr-3"></i>
                         <h3 class="font-bold text-gray-800">基础身份信息</h3>
                     </div>
-                    <span class="bg-green-50 text-green-600 text-xs px-2 py-1 rounded-full border border-green-100">已认领</span>
+                    <span class="text-green-600 text-xs">已认领</span>
                 </div>
-                <div class="text-xs text-gray-400 ml-8">认领时间：2023-10-01 10:20</div>
+                <div class="text-xs text-gray-400 ml-7">认领时间：2023-10-01 10:20</div>
             </a>
             
             <!-- Item 2 -->
-            <a href="app_face_auth.html?target=app_item_detail.html" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
+            <a href="app_face_auth.html?target=app_item_list_multiple.html" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
                 <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center">
-                        <i class="fa-solid fa-shield-heart text-blue-400 text-xl mr-3"></i>
-                        <h3 class="font-bold text-gray-800">社保信息</h3>
+                        <i class="fa-solid fa-graduation-cap text-blue-500 text-lg mr-3"></i>
+                        <h3 class="font-bold text-gray-800">学历学籍信息</h3>
                     </div>
-                    <span class="bg-green-50 text-green-600 text-xs px-2 py-1 rounded-full border border-green-100">已认领</span>
+                    <span class="text-green-600 text-xs">已认领</span>
                 </div>
-                <div class="text-xs text-gray-400 ml-8">认领时间：2023-10-05 14:30</div>
+                <div class="text-xs text-gray-400 ml-7">认领时间：2023-10-10 09:15</div>
             </a>
 
             <!-- Item 3 -->
             <a href="app_face_auth.html?target=app_item_detail.html" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
                 <div class="flex items-center justify-between mb-2">
                     <div class="flex items-center">
-                        <i class="fa-solid fa-graduation-cap text-indigo-500 text-xl mr-3"></i>
-                        <h3 class="font-bold text-gray-800">学历学籍信息</h3>
+                        <i class="fa-solid fa-shield-heart text-blue-500 text-lg mr-3"></i>
+                        <h3 class="font-bold text-gray-800">社保信息</h3>
                     </div>
-                    <span class="bg-green-50 text-green-600 text-xs px-2 py-1 rounded-full border border-green-100">已认领</span>
+                    <span class="text-green-600 text-xs">已认领</span>
                 </div>
-                <div class="text-xs text-gray-400 ml-8">认领时间：2023-10-10 09:15</div>
+                <div class="text-xs text-gray-400 ml-7">认领时间：2023-10-05 14:30</div>
+            </a>
+
+            <!-- Item 4 -->
+            <a href="app_face_auth.html?target=app_item_detail.html" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-car text-blue-500 text-lg mr-3"></i>
+                        <h3 class="font-bold text-gray-800">机动车驾驶证信息</h3>
+                    </div>
+                    <span class="text-green-600 text-xs">已认领</span>
+                </div>
+                <div class="text-xs text-gray-400 ml-7">认领时间：2023-11-12 08:30</div>
+            </a>
+
+            <!-- Item 5 -->
+            <a href="app_face_auth.html?target=app_item_detail.html" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-file-invoice-dollar text-blue-500 text-lg mr-3"></i>
+                        <h3 class="font-bold text-gray-800">个人纳税记录</h3>
+                    </div>
+                    <span class="text-green-600 text-xs">已认领</span>
+                </div>
+                <div class="text-xs text-gray-400 ml-7">认领时间：2023-11-15 16:45</div>
+            </a>
+
+            <!-- Item 6 -->
+            <a href="app_face_auth.html?target=app_item_detail.html" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-ring text-blue-500 text-lg mr-3"></i>
+                        <h3 class="font-bold text-gray-800">婚姻登记信息</h3>
+                    </div>
+                    <span class="text-green-600 text-xs">已认领</span>
+                </div>
+                <div class="text-xs text-gray-400 ml-7">认领时间：2023-12-01 11:20</div>
             </a>
         </div>
 
@@ -93,7 +128,7 @@
             <!-- Header section for Unclaimed -->
             <div class="flex items-center justify-between mb-2">
                 <div class="text-sm text-gray-600">
-                    共发现 <span class="font-bold text-orange-500 text-lg mx-1" id="unclaimedCount">3</span> 个未认领数据
+                    共发现 <span class="font-bold text-orange-500 text-lg mx-1" id="unclaimedCount">6</span> 个未认领数据
                 </div>
                 <button class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-full shadow-sm flex items-center transition" onclick="showClaimModal()">
                     <i class="fa-solid fa-check-double mr-1"></i> 一键认领
@@ -103,14 +138,12 @@
             <!-- Item 1 -->
             <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
                 <div class="flex items-center">
-                    <div class="w-10 h-10 bg-yellow-50 rounded-full flex items-center justify-center mr-3 text-yellow-500 flex-shrink-0">
-                        <i class="fa-solid fa-building-columns text-lg"></i>
-                    </div>
+                    <i class="fa-solid fa-building-columns text-blue-500 text-lg mr-3"></i>
                     <div>
                         <h3 class="font-bold text-gray-800 text-sm mb-1">公积金账户信息</h3>
                     </div>
                 </div>
-                <button class="px-4 py-1.5 text-xs bg-blue-50 text-blue-600 rounded-lg shadow-sm hover:bg-blue-100 transition" onclick="alert('认领成功！该数据将移至已认领列表。');">
+                <button class="px-5 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 rounded-full hover:bg-blue-100 transition transform hover:scale-105" onclick="claimSingleItem('公积金账户信息', 'fa-building-columns', true, this)">
                     认领
                 </button>
             </div>
@@ -118,14 +151,12 @@
             <!-- Item 2 -->
             <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
                 <div class="flex items-center">
-                    <div class="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center mr-3 text-green-500 flex-shrink-0">
-                        <i class="fa-solid fa-heart-pulse text-lg"></i>
-                    </div>
+                    <i class="fa-solid fa-heart-pulse text-blue-500 text-lg mr-3"></i>
                     <div>
                         <h3 class="font-bold text-gray-800 text-sm mb-1">门诊就诊记录</h3>
                     </div>
                 </div>
-                <button class="px-4 py-1.5 text-xs bg-blue-50 text-blue-600 rounded-lg shadow-sm hover:bg-blue-100 transition" onclick="alert('认领成功！该数据将移至已认领列表。');">
+                <button class="px-5 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 rounded-full hover:bg-blue-100 transition transform hover:scale-105" onclick="claimSingleItem('门诊就诊记录', 'fa-heart-pulse', false, this)">
                     认领
                 </button>
             </div>
@@ -133,18 +164,69 @@
             <!-- Item 3 -->
             <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
                 <div class="flex items-center">
-                    <div class="w-10 h-10 bg-purple-50 rounded-full flex items-center justify-center mr-3 text-purple-500 flex-shrink-0">
-                        <i class="fa-solid fa-house-chimney text-lg"></i>
-                    </div>
+                    <i class="fa-solid fa-house-chimney text-blue-500 text-lg mr-3"></i>
                     <div>
                         <h3 class="font-bold text-gray-800 text-sm mb-1">不动产登记信息</h3>
                     </div>
                 </div>
-                <button class="px-4 py-1.5 text-xs bg-blue-50 text-blue-600 rounded-lg shadow-sm hover:bg-blue-100 transition" onclick="alert('认领成功！该数据将移至已认领列表。');">
+                <button class="px-5 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 rounded-full hover:bg-blue-100 transition transform hover:scale-105" onclick="claimSingleItem('不动产登记信息', 'fa-house-chimney', true, this)">
+                    认领
+                </button>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-briefcase-medical text-blue-500 text-lg mr-3"></i>
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm mb-1">医保缴费记录</h3>
+                    </div>
+                </div>
+                <button class="px-5 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 rounded-full hover:bg-blue-100 transition transform hover:scale-105" onclick="claimSingleItem('医保缴费记录', 'fa-briefcase-medical', false, this)">
+                    认领
+                </button>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-plane text-blue-500 text-lg mr-3"></i>
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm mb-1">交通出行信息</h3>
+                    </div>
+                </div>
+                <button class="px-5 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 rounded-full hover:bg-blue-100 transition transform hover:scale-105" onclick="claimSingleItem('交通出行信息', 'fa-plane', true, this)">
+                    认领
+                </button>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-bolt text-blue-500 text-lg mr-3"></i>
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm mb-1">生活缴费(水电气)</h3>
+                    </div>
+                </div>
+                <button class="px-5 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 rounded-full hover:bg-blue-100 transition transform hover:scale-105" onclick="claimSingleItem('生活缴费(水电气)', 'fa-bolt', false, this)">
                     认领
                 </button>
             </div>
         </div>
+        <!-- Modal for Claim Result -->
+        <div id="claimResultModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+            <div class="bg-white rounded-2xl p-6 w-5/6 max-w-sm mx-auto text-center transform transition-all shadow-xl">
+                <div id="claimResultIcon" class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid text-3xl"></i>
+                </div>
+                <h3 id="claimResultTitle" class="text-lg font-bold text-gray-800 mb-2"></h3>
+                <p id="claimResultDesc" class="text-sm text-gray-600 mb-6"></p>
+                <button onclick="closeClaimResultModal()" class="w-full bg-blue-600 text-white font-medium py-3 rounded-xl hover:bg-blue-700 transition">
+                    确定
+                </button>
+            </div>
+        </div>
+
         <!-- Modal for Claim Success -->
         <div id="claimModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
             <div class="bg-white rounded-2xl p-6 w-5/6 max-w-sm mx-auto text-center transform transition-all shadow-xl">
@@ -163,6 +245,84 @@
 </div>
 
 <script>
+    let pendingClaimedItem = null;
+
+    function claimSingleItem(title, icon, hasData, btnElement) {
+        const modal = document.getElementById('claimResultModal');
+        const iconContainer = document.getElementById('claimResultIcon');
+        const iconEl = iconContainer.querySelector('i');
+        const titleEl = document.getElementById('claimResultTitle');
+        const descEl = document.getElementById('claimResultDesc');
+
+        if (hasData) {
+            // Success state
+            iconContainer.className = 'w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4';
+            iconEl.className = 'fa-solid fa-check text-3xl text-green-500';
+            titleEl.innerText = '认领成功';
+            descEl.innerText = `已成功认领【${title}】，该数据将移至已认领列表。`;
+            
+            // Store item to move it after modal close
+            pendingClaimedItem = { title, icon, element: btnElement.closest('.bg-white') };
+        } else {
+            // Empty state
+            iconContainer.className = 'w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4';
+            iconEl.className = 'fa-solid fa-circle-exclamation text-3xl text-orange-500';
+            titleEl.innerText = '暂无数据';
+            descEl.innerText = `经查询，当前各业务系统暂无您的【${title}】记录。`;
+            pendingClaimedItem = null;
+        }
+
+        modal.classList.remove('hidden');
+    }
+
+    function closeClaimResultModal() {
+        document.getElementById('claimResultModal').classList.add('hidden');
+        
+        if (pendingClaimedItem) {
+            // 1. Remove from unclaimed list
+            pendingClaimedItem.element.remove();
+            
+            // 2. Update unclaimed count
+            const countEl = document.getElementById('unclaimedCount');
+            let currentCount = parseInt(countEl.innerText);
+            if (currentCount > 0) {
+                countEl.innerText = currentCount - 1;
+            }
+
+            // 3. Add to claimed list
+            const claimedList = document.getElementById('contentClaimed');
+            
+            // Create new claimed item HTML
+            const today = new Date();
+            const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')} ${String(today.getHours()).padStart(2, '0')}:${String(today.getMinutes()).padStart(2, '0')}`;
+            
+            const newItemHTML = `
+            <a href="app_face_auth.html?target=app_item_detail.html" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center">
+                        <i class="fa-solid ${pendingClaimedItem.icon} text-blue-500 text-lg mr-3"></i>
+                        <h3 class="font-bold text-gray-800">${pendingClaimedItem.title}</h3>
+                    </div>
+                    <span class="text-green-600 text-xs">已认领</span>
+                </div>
+                <div class="text-xs text-gray-400 ml-7">认领时间：${dateStr}</div>
+            </a>`;
+            
+            // Insert after the header of claimed list
+            const header = claimedList.querySelector('.flex.items-center.justify-between.mb-2');
+            header.insertAdjacentHTML('afterend', newItemHTML);
+
+            // Update claimed count
+            const claimedCountEl = header.querySelector('span');
+            claimedCountEl.innerText = parseInt(claimedCountEl.innerText) + 1;
+
+            // Switch to claimed tab to show the result
+            switchTab('claimed');
+            
+            pendingClaimedItem = null;
+        }
+    }
+
     function showClaimModal() {
         const count = document.getElementById('unclaimedCount').innerText;
         document.getElementById('modalClaimCount').innerText = count;
@@ -184,7 +344,7 @@
         if (tabName === 'claimed') {
             tabClaimed.className = 'flex-1 py-3 text-sm text-center tab-active transition';
             tabUnclaimed.className = 'flex-1 py-3 text-sm text-center tab-inactive transition relative';
-            tabUnclaimed.innerHTML = '未认领的数据<span class="absolute top-2 right-6 w-2 h-2 bg-red-500 rounded-full"></span>';
+            tabUnclaimed.innerHTML = '未认领数据';
             contentClaimed.classList.remove('hidden');
             contentClaimed.classList.add('block');
             contentUnclaimed.classList.remove('block');

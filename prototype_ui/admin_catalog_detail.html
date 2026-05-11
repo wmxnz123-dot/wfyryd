@@ -1,174 +1,227 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>目录详情 - 一人一档后台</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>目录详情 - 一人一档后台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
-    
-    <!-- Sidebar -->
-    <aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
-        <div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
-            <i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
-            <span class="text-lg font-bold tracking-wider">一人一档后台</span>
-        </div>
-        <div class="flex-1 overflow-y-auto py-4">
-            <ul class="space-y-1" id="sidebar-menu">
-                <!-- 仅保留认领数据管理展开作为示例 -->
-                <li>
-                    <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer">
-                        <div class="flex items-center">
-                            <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">认领数据管理</span>
-                        </div>
-                        <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
-                    </div>
-                    <ul class="pl-14 py-2 space-y-3 text-sm bg-gray-800/50">
-                        <li><a href="admin_catalog_config.html" class="text-white relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:bg-blue-500 before:rounded-full font-medium">目录管理</a></li>
-                        <li><a href="admin_corrections.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据纠错处置</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </aside>
-
-    <div class="flex-1 flex flex-col h-full overflow-hidden">
-        <!-- Topbar -->
-        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
-            <div class="flex items-center text-gray-500">
+<!-- Sidebar -->
+<aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
+<div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
+<i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
+<span class="text-lg font-bold tracking-wider">一人一档后台</span>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1" id="sidebar-menu">
+<!-- 仅保留认领数据管理展开作为示例 -->
+<li>
+<div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer">
+<div class="flex items-center">
+<i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">数据管理</span>
+</div>
+<i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+</div>
+<ul class="pl-14 py-2 space-y-3 text-sm bg-gray-800/50">
+<li><a class="text-white relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:bg-blue-500 before:rounded-full font-medium" href="admin_catalog_config.html">数据目录管理</a></li>
+<li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_corrections.html">数据纠错处置</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+<div class="flex-1 flex flex-col h-full overflow-hidden">
+<!-- Topbar -->
+<header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
+<div class="flex items-center text-gray-500">
                 <i class="fa-solid fa-arrow-left cursor-pointer hover:text-gray-800 mr-4" onclick="history.back()"></i>
-                <span class="text-sm">认领数据管理 <span class="mx-2">/</span> <a href="admin_catalog_config.html" class="hover:text-blue-600">目录管理</a> <span class="mx-2">/</span> <span class="text-gray-800 font-medium">目录详情</span></span>
+                <span class="text-sm">数据管理 <span class="mx-2">/</span> <a href="admin_catalog_config.html" class="hover:text-blue-600 transition">数据目录管理</a> <span class="mx-2">/</span> <span class="text-gray-800 font-medium">目录详情</span></span>
             </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto p-6 bg-gray-50 relative">
-            <div class="mx-auto space-y-6 pb-20">
-                
-                <!-- 标题信息 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex justify-between items-center">
-                    <div>
-                        <h2 class="text-xl font-bold text-gray-800 mb-2">基础身份信息</h2>
-                        <div class="flex space-x-4 text-sm text-gray-500">
-                            <span>更新时间：2024-03-21 09:15</span>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto p-6 bg-gray-50 relative">
+<div class="mx-auto space-y-6 pb-20">
+<!-- 标题信息 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex justify-between items-center">
+<div>
+<div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                            <i class="fa-solid fa-layer-group text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-800 mb-1">基础身份信息</h2>
+                            <div class="flex space-x-4 text-sm text-gray-500">
+                                <span>更新时间：2024-03-22 10:30</span>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <span class="text-green-600 bg-green-50 px-3 py-1.5 rounded-md text-sm font-medium border border-green-100">已发布</span>
-                    </div>
-                </div>
-
-                <!-- 基础信息展示 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                    <h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">基本信息</h3>
-                    <div class="grid grid-cols-2 gap-y-4 gap-x-8 mb-6 text-sm">
-                        <div class="flex"><span class="text-gray-500 w-24">目录名称：</span><span class="text-gray-800 font-medium">基础身份信息</span></div>
-                        <div class="flex"><span class="text-gray-500 w-24">数据源：</span><span class="text-gray-800 font-medium">公安人口库 (Police_DB)</span></div>
-                        <div class="flex"><span class="text-gray-500 w-24">数据表：</span><span class="text-gray-800 font-mono">t_base_info</span></div>
-                    </div>
-                    
-                    <h4 class="text-sm font-bold text-gray-700 mb-3">信息项明细</h4>
-                    <div class="overflow-x-auto border border-gray-200 rounded-lg">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
-                                    <th class="p-3 font-medium">字段英文名</th>
-                                    <th class="p-3 font-medium">字段中文名</th>
-                                    <th class="p-3 font-medium">字段类型</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-sm">
-                                <tr class="border-b border-gray-100">
-                                    <td class="p-3 font-mono text-gray-600">id_card</td>
-                                    <td class="p-3 text-gray-800">身份证号</td>
-                                    <td class="p-3 font-mono text-gray-400">VARCHAR(18)</td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="p-3 font-mono text-gray-600">real_name</td>
-                                    <td class="p-3 text-gray-800">姓名</td>
-                                    <td class="p-3 font-mono text-gray-400">VARCHAR(50)</td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="p-3 font-mono text-gray-600">gender</td>
-                                    <td class="p-3 text-gray-800">性别</td>
-                                    <td class="p-3 font-mono text-gray-400">INT</td>
-                                </tr>
-                                <tr class="border-b border-gray-100">
-                                    <td class="p-3 font-mono text-gray-600">nation</td>
-                                    <td class="p-3 text-gray-800">民族</td>
-                                    <td class="p-3 font-mono text-gray-400">VARCHAR(20)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- 认领信息 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-base font-bold text-gray-800 border-l-4 border-blue-500 pl-2">认领信息</h3>
-                        <span class="text-sm text-gray-500">总认领数据量：<span class="text-blue-600 font-bold text-lg">1,245,678</span> 条</span>
-                    </div>
-                    
-                    <h4 class="text-sm font-bold text-gray-700 mb-3">最新认领记录 (前10条)</h4>
-                    <div class="overflow-x-auto border border-gray-200 rounded-lg">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
-                                    <th class="p-3 font-medium">序号</th>
-                                    <th class="p-3 font-medium">姓名</th>
-                                    <th class="p-3 font-medium">身份证号码</th>
-                                    <th class="p-3 font-medium">住址</th>
-                                    <th class="p-3 font-medium">认领时间</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-sm">
-                                <tr class="border-b border-gray-100 hover:bg-gray-50">
-                                    <td class="p-3 text-gray-500">1</td>
-                                    <td class="p-3 font-medium">张*三</td>
-                                    <td class="p-3 font-mono text-gray-600">370781********1234</td>
-                                    <td class="p-3 text-gray-600">山东省潍坊市高新区****</td>
-                                    <td class="p-3 text-gray-500">2024-03-22 14:30:15</td>
-                                </tr>
-                                <tr class="border-b border-gray-100 hover:bg-gray-50">
-                                    <td class="p-3 text-gray-500">2</td>
-                                    <td class="p-3 font-medium">李*华</td>
-                                    <td class="p-3 font-mono text-gray-600">370702********5678</td>
-                                    <td class="p-3 text-gray-600">山东省潍坊市奎文区****</td>
-                                    <td class="p-3 text-gray-500">2024-03-22 14:28:42</td>
-                                </tr>
-                                <tr class="border-b border-gray-100 hover:bg-gray-50">
-                                    <td class="p-3 text-gray-500">3</td>
-                                    <td class="p-3 font-medium">王*平</td>
-                                    <td class="p-3 font-mono text-gray-600">370703********9012</td>
-                                    <td class="p-3 text-gray-600">山东省潍坊市潍城区****</td>
-                                    <td class="p-3 text-gray-500">2024-03-22 14:15:00</td>
-                                </tr>
-                                <tr class="border-b border-gray-100 hover:bg-gray-50">
-                                    <td class="p-3 text-gray-500">4</td>
-                                    <td class="p-3 font-medium">赵*强</td>
-                                    <td class="p-3 font-mono text-gray-600">370704********3456</td>
-                                    <td class="p-3 text-gray-600">山东省潍坊市坊子区****</td>
-                                    <td class="p-3 text-gray-500">2024-03-22 13:50:22</td>
-                                </tr>
-                                <tr class="border-b border-gray-100 hover:bg-gray-50">
-                                    <td class="p-3 text-gray-500">5</td>
-                                    <td class="p-3 font-medium">陈*</td>
-                                    <td class="p-3 font-mono text-gray-600">370705********7890</td>
-                                    <td class="p-3 text-gray-600">山东省潍坊市寒亭区****</td>
-                                    <td class="p-3 text-gray-500">2024-03-22 13:45:10</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-        </main>
-    </div>
-
+</div>
+<div>
+<span class="text-green-600 bg-green-50 px-3 py-1.5 rounded-md text-sm font-medium border border-green-100">已发布</span>
+</div>
+</div>
+<!-- 基础信息展示 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+<h3 class="text-base font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-2">基本信息</h3>
+<div class="grid grid-cols-2 gap-y-4 gap-x-8 mb-6 text-sm">
+<div class="flex"><span class="text-gray-500 w-24">目录名称：</span><span class="text-gray-800 font-medium">基础身份信息</span></div>
+<div class="flex"><span class="text-gray-500 w-24">数据来源：</span><span class="text-gray-800 font-medium">公共数据</span></div>
+<div class="flex"><span class="text-gray-500 w-28">数据来源部门：</span><span class="text-gray-800 font-medium">公安局</span></div>
+<div class="flex"><span class="text-gray-500 w-24">目录图标：</span><span class="text-gray-800 font-medium"><i class="fa-solid fa-address-card text-blue-500 mr-1"></i> fa-address-card</span></div>
+<div class="flex"><span class="text-gray-500 w-24">数据类型：</span><span class="text-gray-800 font-medium">接口</span></div>
+<div class="flex"><span class="text-gray-500 w-32">是否作为标签展示：</span><span class="text-gray-800 font-medium">是</span></div>
+<div class="flex"><span class="text-gray-500 w-24">标签名称：</span><span class="text-gray-800 font-medium">基础信息</span></div>
+</div>
+<h4 class="text-sm font-bold text-gray-700 mb-3">接口信息</h4>
+<div class="grid grid-cols-2 gap-y-4 gap-x-8 mb-6 text-sm bg-blue-50/50 p-4 rounded border border-blue-100">
+<div class="col-span-2 flex"><span class="text-gray-500 w-24">接口URL：</span><span class="text-gray-800 font-medium">https://api.example.com/v1/user/info</span></div>
+<div class="flex"><span class="text-gray-500 w-24">接口Path：</span><span class="text-gray-800 font-medium">/v1/user/info</span></div>
+<div class="flex"><span class="text-gray-500 w-24">请求类型：</span><span class="text-gray-800 font-medium">GET</span></div>
+<div class="col-span-2 flex"><span class="text-gray-500 w-24">接口描述：</span><span class="text-gray-800">获取用户基础身份信息，支持根据身份证号精确查询。</span></div>
+<div class="col-span-2 flex"><span class="text-gray-500 w-24">请求参数：</span><span class="text-gray-800 font-mono text-xs bg-gray-100 p-1.5 rounded w-full">{'id_card': 'string'}</span></div>
+<div class="col-span-2 flex"><span class="text-gray-500 w-24">返回参数：</span><span class="text-gray-800 font-mono text-xs bg-gray-100 p-1.5 rounded w-full">{'code': 200, 'data': {...}}</span></div>
+<div class="col-span-2 flex"><span class="text-gray-500 w-24">错误代码：</span><span class="text-gray-800 font-mono text-xs bg-gray-100 p-1.5 rounded w-full">400: 参数错误, 401: 未授权</span></div>
+</div>
+<h4 class="text-sm font-bold text-gray-700 mb-3">信息项明细</h4>
+<div class="overflow-x-auto border border-gray-200 rounded-lg">
+<table class="w-full text-left border-collapse whitespace-nowrap">
+<thead>
+<tr class="bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
+<th class="p-3 font-medium w-16 text-center">序号</th><th class="p-3 font-medium">字段英文名</th>
+<th class="p-3 font-medium">字段中文名</th>
+<th class="p-3 font-medium">类型</th>
+<th class="p-3 font-medium">长度</th>
+<th class="p-3 font-medium">显示类型</th>
+<th class="p-3 font-medium">字典类型</th>
+<th class="p-3 font-medium">非空</th>
+<th class="p-3 font-medium">脱敏显示</th>
+<th class="p-3 font-medium">脱敏规则</th>
+<th class="p-3 font-medium">显示状态</th>
+</tr>
+</thead>
+<tbody class="text-sm text-gray-700">
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="p-3 font-mono text-gray-600 text-center">1</td><td class="p-3 font-mono text-gray-600">id_card</td>
+<td class="p-3">身份证号</td>
+<td class="p-3">varchar</td>
+<td class="p-3">18</td>
+<td class="p-3">文本</td>
+<td class="p-3">-</td>
+<td class="p-3 text-green-600 font-medium">是</td>
+<td class="p-3 text-green-600 font-medium">是</td>
+<td class="p-3">身份证号</td>
+<td class="p-3 text-blue-600"><i class="fa-solid fa-eye"></i></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="p-3 font-mono text-gray-600 text-center">2</td><td class="p-3 font-mono text-gray-600">real_name</td>
+<td class="p-3">姓名</td>
+<td class="p-3">varchar</td>
+<td class="p-3">50</td>
+<td class="p-3">文本</td>
+<td class="p-3">-</td>
+<td class="p-3 text-green-600 font-medium">是</td>
+<td class="p-3 text-green-600 font-medium">是</td>
+<td class="p-3">姓名</td>
+<td class="p-3 text-blue-600"><i class="fa-solid fa-eye"></i></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="p-3 font-mono text-gray-600 text-center">3</td><td class="p-3 font-mono text-gray-600">gender</td>
+<td class="p-3">性别</td>
+<td class="p-3">int</td>
+<td class="p-3">1</td>
+<td class="p-3">下拉框</td>
+<td class="p-3">性别</td>
+<td class="p-3 text-green-600 font-medium">是</td>
+<td class="p-3">否</td>
+<td class="p-3">-</td>
+<td class="p-3 text-blue-600"><i class="fa-solid fa-eye"></i></td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="p-3 font-mono text-gray-600 text-center">4</td><td class="p-3 font-mono text-gray-600">nation</td>
+<td class="p-3">民族</td>
+<td class="p-3">varchar</td>
+<td class="p-3">20</td>
+<td class="p-3">下拉框</td>
+<td class="p-3">民族</td>
+<td class="p-3">否</td>
+<td class="p-3">否</td>
+<td class="p-3">-</td>
+<td class="p-3 text-blue-600"><i class="fa-solid fa-eye"></i></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 数据记录 -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-base font-bold text-gray-800 border-l-4 border-blue-500 pl-2">数据记录</h3>
+<span class="text-sm text-gray-500">总数据量：<span class="text-blue-600 font-bold text-lg">1,245,678</span> 条</span>
+</div>
+<h4 class="text-sm font-bold text-gray-700 mb-3">最新数据记录 (前10条)</h4>
+<div class="overflow-x-auto border border-gray-200 rounded-lg">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gray-50 text-gray-600 text-sm border-b border-gray-200">
+<th class="p-3 font-medium">序号</th>
+<th class="p-3 font-medium">姓名</th>
+<th class="p-3 font-medium">身份证号码</th>
+<th class="p-3 font-medium">出生日期</th>
+<th class="p-3 font-medium">省市县（区）</th>
+<th class="p-3 font-medium">汇聚时间</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="p-3 text-gray-500">1</td>
+<td class="p-3 font-medium">张*三</td>
+<td class="p-3 font-mono text-gray-600">370781********1234</td>
+<td class="p-3 text-gray-600">1956-01-01</td>
+<td class="p-3 text-gray-500">山东省潍坊市高新区</td>
+<td class="p-3 text-gray-500">2024-03-21 14:30:22</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="p-3 text-gray-500">2</td>
+<td class="p-3 font-medium">李*四</td>
+<td class="p-3 font-mono text-gray-600">370702********5678</td>
+<td class="p-3 text-gray-600">1979-11-20</td>
+<td class="p-3 text-gray-500">山东省潍坊市奎文区</td>
+<td class="p-3 text-gray-500">2024-03-21 14:25:10</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="p-3 text-gray-500">3</td>
+<td class="p-3 font-medium">王*五</td>
+<td class="p-3 font-mono text-gray-600">370705********9012</td>
+<td class="p-3 text-gray-600">1992-06-18</td>
+<td class="p-3 text-gray-500">山东省潍坊市寒亭区</td>
+<td class="p-3 text-gray-500">2024-03-21 14:18:05</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="p-3 text-gray-500">4</td>
+<td class="p-3 font-medium">赵*六</td>
+<td class="p-3 font-mono text-gray-600">370782********3456</td>
+<td class="p-3 text-gray-600">1982-03-22</td>
+<td class="p-3 text-gray-500">山东省潍坊市诸城市</td>
+<td class="p-3 text-gray-500">2024-03-21 14:05:30</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="p-3 text-gray-500">5</td>
+<td class="p-3 font-medium">孙*七</td>
+<td class="p-3 font-mono text-gray-600">370781********7890</td>
+<td class="p-3 text-gray-600">1952-08-15</td>
+<td class="p-3 text-gray-500">山东省潍坊市高新区</td>
+<td class="p-3 text-gray-500">2024-03-21 13:50:45</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
 <script src="admin_sidebar_logic.js"></script>
 </body>
 </html>

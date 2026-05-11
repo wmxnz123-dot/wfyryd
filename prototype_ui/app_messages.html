@@ -23,15 +23,15 @@
     <!-- Message Categories / Filters (Optional, can be used for V2) -->
     <div class="bg-white px-4 py-3 border-b border-gray-100 flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
         <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium border border-blue-100">全部消息</span>
-        <span class="text-gray-500 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-50 transition cursor-pointer">授权提醒</span>
-        <span class="text-gray-500 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-50 transition cursor-pointer">数据更新</span>
+        <span class="text-gray-500 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-50 transition cursor-pointer">授权告警</span>
+        <span class="text-gray-500 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-50 transition cursor-pointer">数据认领</span>
         <span class="text-gray-500 px-3 py-1 rounded-full text-xs font-medium hover:bg-gray-50 transition cursor-pointer">系统通知</span>
     </div>
 
     <!-- Message List -->
     <div class="p-4 space-y-3">
-        <!-- AI Abnormal Alert Message -->
-        <div class="block bg-red-50 rounded-xl p-4 shadow-sm border border-red-200 relative overflow-hidden">
+        <!-- Abnormal Alert Message (Removed AI context) -->
+        <a href="app_my_auth.html" class="block bg-red-50 rounded-xl p-4 shadow-sm border border-red-200 hover:shadow-md transition relative overflow-hidden">
             <div class="absolute top-4 right-4 w-2 h-2 bg-red-600 rounded-full animate-ping"></div>
             <div class="flex items-start">
                 <div class="w-10 h-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-lg mr-3 flex-shrink-0 mt-0.5 border border-red-200">
@@ -40,41 +40,18 @@
                 <div class="flex-1">
                     <div class="flex justify-between items-center mb-1 pr-4">
                         <h3 class="font-bold text-red-800 text-sm flex items-center">
-                            <i class="fa-solid fa-robot text-red-500 mr-1.5 text-xs"></i> AI 异常拦截通知
+                            <i class="fa-solid fa-triangle-exclamation text-red-500 mr-1.5 text-xs"></i> 授权告警
                         </h3>
                         <span class="text-[10px] text-red-400 font-medium">刚刚</span>
                     </div>
-                    <p class="text-xs text-red-700 leading-relaxed mb-3">
-                        检测到 <span class="font-bold">XX小额贷款公司</span> 在非工作时间（凌晨 2:30）高频拉取您的“公积金数据”和“社保数据”。<br><br>
-                        <span class="bg-red-100 px-1.5 py-0.5 rounded border border-red-200 text-red-800 font-medium mt-1 inline-block">AI 风控模型已自动切断该机构的授权连接，保障您的数据安全。</span>
+                    <p class="text-xs text-red-700 leading-relaxed mb-2">
+                        检测到 <span class="font-bold">XX小额贷款公司</span> 在非工作时间（凌晨 2:30）高频拉取您的“公积金数据”和“社保数据”。
                     </p>
-                    <div class="flex space-x-2 mt-2">
-                        <a href="app_auth_records.html" class="bg-white text-red-600 border border-red-200 px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-red-50 transition">查看调用日志</a>
-                        <button class="bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium shadow-sm hover:bg-red-700 transition" onclick="alert('已永久撤销该机构授权，并上报平台监管')">永久撤销授权</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Unread Message: Auth Request -->
-        <a href="app_my_auth.html?tab=pending" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition relative overflow-hidden">
-            <div class="absolute top-4 right-4 w-2 h-2 bg-red-500 rounded-full"></div>
-            <div class="flex items-start">
-                <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-lg mr-3 flex-shrink-0 mt-0.5">
-                    <i class="fa-solid fa-key"></i>
-                </div>
-                <div class="flex-1">
-                    <div class="flex justify-between items-center mb-1 pr-4">
-                        <h3 class="font-bold text-gray-800 text-sm">新的授权请求</h3>
-                        <span class="text-[10px] text-gray-400">10:20</span>
-                    </div>
-                    <p class="text-xs text-gray-600 leading-relaxed mb-2">
-                        <span class="font-medium text-gray-800">市公积金中心</span> 正在申请获取您的“基础身份信息”、“社保信息”，用于办理公积金贷款业务。
-                    </p>
-                    <span class="text-[10px] text-purple-600 font-medium">去处理 <i class="fa-solid fa-angle-right"></i></span>
+                    <span class="text-[10px] text-red-600 font-medium">去查看 <i class="fa-solid fa-angle-right"></i></span>
                 </div>
             </div>
         </a>
+
 
         <!-- Unread Message: Data Claim -->
         <a href="app_my_data.html?tab=unclaimed" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition relative overflow-hidden">
@@ -96,23 +73,6 @@
             </div>
         </a>
 
-        <!-- Read Message: Data Update -->
-        <div class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 opacity-80">
-            <div class="flex items-start">
-                <div class="w-10 h-10 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center text-lg mr-3 flex-shrink-0 mt-0.5">
-                    <i class="fa-solid fa-rotate-right"></i>
-                </div>
-                <div class="flex-1">
-                    <div class="flex justify-between items-center mb-1">
-                        <h3 class="font-bold text-gray-800 text-sm">数据自动更新提醒</h3>
-                        <span class="text-[10px] text-gray-400">周一 09:00</span>
-                    </div>
-                    <p class="text-xs text-gray-500 leading-relaxed">
-                        您的“社保缴费记录”已于本月自动同步最新数据。
-                    </p>
-                </div>
-            </div>
-        </div>
 
         <!-- Read Message: Correction Complete -->
         <a href="app_correction_detail.html" class="block bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition opacity-80">

@@ -30,31 +30,22 @@
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-
                     <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
-                    <li><a href="admin_dashboard_results.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">组合检索</a></li>
-                    <li><a href="admin_tag_search.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">标签检索</a></li>
                     <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数图分析</a></li>
                 </ul>
             </li>
-            <!-- 认领数据管理 -->
+            <!-- 数据管理 -->
             <li>
                 <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
                     <div class="flex items-center">
-                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">认领数据管理</span>
+                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">数据管理</span>
                     </div>
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">目录管理</a></li>
+                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据目录管理</a></li>
                     <li><a href="admin_corrections.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据纠错处置</a></li>
                 </ul>
-            </li>
-            <!-- 自有数据管理 -->
-            <li>
-                <a href="admin_own_data_catalog.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-folder-open w-6"></i> <span class="ml-3">自有数据管理</span>
-                </a>
             </li>
             <!-- 授权管理 -->
             <li>
@@ -65,9 +56,8 @@
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_auth_templates.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">规则配置</a></li>
                     <li><a href="admin_auth_monitor.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">异常监控</a></li>
-                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证服务</a></li>
+                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证</a></li>
                     <li><a href="admin_auth_records.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">授权记录</a></li>
                 </ul>
             </li>
@@ -83,10 +73,10 @@
                         <i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
                     </a>
                 </li>
-            <!-- 监管统计 (Hidden) -->
+            <!-- 平台运营分析 -->
                 <li class="hidden">
                     <a href="admin_monitor_stats.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">监管统计</span>
+                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">平台运营分析</span>
                 </a>
             </li>
         </ul>
@@ -96,14 +86,14 @@
   <div class="flex-1 flex flex-col h-full">
     <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10">
       <div class="flex items-center text-gray-500">
-        <a href="./admin_corrections.html" class="mr-4 text-gray-500 hover:text-gray-800"><i class="fa-solid fa-arrow-left"></i></a>
-        <span class="text-sm">纠错管理 <span class="mx-2">/</span> <span class="text-gray-800 font-medium">工单详情</span></span>
-      </div>
+                <i class="fa-solid fa-arrow-left"></i>
+                <span class="text-sm">数据管理 <span class="mx-2">/</span> <a href="admin_corrections.html" class="hover:text-blue-600 transition">数据纠错处置</a> <span class="mx-2">/</span> <span class="text-gray-800 font-medium">工单详情</span></span>
+            </div>
       <div class="flex items-center space-x-4">
         <a href="./index.html" class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50">原型目录</a>
         <div class="flex items-center cursor-pointer ml-2 border-l border-gray-200 pl-4">
-          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">审</div>
-          <span class="text-sm font-medium">审核员</span>
+          <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">处理</div>
+          <span class="text-sm font-medium">处理员</span>
         </div>
       </div>
     </header>
@@ -111,28 +101,45 @@
     <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
       <div class="grid grid-cols-3 gap-6">
         <div class="col-span-2 space-y-6">
-          <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
+          <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5 relative overflow-hidden">
+            <!-- Decorative Background Element -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full -z-10 opacity-60"></div>
+            
             <div class="flex items-start justify-between gap-4">
               <div>
-                <div class="text-sm text-gray-500">工单号</div>
-                <div class="mt-1 text-xl font-bold text-gray-900 font-mono">CT-20251024-001</div>
-                <div class="mt-2 flex items-center gap-2">
-                  <span class="text-xs px-2 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-100">待审核</span>
-                  <span class="text-xs text-gray-500">提交时间：2025-10-24 10:12</span>
+                <div class="text-2xl font-bold text-gray-900 mt-1 tracking-wide">基础身份信息</div>
+                <div class="mt-4 flex items-center gap-3">
+                  <span class="text-[11px] px-2.5 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-100 font-medium tracking-wide">待处理</span>
+                  <span class="text-xs text-gray-500 flex items-center"><i class="fa-regular fa-clock mr-1.5"></i>提交时间：2025-10-24 10:12</span>
                 </div>
               </div>
-              <a href="./admin_user_profile.html" class="text-sm font-medium text-blue-600 hover:text-blue-800">查看用户档案</a>
             </div>
-            <div class="mt-5 grid grid-cols-2 gap-4">
-              <div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
-                <div class="text-xs text-gray-500">申请人</div>
-                <div class="mt-2 font-semibold text-gray-900">张三（阳光社区）</div>
-                <div class="mt-1 text-sm text-gray-600 font-mono">370781********1234</div>
+            <div class="mt-6 border border-gray-100 rounded-lg overflow-hidden">
+              <!-- 申请人信息区 -->
+              <div class="bg-gray-50 px-5 py-3 border-b border-gray-100 flex items-center justify-between">
+                <div class="text-sm font-bold text-gray-700"><i class="fa-regular fa-user mr-2 text-gray-400"></i>申请人信息</div>
+                <i class="fa-solid fa-eye-slash text-gray-400 cursor-pointer hover:text-blue-500 transition" id="globalEyeBtn" onclick="toggleGlobalMask()"></i>
               </div>
-              <div class="rounded-lg border border-gray-100 bg-gray-50 p-4">
-                <div class="text-xs text-gray-500">纠错对象</div>
-                <div class="mt-2 font-semibold text-gray-900">基础身份数据 / 婚姻状态</div>
-                <div class="mt-1 text-sm text-gray-600">数据项：基础信息</div>
+              <div class="p-5 bg-white flex items-center justify-between">
+                <div class="flex items-center gap-6">
+                  <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center font-bold text-lg">张</div>
+                    <div>
+                      <div class="text-sm font-bold text-gray-900 mask-text" data-value="张三" data-masked="张*">张*</div>
+                      <div class="text-xs text-gray-500 mt-0.5">申请人</div>
+                    </div>
+                  </div>
+                  <div class="h-8 w-px bg-gray-100"></div>
+                  <div>
+                    <div class="text-xs text-gray-500 mb-1">身份证号</div>
+                    <div class="text-sm font-mono text-gray-800 mask-text" data-value="370781199001011234" data-masked="370781********1234">370781********1234</div>
+                  </div>
+                  <div class="h-8 w-px bg-gray-100"></div>
+                  <div>
+                    <div class="text-xs text-gray-500 mb-1">手机号</div>
+                    <div class="text-sm font-mono text-gray-800 mask-text" data-value="13800135678" data-masked="138****5678">138****5678</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -171,23 +178,23 @@
 
         <div class="col-span-1 space-y-6">
           <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-5">
-            <div class="text-sm font-semibold text-gray-900">审核处理</div>
+            <div class="text-sm font-semibold text-gray-900">纠错处理</div>
             <div class="mt-4">
               <div class="text-xs text-gray-500 mb-2">处理动作</div>
               <div class="space-y-2 text-sm">
                 <label class="flex items-center gap-2">
                   <input type="radio" name="action" checked class="text-blue-600">
-                  <span>通过</span>
+                  <span>已处理</span>
                 </label>
                 <label class="flex items-center gap-2">
                   <input type="radio" name="action" class="text-blue-600">
-                  <span>驳回</span>
+                  <span>不予处理</span>
                 </label>
               </div>
             </div>
             <div class="mt-4">
-              <div class="text-xs text-gray-500 mb-2">审核意见</div>
-              <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500" rows="4" placeholder="请输入审核意见（驳回/需补充为必填）"></textarea>
+              <div class="text-xs text-gray-500 mb-2">处理备注</div>
+              <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500" rows="4" placeholder="请输入处理备注（驳回/需补充为必填）"></textarea>
             </div>
             <div class="mt-4 flex gap-2">
               <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">提交</button>
@@ -208,7 +215,7 @@
               <div class="flex items-start gap-3">
                 <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600"><i class="fa-solid fa-inbox"></i></div>
                 <div>
-                  <div class="font-medium text-gray-900">进入待审核</div>
+                  <div class="font-medium text-gray-900">进入待处理</div>
                   <div class="text-xs text-gray-500 mt-1">2025-10-24 10:12 · 系统</div>
                 </div>
               </div>
@@ -221,6 +228,28 @@
 
   
 <script src="admin_sidebar_logic.js"></script>
+<script>
+  function toggleGlobalMask() {
+    const globalEyeBtn = document.getElementById('globalEyeBtn');
+    const maskElements = document.querySelectorAll('.mask-text');
+    
+    if (globalEyeBtn.classList.contains('fa-eye-slash')) {
+        // 切换为明文显示
+        globalEyeBtn.classList.remove('fa-eye-slash');
+        globalEyeBtn.classList.add('fa-eye', 'text-blue-500');
+        maskElements.forEach(el => {
+            el.innerText = el.getAttribute('data-value');
+        });
+    } else {
+        // 切换为脱敏显示
+        globalEyeBtn.classList.remove('fa-eye', 'text-blue-500');
+        globalEyeBtn.classList.add('fa-eye-slash');
+        maskElements.forEach(el => {
+            el.innerText = el.getAttribute('data-masked');
+        });
+    }
+  }
+</script>
 </body>
 </html>
 

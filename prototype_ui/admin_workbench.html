@@ -7,10 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+        }
+        .ai-pulse-btn {
+            animation: pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
 
-    <!-- Sidebar placeholder (will be replaced by script if needed, but included here for completeness) -->
+    <!-- Sidebar placeholder -->
     <aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
     <div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
         <i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
@@ -33,31 +43,22 @@
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-
                     <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
-                    <li><a href="admin_dashboard_results.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">组合检索</a></li>
-                    <li><a href="admin_tag_search.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">标签检索</a></li>
                     <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数图分析</a></li>
                 </ul>
             </li>
-            <!-- 认领数据管理 -->
+            <!-- 数据管理 -->
             <li>
                 <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
                     <div class="flex items-center">
-                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">认领数据管理</span>
+                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">数据管理</span>
                     </div>
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">目录管理</a></li>
+                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据目录管理</a></li>
                     <li><a href="admin_corrections.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据纠错处置</a></li>
                 </ul>
-            </li>
-            <!-- 自有数据管理 -->
-            <li>
-                <a href="admin_own_data_catalog.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-folder-open w-6"></i> <span class="ml-3">自有数据管理</span>
-                </a>
             </li>
             <!-- 授权管理 -->
             <li>
@@ -68,9 +69,8 @@
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_auth_templates.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">规则配置</a></li>
                     <li><a href="admin_auth_monitor.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">异常监控</a></li>
-                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证服务</a></li>
+                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证</a></li>
                     <li><a href="admin_auth_records.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">授权记录</a></li>
                 </ul>
             </li>
@@ -86,22 +86,22 @@
                         <i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
                     </a>
                 </li>
-            <!-- 监管统计 (Hidden) -->
+            <!-- 平台运营分析 -->
                 <li class="hidden">
                     <a href="admin_monitor_stats.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">监管统计</span>
+                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">平台运营分析</span>
                 </a>
             </li>
         </ul>
     </div>
 </aside>
 
-    <div class="flex-1 flex flex-col h-full overflow-hidden">
+    <div class="flex-1 flex flex-col h-full overflow-hidden relative">
         <!-- Topbar -->
         <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
             <div class="flex items-center text-gray-500">
                 <i class="fa-solid fa-bars cursor-pointer hover:text-gray-800 mr-4"></i>
-                <span class="text-sm font-medium text-gray-800">智能工作台</span>
+                <span class="text-sm">工作台</span>
             </div>
             <div class="flex items-center space-x-4">
                 <a href="./index.html" class="text-sm px-3 py-1.5 border border-gray-200 rounded-lg hover:bg-gray-50">原型目录</a>
@@ -113,127 +113,520 @@
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
-            
-            <!-- AI Daily Briefing -->
-            <div class="bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-100 rounded-xl p-5 mb-6 relative overflow-hidden shadow-sm">
-                <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/40 rounded-full blur-3xl"></div>
-                <div class="absolute right-20 -bottom-10 w-32 h-32 bg-blue-200/40 rounded-full blur-2xl"></div>
-                
-                <div class="flex items-start relative z-10">
-                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-indigo-600 shadow-sm mr-4 flex-shrink-0">
-                        <i class="fa-solid fa-robot text-xl"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h2 class="text-lg font-bold text-gray-800 mb-2 flex items-center">
-                            AI 每日运营简报 <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded ml-2 font-normal border border-indigo-200">2025-10-25 生成</span>
-                        </h2>
-                        <div class="text-sm text-gray-700 leading-relaxed bg-white/60 p-3 rounded-lg border border-white/50 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8)]">
-                            <p class="mb-1"><span class="font-bold text-indigo-700">【核心指标】</span>昨日新增注册用户 <span class="font-bold text-green-600">342</span> 人，环比增长 12%；数据认领总量突破 <span class="font-bold text-blue-600">50万</span> 条。</p>
-                            <p class="mb-1"><span class="font-bold text-indigo-700">【异常预警】</span>昨日新增数据纠错工单 <span class="font-bold text-red-500">45</span> 笔（激增），主要集中在<span class="font-medium bg-yellow-100 px-1 rounded">“社保参保状态”</span>数据项。建议关注该数据源接口同步状态。</p>
-                            <p><span class="font-bold text-indigo-700">【安全风控】</span>成功拦截 <span class="font-bold">2</span> 起机构非工作时间异常拉取数据行为，已自动切断授权。</p>
-                        </div>
-                    </div>
+        <main class="flex-1 overflow-y-auto p-8 bg-slate-50 relative z-0">
+            <!-- Decorative Background Elements -->
+            <div class="absolute top-10 right-20 w-64 h-64 bg-blue-100/50 rounded-full blur-3xl z-0 pointer-events-none"></div>
+            <div class="absolute top-20 left-20 w-48 h-48 bg-indigo-100/50 rounded-full blur-3xl z-0 pointer-events-none"></div>
+
+            <!-- Welcome Header -->
+            <div class="relative z-10 flex items-center justify-between mb-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2 tracking-tight">下午好，管理员</h1>
+                </div>
+                <div class="bg-white border border-gray-200 px-4 py-2 rounded-xl text-gray-600 flex items-center shadow-sm">
+                    <i class="fa-regular fa-calendar mr-2 text-blue-500"></i>
+                    <span class="font-medium tracking-wide">2025年10月25日 星期五</span>
                 </div>
             </div>
 
             <!-- Key Metrics Overview -->
-            <div class="grid grid-cols-4 gap-4 mb-6">
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-                    <div class="text-gray-500 text-sm mb-2 flex items-center"><i class="fa-solid fa-users text-blue-500 mr-2"></i>累计注册用户</div>
-                    <div class="text-2xl font-bold text-gray-800">1,245,600</div>
-                    <div class="mt-2 text-xs text-green-500"><i class="fa-solid fa-arrow-trend-up mr-1"></i>较昨日 +342</div>
+            <div class="relative z-10 grid grid-cols-4 gap-6 mb-6">
+                <!-- Metric 1 -->
+                <div class="bg-white rounded-3xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-gray-100/50 p-6 relative overflow-hidden group hover:-translate-y-1">
+                    <div class="absolute right-0 top-0 w-24 h-24 bg-gradient-to-bl from-blue-100/80 to-transparent rounded-bl-full -z-10 transition-transform duration-500 group-hover:scale-125 pointer-events-none"></div>
+                    <div class="absolute -right-4 -top-4 text-blue-50/50 transform -rotate-12 group-hover:rotate-0 transition-transform duration-500 pointer-events-none">
+                        <i class="fa-solid fa-users text-7xl"></i>
+                    </div>
+                    <div class="flex items-center justify-between mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shadow-inner"><i class="fa-solid fa-users text-lg"></i></div>
+                    </div>
+                    <div class="text-gray-500 text-sm font-medium mb-1 relative z-10">累计注册用户(个)</div>
+                    <div class="text-2xl font-black text-gray-800 tracking-tight font-mono mb-1 relative z-10">1,245,600</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-                    <div class="text-gray-500 text-sm mb-2 flex items-center"><i class="fa-solid fa-database text-indigo-500 mr-2"></i>累计认领数据</div>
-                    <div class="text-2xl font-bold text-gray-800">5,820,104 <span class="text-sm font-normal text-gray-500 ml-1">条</span></div>
-                    <div class="mt-2 text-xs text-green-500"><i class="fa-solid fa-arrow-trend-up mr-1"></i>较昨日 +12,050</div>
+                <!-- Metric 2 -->
+                <div class="bg-white rounded-3xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-gray-100/50 p-6 relative overflow-hidden group hover:-translate-y-1">
+                    <div class="absolute right-0 top-0 w-24 h-24 bg-gradient-to-bl from-indigo-100/80 to-transparent rounded-bl-full -z-10 transition-transform duration-500 group-hover:scale-125 pointer-events-none"></div>
+                    <div class="absolute -right-4 -top-4 text-indigo-50/50 transform -rotate-12 group-hover:rotate-0 transition-transform duration-500 pointer-events-none">
+                        <i class="fa-solid fa-database text-7xl"></i>
+                    </div>
+                    <div class="flex items-center justify-between mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-inner"><i class="fa-solid fa-database text-lg"></i></div>
+                    </div>
+                    <div class="text-gray-500 text-sm font-medium mb-1 relative z-10">累计认领数据 (条)</div>
+                    <div class="text-2xl font-black text-gray-800 tracking-tight font-mono mb-1 relative z-10">5,820,104</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-                    <div class="text-gray-500 text-sm mb-2 flex items-center"><i class="fa-solid fa-cloud-arrow-up text-orange-500 mr-2"></i>自有数据上传</div>
-                    <div class="text-2xl font-bold text-gray-800">89,320 <span class="text-sm font-normal text-gray-500 ml-1">份</span></div>
-                    <div class="mt-2 text-xs text-green-500"><i class="fa-solid fa-arrow-trend-up mr-1"></i>较昨日 +540</div>
+                <!-- Metric 3 -->
+                <div class="bg-white rounded-3xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-gray-100/50 p-6 relative overflow-hidden group hover:-translate-y-1">
+                    <div class="absolute right-0 top-0 w-24 h-24 bg-gradient-to-bl from-orange-100/80 to-transparent rounded-bl-full -z-10 transition-transform duration-500 group-hover:scale-125 pointer-events-none"></div>
+                    <div class="absolute -right-4 -top-4 text-orange-50/50 transform -rotate-12 group-hover:rotate-0 transition-transform duration-500 pointer-events-none">
+                        <i class="fa-solid fa-cloud-arrow-up text-7xl"></i>
+                    </div>
+                    <div class="flex items-center justify-between mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shadow-inner"><i class="fa-solid fa-cloud-arrow-up text-lg"></i></div>
+                    </div>
+                    <div class="text-gray-500 text-sm font-medium mb-1 relative z-10">自有数据上传 (份)</div>
+                    <div class="text-2xl font-black text-gray-800 tracking-tight font-mono mb-1 relative z-10">89,320</div>
                 </div>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-                    <div class="text-gray-500 text-sm mb-2 flex items-center"><i class="fa-solid fa-key text-purple-500 mr-2"></i>累计生效授权</div>
-                    <div class="text-2xl font-bold text-gray-800">3,450,200 <span class="text-sm font-normal text-gray-500 ml-1">次</span></div>
-                    <div class="mt-2 text-xs text-green-500"><i class="fa-solid fa-arrow-trend-up mr-1"></i>较昨日 +8,900</div>
+                <!-- Metric 4 -->
+                <div class="bg-white rounded-3xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-gray-100/50 p-6 relative overflow-hidden group hover:-translate-y-1">
+                    <div class="absolute right-0 top-0 w-24 h-24 bg-gradient-to-bl from-purple-100/80 to-transparent rounded-bl-full -z-10 transition-transform duration-500 group-hover:scale-125 pointer-events-none"></div>
+                    <div class="absolute -right-4 -top-4 text-purple-50/50 transform -rotate-12 group-hover:rotate-0 transition-transform duration-500 pointer-events-none">
+                        <i class="fa-solid fa-key text-7xl"></i>
+                    </div>
+                    <div class="flex items-center justify-between mb-4 relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shadow-inner"><i class="fa-solid fa-key text-lg"></i></div>
+                    </div>
+                    <div class="text-gray-500 text-sm font-medium mb-1 relative z-10">累计生效授权 (次)</div>
+                    <div class="text-2xl font-black text-gray-800 tracking-tight font-mono mb-1 relative z-10">3,450,200</div>
                 </div>
             </div>
 
-            <!-- Pending Tasks and Quick Links -->
-            <div class="grid grid-cols-3 gap-6">
-                <!-- 待办事项 -->
-                <div class="col-span-2 bg-white rounded-lg shadow-sm border border-gray-100">
-                    <div class="p-4 border-b border-gray-100 flex justify-between items-center">
-                        <h3 class="text-base font-bold text-gray-800 border-l-4 border-blue-500 pl-2">待办事项</h3>
-                        <a href="#" class="text-sm text-blue-600 hover:text-blue-800">查看全部</a>
+            <!-- Side-by-Side Layout: Tasks, Shortcuts -->
+            <div class="relative z-10 grid grid-cols-2 gap-6">
+                
+                <!-- Left Column: 待办事项 -->
+                <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(0,0,0,0.04)] border border-gray-100/80 overflow-hidden flex flex-col">
+                    <div class="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-white relative z-10 shrink-0">
+                        <h3 class="text-base font-extrabold text-gray-800 flex items-center tracking-tight">
+                            待办事项 
+                            <span class="ml-2 bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full">2 项待办</span>
+                        </h3>
                     </div>
-                    <div class="p-0">
-                        <ul class="divide-y divide-gray-100">
-                            <li class="p-4 hover:bg-gray-50 transition flex justify-between items-center">
-                                <div class="flex items-start">
-                                    <div class="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center mr-3 mt-0.5"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="p-6 bg-white relative z-10 flex-1 flex flex-col justify-center">
+                        <ul class="space-y-5">
+                            <li class="p-5 rounded-xl bg-gray-50/50 hover:bg-white transition-all duration-300 group border border-gray-100 hover:border-orange-200 hover:shadow-md flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-100 to-orange-50 text-orange-600 flex items-center justify-center mr-4 shrink-0 shadow-sm border border-orange-100/50 group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-clipboard-question text-2xl"></i></div>
                                     <div>
-                                        <div class="text-sm font-medium text-gray-800">数据纠错工单待审核</div>
-                                        <div class="text-xs text-gray-500 mt-1">目前有 45 笔纠错工单处于待审核状态，已超出平均处理时效。</div>
+                                        <div class="text-lg font-bold text-gray-800 group-hover:text-orange-600 transition-colors mb-1.5">纠错工单待处理</div>
+                                        <div class="text-sm text-gray-500 leading-relaxed">有 <span class="text-orange-600 font-bold text-lg mx-1">45</span> 笔待处理。</div>
                                     </div>
                                 </div>
-                                <a href="admin_corrections.html" class="px-3 py-1.5 bg-blue-50 text-blue-600 rounded text-xs hover:bg-blue-100 transition">去处理</a>
+                                <a href="admin_corrections.html" class="px-6 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-bold hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all shadow-sm shrink-0">去处理</a>
                             </li>
-                            <li class="p-4 hover:bg-gray-50 transition flex justify-between items-center">
-                                <div class="flex items-start">
-                                    <div class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center mr-3 mt-0.5"><i class="fa-solid fa-shield-halved"></i></div>
+                            <li class="p-5 rounded-xl bg-gray-50/50 hover:bg-white transition-all duration-300 group border border-gray-100 hover:border-blue-200 hover:shadow-md flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 text-blue-600 flex items-center justify-center mr-4 shrink-0 shadow-sm border border-blue-100/50 group-hover:scale-110 transition-transform duration-300"><i class="fa-solid fa-chart-pie text-2xl"></i></div>
                                     <div>
-                                        <div class="text-sm font-medium text-gray-800">异常授权告警待确认</div>
-                                        <div class="text-xs text-gray-500 mt-1">AI 拦截了 2 起非工作时间异常拉取数据行为，需管理员复核。</div>
+                                        <div class="text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors mb-1.5">仪表盘分类待配置</div>
+                                        <div class="text-sm text-gray-500 leading-relaxed">新增了 3 个数据目录。</div>
                                     </div>
                                 </div>
-                                <a href="admin_auth_monitor.html" class="px-3 py-1.5 bg-blue-50 text-blue-600 rounded text-xs hover:bg-blue-100 transition">去确认</a>
-                            </li>
-                            <li class="p-4 hover:bg-gray-50 transition flex justify-between items-center">
-                                <div class="flex items-start">
-                                    <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mr-3 mt-0.5"><i class="fa-solid fa-file-contract"></i></div>
-                                    <div>
-                                        <div class="text-sm font-medium text-gray-800">新数据目录待发布</div>
-                                        <div class="text-xs text-gray-500 mt-1">"公积金贷款明细" 接口已接入，等待配置认领规则并发布。</div>
-                                    </div>
-                                </div>
-                                <a href="admin_catalog_config.html" class="px-3 py-1.5 bg-blue-50 text-blue-600 rounded text-xs hover:bg-blue-100 transition">去发布</a>
+                                <a href="admin_profile_dashboard_config.html" class="px-6 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-bold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-sm shrink-0">去配置</a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- 快捷入口 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100">
-                    <div class="p-4 border-b border-gray-100">
-                        <h3 class="text-base font-bold text-gray-800 border-l-4 border-blue-500 pl-2">快捷入口</h3>
+                <!-- Right Column: 快捷入口 -->
+                <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(0,0,0,0.04)] border border-gray-100/80 overflow-hidden relative flex flex-col">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-50 to-transparent rounded-bl-full -z-10 pointer-events-none"></div>
+                    <div class="px-5 py-4 border-b border-gray-100 bg-white relative z-10 shrink-0">
+                        <h3 class="text-base font-extrabold text-gray-800 tracking-tight">快捷入口</h3>
                     </div>
-                    <div class="p-4 grid grid-cols-2 gap-3">
-                        <a href="admin_dashboard.html" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition border border-transparent hover:border-blue-100 group">
-                            <i class="fa-solid fa-magnifying-glass text-2xl text-gray-400 group-hover:text-blue-500 mb-2"></i>
-                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">数据检索</span>
+                    <div class="p-6 grid grid-cols-2 gap-5 bg-gray-50/30 relative z-10 flex-1">
+                        <a href="admin_dashboard.html" class="flex flex-col items-center justify-center p-5 bg-white rounded-2xl hover:-translate-y-1 hover:shadow-xl transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                            <div class="w-14 h-14 rounded-full bg-gray-50 flex items-center justify-center mb-3 group-hover:bg-blue-600 transition-colors duration-300 shadow-inner group-hover:shadow-blue-500/40 relative z-10">
+                                <i class="fa-solid fa-magnifying-glass text-xl text-gray-500 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <span class="text-sm font-bold text-gray-700 group-hover:text-blue-700 relative z-10">数据检索</span>
                         </a>
-                        <a href="admin_data_map.html" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition border border-transparent hover:border-blue-100 group">
-                            <i class="fa-solid fa-map-location-dot text-2xl text-gray-400 group-hover:text-blue-500 mb-2"></i>
-                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">数图分析</span>
+                        <a href="admin_data_map.html" class="flex flex-col items-center justify-center p-5 bg-white rounded-2xl hover:-translate-y-1 hover:shadow-xl transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                            <div class="w-14 h-14 rounded-full bg-gray-50 flex items-center justify-center mb-3 group-hover:bg-purple-500 transition-colors duration-300 shadow-inner group-hover:shadow-purple-500/40 relative z-10">
+                                <i class="fa-solid fa-chart-line text-xl text-gray-500 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <span class="text-sm font-bold text-gray-700 group-hover:text-purple-600 relative z-10">数图分析</span>
                         </a>
-                        <a href="admin_catalog_config.html" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition border border-transparent hover:border-blue-100 group">
-                            <i class="fa-solid fa-pen-to-square text-2xl text-gray-400 group-hover:text-blue-500 mb-2"></i>
-                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">认领数据管理</span>
+                        <a href="admin_auth_monitor.html" class="flex flex-col items-center justify-center p-5 bg-white rounded-2xl hover:-translate-y-1 hover:shadow-xl transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-red-50/50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                            <div class="w-14 h-14 rounded-full bg-gray-50 flex items-center justify-center mb-3 group-hover:bg-red-500 transition-colors duration-300 shadow-inner group-hover:shadow-red-500/40 relative z-10">
+                                <i class="fa-solid fa-shield-halved text-xl text-gray-500 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <span class="text-sm font-bold text-gray-700 group-hover:text-red-600 relative z-10">异常监控</span>
                         </a>
-                        <a href="admin_own_data_catalog.html" class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition border border-transparent hover:border-blue-100 group">
-                            <i class="fa-solid fa-chart-pie text-2xl text-gray-400 group-hover:text-blue-500 mb-2"></i>
-                            <span class="text-sm font-medium text-gray-700 group-hover:text-blue-600">自有数据管理</span>
+                        <a href="admin_auth_records.html" class="flex flex-col items-center justify-center p-5 bg-white rounded-2xl hover:-translate-y-1 hover:shadow-xl transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-green-50/50 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                            <div class="w-14 h-14 rounded-full bg-gray-50 flex items-center justify-center mb-3 group-hover:bg-green-500 transition-colors duration-300 shadow-inner group-hover:shadow-green-500/40 relative z-10">
+                                <i class="fa-solid fa-list-check text-xl text-gray-500 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <span class="text-sm font-bold text-gray-700 group-hover:text-green-600 relative z-10">授权记录</span>
                         </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- AI Assistant Floating Button -->
+        <button onclick="toggleAIAssistant()" class="absolute right-6 bottom-1/3 w-14 h-14 bg-gradient-to-r from-blue-600 to-blue-600 text-white rounded-full shadow-lg hover:shadow-2xl flex items-center justify-center transition-transform hover:scale-110 z-40 group ai-pulse-btn">
+            <i class="fa-solid fa-robot text-2xl group-hover:rotate-12 transition-transform duration-300"></i>
+        </button>
+
+        <!-- AI Assistant Drawer Overlay -->
+        <div id="aiDrawerOverlay" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300" onclick="toggleAIAssistant()"></div>
+
+        <!-- AI Assistant Drawer -->
+        <div id="aiAssistantDrawer" class="fixed top-0 right-0 h-full w-[800px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col border-l border-gray-100">
+            <!-- Drawer Header -->
+            <div class="h-16 flex items-center justify-between px-6 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white shrink-0">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white mr-3 shadow-sm">
+                        <i class="fa-solid fa-robot text-sm"></i>
+                    </div>
+                    <span class="font-bold text-gray-800 text-lg">一人一档智能助手</span>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <div class="relative" id="historyDropdownContainer-workbench">
+                        <button onclick="toggleHistoryDropdown('workbench', event)" class="text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 transition px-3 py-1.5 rounded-lg text-sm font-medium flex items-center shadow-sm">
+                            <i class="fa-solid fa-clock-rotate-left mr-1.5"></i> 对话记录
+                            <i class="fa-solid fa-chevron-down ml-1.5 text-xs"></i>
+                        </button>
+                        <!-- History Dropdown -->
+                        <div id="historyDropdown-workbench" class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-100 hidden z-50 overflow-hidden transform origin-top-right transition-all">
+                            <div class="p-3 text-xs font-bold text-gray-500 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                                历史对话记录
+                                <span class="bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded text-[10px]">最近</span>
+                            </div>
+                            <div class="max-h-60 overflow-y-auto">
+                                <a href="#" class="block p-3 hover:bg-blue-50 border-b border-gray-50 transition group">
+                                    <div class="text-sm text-gray-800 font-medium truncate mb-1 group-hover:text-blue-600">查询张三的纠错工单进度</div>
+                                    <div class="text-xs text-gray-400">今天 10:24</div>
+                                </a>
+                                <a href="#" class="block p-3 hover:bg-blue-50 border-b border-gray-50 transition group">
+                                    <div class="text-sm text-gray-800 font-medium truncate mb-1 group-hover:text-blue-600">帮我找一下高新区65岁以上老人</div>
+                                    <div class="text-xs text-gray-400">今天 09:15</div>
+                                </a>
+                                <a href="#" class="block p-3 hover:bg-blue-50 transition group">
+                                    <div class="text-sm text-gray-800 font-medium truncate mb-1 group-hover:text-blue-600">生成一季度平台运营报告</div>
+                                    <div class="text-xs text-gray-400">昨天 16:30</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="startNewChat('aiMessageList')" class="text-white bg-blue-600 hover:bg-blue-700 transition px-3 py-1.5 rounded-lg text-sm font-medium flex items-center shadow-sm">
+                        <i class="fa-solid fa-plus mr-1.5 text-xs"></i> 创建对话
+                    </button>
+                    <div class="h-4 w-px bg-gray-200 mx-1"></div>
+                    <button onclick="toggleAIAssistant()" class="text-gray-400 hover:text-gray-600 transition w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 bg-white relative" id="aiMessageList">
+                <!-- AI Welcome Message -->
+                <div class="flex flex-col items-center justify-center h-full space-y-8 pb-20">
+                    <div class="text-center space-y-3">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 shadow-sm border border-blue-200 mx-auto mb-4">
+                            <i class="fa-solid fa-robot text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800 tracking-tight">我是智能AI助手</h2>
+                        <p class="text-gray-500 text-sm">请选择您需要使用的 AI 能力模型</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 w-full max-w-2xl mx-auto px-4">
+                        <!-- AI 语义检索 Card -->
+                        <div class="bg-white border border-gray-100 hover:border-blue-400 hover:shadow-lg rounded-2xl p-6 cursor-pointer transition-all duration-300 group relative overflow-hidden" onclick="handleAITaskClick('search')">
+                            <div class="absolute right-0 top-0 w-32 h-32 bg-gradient-to-bl from-blue-50 to-transparent rounded-bl-full -z-10 transition-transform duration-500 group-hover:scale-110 pointer-events-none"></div>
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors shadow-sm">
+                                <i class="fa-solid fa-magnifying-glass text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-blue-700 transition-colors">AI 语义检索</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed">通过自然语言输入，智能解析您的意图并快速在海量个人数据库中检索目标信息。</p>
+                        </div>
+
+                        <!-- AI 态势推演 Card -->
+                        <div class="bg-white border border-gray-100 hover:border-indigo-400 hover:shadow-lg rounded-2xl p-6 cursor-pointer transition-all duration-300 group relative overflow-hidden" onclick="handleAITaskClick('trend')">
+                            <div class="absolute right-0 top-0 w-32 h-32 bg-gradient-to-bl from-indigo-50 to-transparent rounded-bl-full -z-10 transition-transform duration-500 group-hover:scale-110 pointer-events-none"></div>
+                            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors shadow-sm">
+                                <i class="fa-solid fa-chart-line text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-indigo-700 transition-colors">AI 态势推演</h3>
+                            <p class="text-sm text-gray-500 leading-relaxed">利用图数据库和复杂关联网络，自动生成数据洞察图表与深度态势分析报告。</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-        </main>
+            <!-- Input Area with bottom-left Dropdown -->
+            <div class="p-5 border-t border-gray-100 bg-gray-50 shrink-0">
+                <div class="relative bg-white rounded-xl shadow-sm border border-gray-200 focus-within:border-blue-400 focus-within:ring-1 focus-within:ring-blue-400 transition-all hidden" id="workbenchAIInputArea">
+                    <textarea id="aiSearchInput" rows="3" placeholder="输入您的问题..." class="w-full bg-transparent border-none px-4 py-3 text-sm focus:outline-none resize-none"></textarea>
+                    
+                    <!-- Bottom Toolbar inside Input Area -->
+                    <div class="flex justify-between items-center px-3 pb-3">
+                        <div class="flex items-center space-x-2">
+                            <select id="workbenchAIModelSelect" class="bg-blue-50 border border-blue-100 text-blue-700 text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-400 cursor-pointer font-medium" onchange="switchAIModel(this.value)">
+                                <option value="search">🔍 AI 语义检索</option>
+                                <option value="trend">🪄 AI 态势推演</option>
+                                <option value="report" class="hidden">📊 AI 智能报告生成</option>
+                            </select>
+                            <div class="h-4 w-px bg-gray-200 mx-1"></div>
+                            
+                            <button class="text-gray-400 hover:text-blue-600 transition w-8 h-8 rounded flex items-center justify-center" title="语音输入"><i class="fa-solid fa-microphone text-sm"></i></button>
+                            <button class="text-gray-400 hover:text-blue-600 transition w-8 h-8 rounded flex items-center justify-center" title="上传附件"><i class="fa-solid fa-paperclip text-sm"></i></button>
+                            <button class="text-gray-400 hover:text-blue-600 transition px-2 py-1 rounded text-xs flex items-center" title="关联上下文">
+                                <i class="fa-regular fa-square-check mr-1"></i> 关联上下文
+                            </button>
+                        </div>
+                        
+                        <button class="bg-blue-600 text-white rounded-lg px-4 py-1.5 flex items-center justify-center hover:bg-blue-700 transition shadow-sm font-medium text-sm" onclick="performAIAssistantSearch()">
+                            发送 <i class="fa-solid fa-paper-plane ml-1.5 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Message when no business type is selected -->
+                <div id="workbenchAIPromptMessage" class="text-center py-4">
+                    <span class="text-sm text-gray-500 font-medium"><i class="fa-solid fa-arrow-up text-blue-500 mr-2 animate-bounce"></i>请先在上方选择业务类型</span>
+                </div>
+                <div class="text-center mt-2">
+                    <span class="text-[10px] text-gray-400">内容由 AI 生成，可能会产生误导，请核实关键信息</span>
+                </div>
+            </div>
+        </div>
+
     </div>
     
 <script src="admin_sidebar_logic.js"></script>
+<script>
+    const aiAssistantDrawer = document.getElementById('aiAssistantDrawer');
+    const aiDrawerOverlay = document.getElementById('aiDrawerOverlay');
+    const aiSearchInput = document.getElementById('aiSearchInput');
+
+    function toggleAIBriefing() {
+        const content = document.getElementById('aiBriefingContent');
+        const icon = document.getElementById('aiBriefingToggleIcon');
+        
+        if (content.classList.contains('max-h-[500px]')) {
+            // Collapse
+            content.classList.remove('max-h-[500px]', 'opacity-100', 'mt-4');
+            content.classList.add('max-h-0', 'opacity-0', 'mt-0');
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        } else {
+            // Expand
+            content.classList.remove('max-h-0', 'opacity-0', 'mt-0');
+            content.classList.add('max-h-[500px]', 'opacity-100', 'mt-4');
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        }
+    }
+
+    function toggleHistoryDropdown(id, event) {
+        if(event) event.stopPropagation();
+        const dropdown = document.getElementById('historyDropdown-' + id);
+        if (dropdown) {
+            if (dropdown.classList.contains('hidden')) {
+                // close other dropdowns first
+                document.querySelectorAll('[id^="historyDropdown-"]').forEach(el => el.classList.add('hidden'));
+                dropdown.classList.remove('hidden');
+                dropdown.classList.add('scale-100', 'opacity-100');
+            } else {
+                dropdown.classList.add('hidden');
+                dropdown.classList.remove('scale-100', 'opacity-100');
+            }
+        }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const dropdowns = document.querySelectorAll('[id^="historyDropdown-"]');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.classList.contains('hidden') && !dropdown.parentElement.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+
+    function startNewChat(listId) {
+        const messageList = document.getElementById(listId);
+        if (messageList) {
+            // Keep the first welcome message, remove the rest
+            const welcomeMsg = messageList.firstElementChild;
+            messageList.innerHTML = '';
+            if (welcomeMsg) {
+                messageList.appendChild(welcomeMsg);
+            }
+            
+            // Hide the input area again and reset it
+            const inputArea = document.getElementById('workbenchAIInputArea');
+            const promptMsg = document.getElementById('workbenchAIPromptMessage');
+            if (inputArea) inputArea.classList.add('hidden');
+            if (promptMsg) promptMsg.classList.remove('hidden');
+            
+            // Re-show the grid of options inside the welcomeMsg (if it was hidden)
+            const grid = welcomeMsg.querySelector('.grid');
+            if (grid) grid.classList.remove('hidden');
+        }
+    }
+
+    function toggleAIAssistant() {
+        if (aiAssistantDrawer.classList.contains('translate-x-full')) {
+            // Open Drawer
+            aiDrawerOverlay.classList.remove('hidden');
+            void aiDrawerOverlay.offsetWidth; // Trigger reflow
+            aiDrawerOverlay.classList.remove('opacity-0');
+            aiDrawerOverlay.classList.add('opacity-100');
+            
+            aiAssistantDrawer.classList.remove('translate-x-full');
+            aiAssistantDrawer.classList.add('translate-x-0');
+            
+            setTimeout(() => {
+                if(aiSearchInput) aiSearchInput.focus();
+            }, 300);
+        } else {
+            // Close Drawer
+            aiDrawerOverlay.classList.remove('opacity-100');
+            aiDrawerOverlay.classList.add('opacity-0');
+            
+            aiAssistantDrawer.classList.remove('translate-x-0');
+            aiAssistantDrawer.classList.add('translate-x-full');
+            
+            setTimeout(() => {
+                aiDrawerOverlay.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    function handleAITaskClick(taskType) {
+        // 移除跳转逻辑，只在本页面显示对应的输入框并记录状态
+        const inputArea = document.getElementById('workbenchAIInputArea');
+        const promptMsg = document.getElementById('workbenchAIPromptMessage');
+        const aiSearchInput = document.getElementById('aiSearchInput');
+        const modelSelect = document.getElementById('workbenchAIModelSelect');
+        
+        // 隐藏提示，显示输入框
+        if(promptMsg) promptMsg.classList.add('hidden');
+        if(inputArea) inputArea.classList.remove('hidden');
+        
+        // Hide the large selection grid and convert welcome message to a regular chat bubble
+        const messageList = document.getElementById('aiMessageList');
+        const welcomeContainer = messageList.firstElementChild;
+        if (welcomeContainer) {
+            const grid = welcomeContainer.querySelector('.grid');
+            if (grid && !grid.classList.contains('hidden')) {
+                grid.classList.add('hidden');
+                
+                // Add a small AI acknowledgment message based on selection
+                const taskName = taskType === 'search' ? 'AI 语义检索' : 'AI 态势推演';
+                const ackHtml = `
+                    <div class="flex items-start mt-6">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3 shrink-0 shadow-sm border border-blue-200">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-2xl rounded-tl-sm shadow-sm border border-blue-100 text-sm text-gray-700 max-w-[85%] leading-relaxed">
+                            好的，已为您切换到 <span class="font-bold text-blue-600">${taskName}</span> 模式。请在下方输入您的问题。
+                        </div>
+                    </div>
+                `;
+                messageList.insertAdjacentHTML('beforeend', ackHtml);
+            }
+        }
+        
+        if (modelSelect) {
+            modelSelect.value = taskType;
+        }
+        
+        // 更改 placeholder
+        if (taskType === 'search') {
+            aiSearchInput.placeholder = '当前为 AI 语义检索模式，请输入检索条件...';
+        } else if (taskType === 'trend') {
+            aiSearchInput.placeholder = '当前为 AI 态势推演模式，请输入推演关键词...';
+        } else if (taskType === 'report') {
+            aiSearchInput.placeholder = '当前为 AI 智能报告生成模式，请输入报告主题...';
+        }
+        
+        aiSearchInput.focus();
+    }
+
+    function switchAIModel(model) {
+        if (model === 'search') {
+            window.location.href = 'admin_dashboard.html?open_drawer=true';
+        } else if (model === 'trend') {
+            window.location.href = 'admin_data_map.html?open_drawer=true';
+        } else if (model === 'report') {
+            window.location.href = 'admin_monitor_stats.html?open_drawer=true';
+        }
+    }
+
+    function fillAIInput(text) {
+        if(aiSearchInput) {
+            aiSearchInput.value = text;
+            aiSearchInput.focus();
+        }
+    }
+
+    function performAIAssistantSearch() {
+        const query = aiSearchInput.value.trim();
+        if (!query) return;
+        
+        aiSearchInput.value = '';
+        const messageList = document.getElementById('aiMessageList');
+        
+        // Add User Message
+        const userMsgHtml = `
+            <div class="flex items-start justify-end">
+                <div class="bg-blue-600 p-4 rounded-2xl rounded-tr-sm shadow-sm text-sm text-white max-w-[85%] leading-relaxed">
+                    ${query}
+                </div>
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 ml-3 shrink-0 shadow-sm border border-blue-200">
+                    <span class="text-sm font-bold">管</span>
+                </div>
+            </div>
+        `;
+        messageList.insertAdjacentHTML('beforeend', userMsgHtml);
+        messageList.scrollTop = messageList.scrollHeight;
+        
+        // Add Loading
+        const loadingId = 'loading-' + Date.now();
+        const loadingHtml = `
+            <div class="flex items-start" id="${loadingId}">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3 shrink-0 shadow-sm border border-blue-200">
+                    <i class="fa-solid fa-robot text-lg"></i>
+                </div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    <div class="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                </div>
+            </div>
+        `;
+        messageList.insertAdjacentHTML('beforeend', loadingHtml);
+        messageList.scrollTop = messageList.scrollHeight;
+        
+        // Simulate response
+        setTimeout(() => {
+            document.getElementById(loadingId).remove();
+            const aiMsgHtml = `
+                <div class="flex items-start">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3 shrink-0 shadow-sm border border-blue-200">
+                        <i class="fa-solid fa-robot text-lg"></i>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 text-sm text-gray-700 max-w-[85%] leading-relaxed">
+                        抱歉，作为一个原型演示，我暂时无法直接回答复杂问题。您可以尝试点击上面的示例问题。
+                    </div>
+                </div>
+            `;
+            messageList.insertAdjacentHTML('beforeend', aiMsgHtml);
+            messageList.scrollTop = messageList.scrollHeight;
+        }, 1500);
+    }
+
+    // Check if we need to open drawer automatically (from redirect)
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('open_drawer') === 'true') {
+            setTimeout(() => {
+                toggleAIAssistant();
+            }, 500);
+        }
+    });
+</script>
 </body>
 </html>

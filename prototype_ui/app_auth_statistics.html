@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人专属数据空间App - 授权统计</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        body { background-color: #f3f4f6; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; padding-bottom: 20px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+<div class="mobile-view">
+    <!-- Topbar -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50">
+        <a href="app_my_auth.html" class="text-gray-600"><i class="fa-solid fa-angle-left text-xl"></i></a>
+        <h1 class="text-lg font-bold text-gray-800 absolute left-1/2 -translate-x-1/2">授权统计分析</h1>
+        <div class="w-6"></div> <!-- Placeholder for alignment -->
+    </div>
+
+    <div class="p-4 space-y-4">
+        
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-2 gap-3">
+            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-4 text-white shadow-sm">
+                <div class="text-xs text-blue-100 mb-1">累计授权次数</div>
+                <div class="text-2xl font-bold">128<span class="text-sm font-normal ml-1 text-blue-200">次</span></div>
+            </div>
+            <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-4 text-white shadow-sm">
+                <div class="text-xs text-indigo-100 mb-1">覆盖数据数量</div>
+                <div class="text-2xl font-bold">12<span class="text-sm font-normal ml-1 text-indigo-200">个</span></div>
+            </div>
+        </div>
+
+        <!-- Trend Chart (Line Chart) -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="font-bold text-gray-800 text-sm">近半年授权趋势</h3>
+                <span class="text-xs text-gray-400">次/月</span>
+            </div>
+            <div id="trendChart" class="w-full h-48"></div>
+        </div>
+
+
+        <!-- Usage Chart (Bar Chart) -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <h3 class="font-bold text-gray-800 text-sm mb-2">高频授权数据 Top 5</h3>
+            <div id="barChart" class="w-full h-56"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize ECharts
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // 1. Trend Chart (Line)
+        const trendChart = echarts.init(document.getElementById('trendChart'));
+        trendChart.setOption({
+            grid: { top: 10, right: 10, bottom: 20, left: 30 },
+            xAxis: {
+                type: 'category',
+                data: ['4月', '5月', '6月', '7月', '8月', '9月'],
+                axisLine: { lineStyle: { color: '#e5e7eb' } },
+                axisLabel: { color: '#6b7280', fontSize: 10 }
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: { lineStyle: { type: 'dashed', color: '#f3f4f6' } },
+                axisLabel: { color: '#9ca3af', fontSize: 10 }
+            },
+            series: [{
+                data: [12, 18, 15, 25, 22, 36],
+                type: 'line',
+                smooth: true,
+                symbol: 'circle',
+                symbolSize: 6,
+                itemStyle: { color: '#3b82f6' },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        { offset: 0, color: 'rgba(59, 130, 246, 0.3)' },
+                        { offset: 1, color: 'rgba(59, 130, 246, 0)' }
+                    ])
+                }
+            }],
+            tooltip: { trigger: 'axis', textStyle: { fontSize: 12 } }
+        });
+
+    
+        // 3. Bar Chart (Top Data)
+        const barChart = echarts.init(document.getElementById('barChart'));
+        barChart.setOption({
+            grid: { top: 10, right: 15, bottom: 20, left: 80 },
+            xAxis: {
+                type: 'value',
+                splitLine: { show: false },
+                axisLabel: { show: false }
+            },
+            yAxis: {
+                type: 'category',
+                data: ['公积金', '就诊记录', '社保', '学历', '基础身份'],
+                inverse: true,
+                axisLine: { show: false },
+                axisTick: { show: false },
+                axisLabel: { color: '#4b5563', fontSize: 10, margin: 10 }
+            },
+            series: [{
+                name: '授权次数',
+                type: 'bar',
+                data: [15, 22, 38, 45, 86],
+                barWidth: 12,
+                itemStyle: {
+                    borderRadius: [0, 6, 6, 0],
+                    color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                        { offset: 0, color: '#3b82f6' },
+                        { offset: 1, color: '#93c5fd' }
+                    ])
+                },
+                label: {
+                    show: true,
+                    position: 'right',
+                    color: '#6b7280',
+                    fontSize: 10
+                }
+            }],
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } }
+        });
+
+        // Handle resize
+        window.addEventListener('resize', function() {
+            trendChart.resize();
+            barChart.resize();
+        });
+    });
+</script>
+</body>
+</html>

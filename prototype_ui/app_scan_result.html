@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教育信息查阅</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f3f4f6; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; padding-bottom: 20px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        .eye-btn { color: #9ca3af; cursor: pointer; transition: color 0.2s; }
+        .eye-btn:hover { color: #3b82f6; }
+    </style>
+</head>
+<body>
+<div class="mobile-view">
+    <!-- Topbar -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50">
+        <a href="app_home.html" class="text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition"><i class="fa-solid fa-angle-left text-xl"></i></a>
+        <h1 class="text-lg font-bold text-gray-800 absolute left-1/2 -translate-x-1/2">教育信息查阅</h1>
+        <div class="w-8"></div>
+    </div>
+
+    <!-- Official Banner -->
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100 p-3 flex items-center justify-center">
+        <i class="fa-solid fa-shield-halved text-blue-500 mr-2"></i>
+        <span class="text-xs text-blue-700 font-medium">数据由 潍坊市大数据局 提供验证，真实有效</span>
+    </div>
+
+    <div class="p-4 space-y-4">
+        <!-- User Info Summary -->
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex items-center justify-between relative">
+            <div class="flex items-center">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h2 class="font-bold text-gray-900 text-lg mask-text" data-value="李雷" data-masked="李*">李*</h2>
+                        <i class="fa-solid fa-mars text-blue-500 text-sm"></i>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1 mask-text" data-value="370702199501011234" data-masked="370702********1234">370702********1234</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-end h-full justify-between">
+                <i class="fa-solid fa-eye-slash eye-btn text-lg mt-1" id="globalEyeBtn" onclick="toggleGlobalMask()"></i>
+                <p class="text-[10px] text-gray-400 mt-2">扫码时间：2025-10-25 10:05:22</p>
+            </div>
+        </div>
+
+        <!-- Data Content Section 1: 个人身份基础信息 -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-4">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                <div class="flex items-center text-gray-800 font-bold">
+                    <i class="fa-solid fa-id-card text-blue-500 mr-2"></i> 个人身份基础信息
+                </div>
+                <span class="text-[10px] text-gray-400">数据来源: 市公安局</span>
+            </div>
+            <div class="p-4 space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">姓名</span>
+                    <span class="text-sm font-medium text-gray-900 mask-text" data-value="李雷" data-masked="李*">李*</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">身份证号</span>
+                    <span class="text-sm font-mono text-gray-900 mask-text" data-value="370702199501011234" data-masked="370702********1234">370702********1234</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">性别</span>
+                    <span class="text-sm font-medium text-gray-900">男</span>
+                </div>
+                <div class="flex justify-between pt-1">
+                    <span class="text-sm text-gray-500">出生日期</span>
+                    <span class="text-sm font-medium text-gray-900">1995-01-01</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Content Section 2: 学历信息 -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-4">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                <div class="flex items-center text-gray-800 font-bold">
+                    <i class="fa-solid fa-graduation-cap text-green-500 mr-2"></i> 学历信息
+                </div>
+                <span class="text-[10px] text-gray-400">数据来源: 市教育局</span>
+            </div>
+            <div class="p-4 space-y-4">
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">学历类别</span>
+                    <span class="text-sm font-medium text-gray-900">普通高等教育</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">学历层次</span>
+                    <span class="text-sm font-medium text-gray-900">本科</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">毕业院校</span>
+                    <span class="text-sm font-medium text-gray-900">山东大学</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">专业</span>
+                    <span class="text-sm font-medium text-gray-900">计算机科学与技术</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">入学时间</span>
+                    <span class="text-sm font-medium text-gray-900">2014-09-01</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">毕业时间</span>
+                    <span class="text-sm font-medium text-gray-900">2018-06-30</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">学习形式</span>
+                    <span class="text-sm font-medium text-gray-900">普通全日制</span>
+                </div>
+                <div class="flex justify-between items-center pt-1">
+                    <span class="text-sm text-gray-500">学历证书编号</span>
+                    <span class="text-sm font-mono text-gray-900 mask-text" data-value="104221201805001234" data-masked="104221********1234">104221********1234</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Content Section 3: 学位信息 -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="bg-gray-50 px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                <div class="flex items-center text-gray-800 font-bold">
+                    <i class="fa-solid fa-award text-purple-500 mr-2"></i> 学位信息
+                </div>
+                <span class="text-[10px] text-gray-400">数据来源: 市教育局</span>
+            </div>
+            <div class="p-4 space-y-4">
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">学位级别</span>
+                    <span class="text-sm font-medium text-gray-900">学士</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">学位名称</span>
+                    <span class="text-sm font-medium text-gray-900">工学学士</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">授予院校</span>
+                    <span class="text-sm font-medium text-gray-900">山东大学</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-50 pb-3">
+                    <span class="text-sm text-gray-500">授予时间</span>
+                    <span class="text-sm font-medium text-gray-900">2018-07-01</span>
+                </div>
+                <div class="flex justify-between items-center pt-1">
+                    <span class="text-sm text-gray-500">学位证书编号</span>
+                    <span class="text-sm font-mono text-gray-900 mask-text" data-value="1042242018001234" data-masked="104224******1234">104224******1234</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-6">
+            <button class="w-full bg-blue-50 text-blue-600 border border-blue-100 font-medium py-3 rounded-xl shadow-sm hover:bg-blue-100 transition" onclick="window.location.href='app_home.html'">
+                完成查阅并返回
+            </button>
+            <p class="text-[10px] text-gray-400 mt-3">本页面仅展示用户授权允许查阅的数据字段</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 全局切换数据脱敏/明文展示
+    function toggleGlobalMask() {
+        const globalEyeBtn = document.getElementById('globalEyeBtn');
+        const maskElements = document.querySelectorAll('.mask-text');
+        
+        if (globalEyeBtn.classList.contains('fa-eye-slash')) {
+            // 切换为明文状态
+            globalEyeBtn.classList.remove('fa-eye-slash');
+            globalEyeBtn.classList.add('fa-eye');
+            globalEyeBtn.classList.add('text-blue-500'); // 高亮显示正在查看明文
+            
+            maskElements.forEach(el => {
+                el.innerText = el.getAttribute('data-value');
+            });
+        } else {
+            // 切换为脱敏状态
+            globalEyeBtn.classList.remove('fa-eye');
+            globalEyeBtn.classList.remove('text-blue-500');
+            globalEyeBtn.classList.add('fa-eye-slash');
+            
+            maskElements.forEach(el => {
+                el.innerText = el.getAttribute('data-masked');
+            });
+        }
+    }
+
+    // 添加水印
+    function createWatermark(text) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 220;
+        canvas.height = 160;
+        const ctx = canvas.getContext('2d');
+        
+        ctx.translate(110, 80);
+        ctx.rotate(-25 * Math.PI / 180);
+        ctx.font = '14px sans-serif';
+        ctx.fillStyle = 'rgba(156, 163, 175, 0.2)'; // text-gray-400 with 20% opacity
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, 0, 0);
+        
+        const watermarkDiv = document.createElement('div');
+        watermarkDiv.style.position = 'absolute';
+        watermarkDiv.style.top = '0';
+        watermarkDiv.style.left = '0';
+        watermarkDiv.style.width = '100%';
+        watermarkDiv.style.height = '100%';
+        watermarkDiv.style.backgroundImage = `url(${canvas.toDataURL('image/png')})`;
+        watermarkDiv.style.pointerEvents = 'none';
+        watermarkDiv.style.zIndex = '40';
+        
+        document.querySelector('.mobile-view').appendChild(watermarkDiv);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 模拟扫码者的姓名和手机号
+        createWatermark('张三 13800138000');
+    });
+</script>
+</body>
+</html>

@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>监管统计 - 一人一档后台</title>
+    <title>平台运营分析 - 一人一档后台</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); }
+        }
+        .ai-pulse-btn {
+            animation: pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1);
+        }
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
 
@@ -33,31 +43,22 @@
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-
                     <li><a href="admin_dashboard.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据检索</a></li>
-                    <li><a href="admin_dashboard_results.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">组合检索</a></li>
-                    <li><a href="admin_tag_search.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">标签检索</a></li>
                     <li><a href="admin_data_map.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数图分析</a></li>
                 </ul>
             </li>
-            <!-- 认领数据管理 -->
+            <!-- 数据管理 -->
             <li>
                 <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition cursor-pointer" onclick="toggleMenu(this)">
                     <div class="flex items-center">
-                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">认领数据管理</span>
+                        <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">数据管理</span>
                     </div>
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">目录管理</a></li>
+                    <li><a href="admin_catalog_config.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据目录管理</a></li>
                     <li><a href="admin_corrections.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">数据纠错处置</a></li>
                 </ul>
-            </li>
-            <!-- 自有数据管理 -->
-            <li>
-                <a href="admin_own_data_catalog.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-folder-open w-6"></i> <span class="ml-3">自有数据管理</span>
-                </a>
             </li>
             <!-- 授权管理 -->
             <li>
@@ -68,9 +69,8 @@
                     <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
                 </div>
                 <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
-                    <li><a href="admin_auth_templates.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">规则配置</a></li>
                     <li><a href="admin_auth_monitor.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">异常监控</a></li>
-                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证服务</a></li>
+                    <li><a href="admin_auth_blockchain.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">可信存证</a></li>
                     <li><a href="admin_auth_records.html" class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full">授权记录</a></li>
                 </ul>
             </li>
@@ -86,10 +86,10 @@
                         <i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
                     </a>
                 </li>
-            <!-- 监管统计 (Hidden) -->
+            <!-- 平台运营分析 -->
                 <li class="hidden">
                     <a href="admin_monitor_stats.html" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">监管统计</span>
+                    <i class="fa-solid fa-chart-line w-6"></i> <span class="ml-3">平台运营分析（非必要）</span>
                 </a>
             </li>
         </ul>
@@ -100,53 +100,159 @@
         <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
             <div class="flex items-center text-gray-500">
                 <i class="fa-solid fa-bars cursor-pointer hover:text-gray-800 mr-4"></i>
-                <span class="text-sm font-medium text-gray-800">监管统计综合大屏</span>
+                <span class="text-sm font-medium text-gray-800">平台运营分析大屏</span>
             </div>
-            <!-- ... -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center cursor-pointer ml-4 border-gray-200 pl-4">
+                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">管</div>
+                    <span class="text-sm font-medium">超级管理员</span>
+                </div>
+            </div>
         </header>
 
         <main class="flex-1 overflow-y-auto p-6 bg-gray-50">
             <!-- KPIs -->
-            <div class="grid grid-cols-4 gap-4 mb-6">
+            <div class="grid grid-cols-3 gap-4 mb-6">
                 <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-                    <div class="text-gray-500 text-sm mb-2">平台累计用户</div>
-                    <div class="text-2xl font-bold text-gray-800">2,154,390</div>
-                    <div class="mt-2 text-xs text-green-500">+12% 同比增长</div>
+                    <div class="text-gray-500 text-sm mb-2 flex items-center"><i class="fa-solid fa-user-check text-blue-500 mr-2"></i>今日新增用户</div>
+                    <div class="text-2xl font-bold text-gray-800">24,590</div>
                 </div>
                 <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-                    <div class="text-gray-500 text-sm mb-2">总认领数据量 (条)</div>
-                    <div class="text-2xl font-bold text-gray-800">18,502,400</div>
-                    <div class="mt-2 text-xs text-green-500">+5.4% 同比增长</div>
+                    <div class="text-gray-500 text-sm mb-2 flex items-center"><i class="fa-solid fa-stopwatch text-green-500 mr-2"></i>今日认领数据</div>
+                    <div class="text-2xl font-bold text-gray-800">124 <span class="text-sm font-normal text-gray-500 ml-1">个</span></div>
                 </div>
                 <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-                    <div class="text-gray-500 text-sm mb-2">总服务调用次数 (次)</div>
-                    <div class="text-2xl font-bold text-blue-600">45,892,100</div>
-                    <div class="mt-2 text-xs text-green-500">+22% 同比增长</div>
-                </div>
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-                    <div class="text-gray-500 text-sm mb-2">纠错处置率</div>
-                    <div class="text-2xl font-bold text-gray-800">98.5%</div>
-                    <div class="mt-2 text-xs text-gray-500">平均处理时长 1.2 天</div>
+                    <div class="text-gray-500 text-sm mb-2 flex items-center"><i class="fa-solid fa-bolt text-orange-500 mr-2"></i>今日授权数量</div>
+                    <div class="text-2xl font-bold text-blue-600">1,250 <span class="text-sm font-normal text-gray-500 ml-1">个</span></div>
                 </div>
             </div>
 
             <!-- Charts -->
             <div class="grid grid-cols-2 gap-6 mb-6">
                 <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="text-base font-bold text-gray-800 mb-4">各部门数据认领情况排名 (Top 5)</h3>
+                    <h3 class="text-base font-bold text-gray-800 mb-4">数据认领情况排名 (Top 5)</h3>
                     <div id="deptChart" style="width: 100%; height: 300px;"></div>
                 </div>
                 <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="text-base font-bold text-gray-800 mb-4">应用服务调用热度</h3>
+                    <h3 class="text-base font-bold text-gray-800 mb-4">授权对象分布</h3>
                     <div id="serviceChart" style="width: 100%; height: 300px;"></div>
                 </div>
             </div>
             
             <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100">
-                <h3 class="text-base font-bold text-gray-800 mb-4">全平台月度活跃度趋势 (MAU)</h3>
+                <h3 class="text-base font-bold text-gray-800 mb-4">月度新增用户趋势</h3>
                 <div id="mauChart" style="width: 100%; height: 300px;"></div>
             </div>
         </main>
+        <!-- AI Assistant Floating Button -->
+        <button onclick="toggleAIDrawer()" class="absolute right-6 bottom-1/3 w-14 h-14 bg-gradient-to-r from-blue-600 to-blue-600 text-white rounded-full shadow-lg hover:shadow-2xl flex items-center justify-center transition-transform hover:scale-110 z-40 group ai-pulse-btn">
+            <i class="fa-solid fa-wand-magic-sparkles text-2xl group-hover:rotate-12 transition-transform duration-300"></i>
+        </button>
+
+        <!-- AI Assistant Drawer Overlay -->
+        <div id="aiDrawerOverlay" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300" onclick="toggleAIDrawer()"></div>
+
+        <!-- AI Assistant Drawer -->
+        <div id="aiDrawer" class="fixed top-0 right-0 h-full w-[800px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col border-l border-gray-100">
+            
+            <!-- Drawer Header -->
+            <div class="h-16 flex items-center justify-between px-6 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white shrink-0">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white mr-3 shadow-sm">
+                        <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+                    </div>
+                    <span class="font-bold text-gray-800 text-lg">智能分析报告生成助手</span>
+                    <span class="ml-3 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded border border-blue-200">分析引擎</span>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <div class="relative" id="historyDropdownContainer-monitor">
+                        <button onclick="toggleHistoryDropdown('monitor', event)" class="text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 transition px-3 py-1.5 rounded-lg text-sm font-medium flex items-center shadow-sm">
+                            <i class="fa-solid fa-clock-rotate-left mr-1.5"></i> 对话记录
+                            <i class="fa-solid fa-chevron-down ml-1.5 text-xs"></i>
+                        </button>
+                        <!-- History Dropdown -->
+                        <div id="historyDropdown-monitor" class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-100 hidden z-50 overflow-hidden transform origin-top-right transition-all">
+                            <div class="p-3 text-xs font-bold text-gray-500 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                                历史对话记录
+                                <span class="bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded text-[10px]">最近</span>
+                            </div>
+                            <div class="max-h-60 overflow-y-auto">
+                                <a href="#" class="block p-3 hover:bg-blue-50 border-b border-gray-50 transition group">
+                                    <div class="text-sm text-gray-800 font-medium truncate mb-1 group-hover:text-blue-600">生成本季度分析报告</div>
+                                    <div class="text-xs text-gray-400">今天 10:24</div>
+                                </a>
+                                <a href="#" class="block p-3 hover:bg-blue-50 border-b border-gray-50 transition group">
+                                    <div class="text-sm text-gray-800 font-medium truncate mb-1 group-hover:text-blue-600">重点分析服务调用异常情况</div>
+                                    <div class="text-xs text-gray-400">今天 09:15</div>
+                                </a>
+                                <a href="#" class="block p-3 hover:bg-blue-50 transition group">
+                                    <div class="text-sm text-gray-800 font-medium truncate mb-1 group-hover:text-blue-600">生成9月份平台运营报告</div>
+                                    <div class="text-xs text-gray-400">上个月</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="startNewChat('aiMessageList')" class="text-white bg-blue-600 hover:bg-blue-700 transition px-3 py-1.5 rounded-lg text-sm font-medium flex items-center shadow-sm">
+                        <i class="fa-solid fa-plus mr-1.5 text-xs"></i> 创建对话
+                    </button>
+                    <div class="h-4 w-px bg-gray-200 mx-1"></div>
+                    <button onclick="toggleAIDrawer()" class="text-gray-400 hover:text-gray-600 transition w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 bg-white relative" id="aiMessageList">
+                <!-- AI Welcome Message -->
+                <div class="flex items-start">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3 shrink-0 shadow-sm border border-blue-200">
+                        <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-2xl rounded-tl-sm shadow-sm border border-blue-100 text-sm text-gray-700 max-w-[85%] leading-relaxed">
+                        您好！我是智能分析助手。您可以随时让我为您生成最新的《平台运营分析报告》。
+                        <div class="mt-3 space-y-2">
+                            <button onclick="startAIGeneration('✨ 立即生成本月分析报告')" class="block w-full text-left px-4 py-2 bg-white text-blue-700 rounded-lg border border-blue-100 hover:border-blue-300 hover:shadow-sm transition">✨ 立即生成本月分析报告</button>
+                            <button onclick="startAIGeneration('✨ 立即生成本季度分析报告')" class="block w-full text-left px-4 py-2 bg-white text-blue-700 rounded-lg border border-blue-100 hover:border-blue-300 hover:shadow-sm transition">✨ 立即生成本季度分析报告</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area with bottom-left Dropdown -->
+            <div class="p-5 border-t border-gray-100 bg-gray-50 shrink-0">
+                <div class="relative bg-white rounded-xl shadow-sm border border-gray-200 focus-within:border-blue-400 focus-within:ring-1 focus-within:ring-blue-400 transition-all">
+                    <textarea id="aiSearchInput" rows="3" placeholder="或者输入您的特定报告需求，例如：重点分析服务调用异常情况..." class="w-full bg-transparent border-none px-4 py-3 text-sm focus:outline-none resize-none"></textarea>
+                    
+                    <!-- Bottom Toolbar inside Input Area -->
+                    <div class="flex justify-between items-center px-3 pb-3">
+                        <div class="flex items-center space-x-2">
+                            <!-- AI Model Selector Dropdown -->
+                            <select class="bg-blue-50 border border-blue-100 text-blue-700 text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-400 cursor-pointer font-medium" onchange="switchAIModel(this.value)">
+                                <option value="search">🔍 AI 语义检索</option>
+                                <option value="trend">🪄 AI 态势推演</option>
+                                <option value="report" class="hidden" selected>📊 AI 智能报告生成</option>
+                            </select>
+                            
+                            <div class="h-4 w-px bg-gray-200 mx-1"></div>
+                            
+                            <button class="text-gray-400 hover:text-blue-600 transition w-8 h-8 rounded flex items-center justify-center" title="语音输入"><i class="fa-solid fa-microphone text-sm"></i></button>
+                            <button class="text-gray-400 hover:text-blue-600 transition w-8 h-8 rounded flex items-center justify-center" title="上传附件"><i class="fa-solid fa-paperclip text-sm"></i></button>
+                        </div>
+                        
+                        <button class="bg-blue-600 text-white rounded-lg px-4 py-1.5 flex items-center justify-center hover:bg-blue-700 transition shadow-sm font-medium text-sm" onclick="startAIGeneration()">
+                            生成 <i class="fa-solid fa-paper-plane ml-1.5 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <span class="text-[10px] text-gray-400">内容由 AI 生成，可能会产生误导，请核实关键信息</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="admin_sidebar_logic.js"></script>
@@ -158,7 +264,7 @@
                 tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
                 grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
                 xAxis: { type: 'value' },
-                yAxis: { type: 'category', data: ['卫健委', '人社局', '公安局', '医保局', '公积金中心'].reverse() },
+                yAxis: { type: 'category', data: ['人口基础数据', '婚姻数据信息', '学历信息', '社保信息', '公积金信息'].reverse() },
                 series: [{
                     name: '认领量(万条)',
                     type: 'bar',
@@ -175,11 +281,8 @@
                     radius: ['40%', '70%'],
                     itemStyle: { borderRadius: 10, borderColor: '#fff', borderWidth: 2 },
                     data: [
-                        { value: 1048, name: '一网通办', itemStyle: {color: '#3b82f6'} },
-                        { value: 735, name: '社保查询', itemStyle: {color: '#10b981'} },
-                        { value: 580, name: '公积金贷款', itemStyle: {color: '#f59e0b'} },
-                        { value: 484, name: '就医结算', itemStyle: {color: '#ef4444'} },
-                        { value: 300, name: '其他', itemStyle: {color: '#9ca3af'} }
+                        { value: 1048, name: '个人授权', itemStyle: {color: '#3b82f6'} },
+                        { value: 735, name: '应用授权', itemStyle: {color: '#10b981'} }
                     ]
                 }]
             });
@@ -209,6 +312,211 @@
                 mauChart.resize();
             });
         });
+
+        // AI Report Generation Logic
+        const aiDrawer = document.getElementById('aiDrawer');
+        const aiDrawerOverlay = document.getElementById('aiDrawerOverlay');
+        const aiSearchInput = document.getElementById('aiSearchInput');
+
+        function toggleHistoryDropdown(id, event) {
+            if(event) event.stopPropagation();
+            const dropdown = document.getElementById('historyDropdown-' + id);
+            if (dropdown) {
+                if (dropdown.classList.contains('hidden')) {
+                    // close other dropdowns first
+                    document.querySelectorAll('[id^="historyDropdown-"]').forEach(el => el.classList.add('hidden'));
+                    dropdown.classList.remove('hidden');
+                    dropdown.classList.add('scale-100', 'opacity-100');
+                } else {
+                    dropdown.classList.add('hidden');
+                    dropdown.classList.remove('scale-100', 'opacity-100');
+                }
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdowns = document.querySelectorAll('[id^="historyDropdown-"]');
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.classList.contains('hidden') && !dropdown.parentElement.contains(event.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+        });
+
+        function startNewChat(listId) {
+            const messageList = document.getElementById(listId);
+            if (messageList) {
+                // Keep the first welcome message, remove the rest
+                const welcomeMsg = messageList.firstElementChild;
+                messageList.innerHTML = '';
+                if (welcomeMsg) {
+                    messageList.appendChild(welcomeMsg);
+                }
+            }
+        }
+
+        function toggleAIDrawer() {
+            if (aiDrawer.classList.contains('translate-x-full')) {
+                aiDrawerOverlay.classList.remove('hidden');
+                void aiDrawerOverlay.offsetWidth;
+                aiDrawerOverlay.classList.remove('opacity-0');
+                aiDrawerOverlay.classList.add('opacity-100');
+                
+                aiDrawer.classList.remove('translate-x-full');
+                aiDrawer.classList.add('translate-x-0');
+                
+                setTimeout(() => {
+                    if(aiSearchInput) aiSearchInput.focus();
+                }, 300);
+            } else {
+                aiDrawerOverlay.classList.remove('opacity-100');
+                aiDrawerOverlay.classList.add('opacity-0');
+                
+                aiDrawer.classList.remove('translate-x-0');
+                aiDrawer.classList.add('translate-x-full');
+                
+                setTimeout(() => {
+                    aiDrawerOverlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function switchAIModel(model) {
+            if (model === 'assistant') {
+                window.location.href = 'admin_workbench.html?open_drawer=true';
+            } else if (model === 'search') {
+                window.location.href = 'admin_dashboard.html?open_drawer=true';
+            }
+        }
+
+        // Check if we need to open drawer automatically (from redirect)
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('open_drawer') === 'true') {
+                setTimeout(() => {
+                    toggleAIDrawer();
+                }, 500);
+            }
+        });
+
+        function startAIGeneration(text) {
+            const messageList = document.getElementById('aiMessageList');
+            let query = text;
+            
+            if (!query && aiSearchInput) {
+                query = aiSearchInput.value.trim();
+                aiSearchInput.value = '';
+            }
+            
+            if (!query) query = '✨ 立即生成本季度分析报告';
+            
+            // Add user request message
+            const userMsgHtml = `
+                <div class="flex items-start justify-end">
+                    <div class="bg-blue-600 p-4 rounded-2xl rounded-tr-sm shadow-sm text-sm text-white max-w-[85%] leading-relaxed">
+                        ${query}
+                    </div>
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 ml-3 shrink-0 shadow-sm border border-blue-200">
+                        <span class="text-sm font-bold">管</span>
+                    </div>
+                </div>
+            `;
+            messageList.insertAdjacentHTML('beforeend', userMsgHtml);
+            messageList.scrollTop = messageList.scrollHeight;
+
+            // Add loading state message
+            const loadingId = 'loading-' + Date.now();
+            const loadingMsgHtml = `
+                <div class="flex items-start" id="${loadingId}">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3 shrink-0 shadow-sm border border-blue-200">
+                        <i class="fa-solid fa-wand-magic-sparkles text-lg animate-pulse"></i>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl rounded-tl-sm shadow-sm border border-blue-100 text-sm text-gray-700 w-full max-w-[85%]">
+                        <div class="flex flex-col items-center justify-center py-2">
+                            <div class="relative w-12 h-12 mb-3">
+                                <div class="absolute inset-0 border-2 border-blue-100 rounded-full"></div>
+                                <div class="absolute inset-0 border-2 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
+                                <i class="fa-solid fa-robot absolute inset-0 flex items-center justify-center text-blue-600 animate-pulse"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-1" id="title-${loadingId}">正在提取全平台图表数据...</h4>
+                            <p class="text-xs text-gray-500 text-center" id="desc-${loadingId}">分析活跃度、服务调用及各部门认领情况</p>
+                            
+                            <div class="w-full bg-gray-100 rounded-full h-1.5 mt-4 overflow-hidden">
+                                <div class="bg-gradient-to-r from-blue-500 to-blue-500 h-1.5 rounded-full transition-all duration-500 ease-out w-0" id="progress-${loadingId}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messageList.insertAdjacentHTML('beforeend', loadingMsgHtml);
+            messageList.scrollTop = messageList.scrollHeight;
+
+            const progressBar = document.getElementById(`progress-${loadingId}`);
+            const title = document.getElementById(`title-${loadingId}`);
+            const desc = document.getElementById(`desc-${loadingId}`);
+
+            // Simulation steps
+            setTimeout(() => {
+                progressBar.style.width = '30%';
+                title.innerText = '正在进行深度数据洞察...';
+                desc.innerText = 'AI 模型正在识别数据增长趋势及异常情况';
+            }, 1500);
+
+            setTimeout(() => {
+                progressBar.style.width = '70%';
+                title.innerText = '正在生成报告排版...';
+                desc.innerText = '正在将图表及文字结论组合生成最终文档';
+            }, 3000);
+
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+            }, 4500);
+
+            // Replace loading with result
+            setTimeout(() => {
+                document.getElementById(loadingId).remove();
+                
+                const resultMsgHtml = `
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3 shrink-0 shadow-sm border border-blue-200">
+                            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl rounded-tl-sm shadow-sm border border-blue-100 text-sm text-gray-700 w-full max-w-[85%] leading-relaxed">
+                            <div class="flex items-center mb-3 text-green-600 font-bold text-base">
+                                <i class="fa-solid fa-check-circle mr-2"></i> 报告生成成功！
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">已自动提取各项统计图表数据，并生成带有深度洞察结论的图文报告。</p>
+                            
+                            <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4 flex items-center shadow-sm">
+                                <div class="w-10 h-12 bg-white rounded-lg flex items-center justify-center text-blue-600 mr-4 shrink-0 shadow-sm border border-blue-100">
+                                    <i class="fa-solid fa-file-pdf text-xl"></i>
+                                </div>
+                                <div class="flex-1 overflow-hidden">
+                                    <p class="text-sm font-bold text-gray-800 truncate mb-1">个人数据空间运营分析报告_最新</p>
+                                    <p class="text-xs text-gray-500">深度洞察结论 · 2.4 MB</p>
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-3 w-full">
+                                <button class="flex-1 py-2.5 bg-white border border-blue-200 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-50 transition flex items-center justify-center shadow-sm" onclick="downloadReport('word')">
+                                    <i class="fa-solid fa-file-word mr-2"></i> 下载 Word
+                                </button>
+                                <button class="flex-1 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 shadow-sm transition flex items-center justify-center" onclick="downloadReport('pdf')">
+                                    <i class="fa-solid fa-download mr-2"></i> 下载 PDF
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                messageList.insertAdjacentHTML('beforeend', resultMsgHtml);
+                messageList.scrollTop = messageList.scrollHeight;
+            }, 5000);
+        }
+
+        function downloadReport(type) {
+            alert(`《个人数据空间运营分析报告》${type.toUpperCase()} 版本已开始下载，请直接用于领导汇报。`);
+        }
     </script>
 </body>
 </html>

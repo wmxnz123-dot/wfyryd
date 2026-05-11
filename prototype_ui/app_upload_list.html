@@ -24,12 +24,34 @@
       <div class="mt-3 flex items-center gap-3">
         <div class="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 flex items-center gap-2">
           <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
-          <input class="bg-transparent text-sm outline-none w-full" placeholder="检索目录名称">
+          <input class="bg-transparent text-sm outline-none w-full" placeholder="检索数据名称">
         </div>
+        <button class="bg-blue-600 text-white px-3 py-2 rounded-xl text-sm font-medium shadow-sm hover:bg-blue-700 transition" onclick="showNewGroupModal()">
+          <i class="fa-solid fa-plus mr-1"></i>新建分组
+        </button>
       </div>
     </div>
 
     <div class="px-4 mt-4 space-y-5">
+      <!-- Info Banner -->
+      <div class="bg-blue-50 border border-blue-100 rounded-xl p-3 flex items-start gap-3">
+        <i class="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
+        <p class="text-xs text-blue-700 leading-relaxed">本模块用于辅助个人用户高效管理零散的自有数据。</p>
+      </div>
+
+      <!-- 无分组 -->
+      <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+        <div class="flex items-center mb-3 px-1">
+          <div class="text-sm font-bold text-gray-900" id="group-name-0">无分组</div>
+        </div>
+        <div class="space-y-3 min-h-[60px] rounded-xl flex flex-col justify-center transition-all duration-300" id="group-list-0">
+          <!-- Empty State Placeholder (hidden when items exist) -->
+          <div class="empty-state w-full py-6 bg-gray-50 border border-dashed border-gray-200 rounded-xl flex items-center justify-center text-gray-400 text-xs">
+            暂无数据
+          </div>
+        </div>
+      </div>
+
       <!-- 身份资料分类 -->
       <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
         <div class="flex items-center mb-3 px-1">
@@ -90,8 +112,8 @@
           <!-- 已上传 -->
           <div class="block bg-white rounded-xl border border-gray-100 shadow-sm p-4 relative group cursor-move" id="item-3" draggable="true" ondragstart="drag(event)" ondragend="dragEnd(event)">
             <div class="flex items-center justify-between gap-3">
-              <a href="./app_upload_detail.html" class="flex items-center gap-3 flex-1">
-                <div class="w-10 h-10 rounded-xl bg-green-50 text-green-600 flex items-center justify-center">
+              <a href="./app_upload_list_multiple.html" class="flex items-center gap-3 flex-1">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
                   <i class="fa-solid fa-file-lines"></i>
                 </div>
                 <div>
@@ -100,7 +122,7 @@
                 </div>
               </a>
               <div class="flex items-center gap-3">
-                <a href="./app_upload_detail.html"><i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i></a>
+                <a href="./app_upload_list_multiple.html"><i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i></a>
               </div>
             </div>
           </div>
@@ -156,6 +178,22 @@
     </div>
   </div>
 
+  <!-- 新建分组名称弹窗 -->
+  <div id="newGroupModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+      <div class="bg-white rounded-2xl p-6 w-5/6 max-w-sm mx-auto shadow-xl">
+          <h3 class="text-lg font-bold text-gray-800 mb-4 text-center">新建分组</h3>
+          <input type="text" id="newGroupNameInput" class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 mb-6" placeholder="请输入新的分类名称">
+          <div class="flex space-x-3">
+              <button onclick="closeNewGroupModal()" class="flex-1 bg-gray-100 text-gray-600 font-medium py-3 rounded-xl hover:bg-gray-200 transition">
+                  取消
+              </button>
+              <button onclick="confirmNewGroup()" class="flex-1 bg-blue-600 text-white font-medium py-3 rounded-xl hover:bg-blue-700 transition">
+                  确定
+              </button>
+          </div>
+      </div>
+  </div>
+
   <!-- 编辑分类名称弹窗 -->
   <div id="editGroupModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
       <div class="bg-white rounded-2xl p-6 w-5/6 max-w-sm mx-auto shadow-xl">
@@ -195,6 +233,29 @@
   <script>
     let currentEditGroupId = null;
     let currentDeleteGroupId = null;
+
+    // 显示新建分组弹窗
+    function showNewGroupModal() {
+        document.getElementById('newGroupNameInput').value = '';
+        document.getElementById('newGroupModal').classList.remove('hidden');
+    }
+
+    // 关闭新建分组弹窗
+    function closeNewGroupModal() {
+        document.getElementById('newGroupModal').classList.add('hidden');
+    }
+
+    // 确认新建分组
+    function confirmNewGroup() {
+        const newName = document.getElementById('newGroupNameInput').value.trim();
+        if (newName) {
+            // 这里可以添加创建新分组DOM的逻辑
+            alert(`已成功创建分组: ${newName}`);
+            closeNewGroupModal();
+        } else {
+            alert('分组名称不能为空');
+        }
+    }
 
     // 显示编辑弹窗
     function showEditModal(groupId) {
@@ -250,7 +311,7 @@
       
       if (targetGroup) {
         // 这里仅做简单的交互演示提示，实际需操作 DOM 节点转移
-        alert(`数据目录已成功移动到 "${targetGroup}" 分组下！`);
+        alert(`数据已成功移动到 "${targetGroup}" 分组下！`);
       }
     }
 
@@ -311,6 +372,15 @@
         // 确保没有拖回原来的地方
         if (groupList && draggedItem.parentElement !== groupList) {
           groupList.appendChild(draggedItem);
+          
+          // 如果目标容器中有 empty-state，隐藏它
+          const emptyState = groupList.querySelector('.empty-state');
+          if (emptyState) {
+              emptyState.style.display = 'none';
+          }
+          
+          // 检查源容器是否空了（除了 empty-state），如果空了显示 empty-state
+          // 这里需要额外逻辑处理，当前暂不复杂化，只处理放置的容器的 empty-state 隐藏
           
           // 获取目标分组名称用于提示
           const groupNameEl = dropZone.querySelector('[id^="group-name-"]');

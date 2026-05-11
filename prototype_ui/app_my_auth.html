@@ -6,6 +6,8 @@
     <title>个人专属数据空间App - 我的授权</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         body { background-color: #f3f4f6; }
         .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; padding-bottom: 20px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
@@ -19,195 +21,403 @@
     <div class="bg-white px-4 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50">
         <a href="app_home.html" class="text-gray-600"><i class="fa-solid fa-angle-left text-xl"></i></a>
         <h1 class="text-lg font-bold text-gray-800 absolute left-1/2 -translate-x-1/2">我的授权</h1>
-        <a href="app_auth_records.html" class="text-sm text-purple-600 font-medium">使用记录</a>
+        <a href="app_auth_statistics.html" class="text-sm bg-blue-50 text-blue-600 px-3 py-1.5 rounded-full font-medium flex items-center hover:bg-blue-100 transition">
+            <i class="fa-solid fa-chart-pie mr-1.5"></i>授权统计
+        </a>
     </div>
 
-    <!-- Tabs -->
-    <div class="bg-white flex border-b border-gray-200 sticky top-[52px] z-40">
-        <button id="tabPending" class="flex-1 py-3 text-sm text-center tab-active transition relative" onclick="switchTab('pending')">
-            待授权
-            <span class="absolute top-2 right-8 w-2 h-2 bg-red-500 rounded-full"></span>
-        </button>
-        <button id="tabAuthorized" class="flex-1 py-3 text-sm text-center tab-inactive transition" onclick="switchTab('authorized')">
-            已处理
-        </button>
-    </div>
-
-    <!-- Search Bar -->
-    <div class="bg-white px-4 py-3 sticky top-[99px] z-30 shadow-sm">
+    <!-- Search Bar & Filters -->
+    <div class="bg-white px-4 py-3 sticky top-[52px] z-30 shadow-sm space-y-3">
         <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
-            <input type="text" placeholder="搜索机构名称或申请用途" class="w-full bg-gray-100 text-sm rounded-full pl-9 pr-4 py-2 focus:outline-none focus:ring-1 focus:ring-purple-500 transition">
+            <input type="text" placeholder="搜索应用名称" class="w-full bg-gray-100 text-sm rounded-full pl-9 pr-4 py-2 focus:outline-none focus:ring-1 focus:ring-purple-500 transition">
+        </div>
+        <!-- Status Filters -->
+        <div class="flex overflow-x-auto gap-2 pb-1 no-scrollbar">
+            <button class="whitespace-nowrap px-3 py-1.5 bg-blue-50 text-blue-600 border border-blue-100 rounded-full text-xs font-medium" onclick="filterStatus('all', this)">全部</button>
+            <button class="whitespace-nowrap px-3 py-1.5 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs hover:bg-gray-100 transition" onclick="filterStatus('active', this)">有效中</button>
+            <button class="whitespace-nowrap px-3 py-1.5 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs hover:bg-gray-100 transition" onclick="filterStatus('used', this)">已使用</button>
+            <button class="whitespace-nowrap px-3 py-1.5 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs hover:bg-gray-100 transition" onclick="filterStatus('expired', this)">已过期</button>
+            <button class="whitespace-nowrap px-3 py-1.5 bg-gray-50 text-gray-600 border border-gray-200 rounded-full text-xs hover:bg-gray-100 transition" onclick="filterStatus('revoked', this)">已撤销</button>
         </div>
     </div>
 
     <!-- Content Area -->
     <div class="p-4">
-        <!-- Tab 1 Content: 待授权 -->
-        <div id="contentPending" class="space-y-4 block">
-            <!-- Item 1 -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+        <!-- Authorized List (Only list kept) -->
+        <div id="contentAuthorized" class="space-y-4">
+            <!-- Item 2 (有效中 - Authorized to Person/Institution) -->
+            <div class="auth-card bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative" data-status="active">
                 <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa-solid fa-building-columns"></i>
+                    <div class="flex items-center flex-1 min-w-0 mr-2">
+                        <div class="w-8 h-8 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fa-solid fa-user-tie"></i>
                         </div>
-                        <h3 class="font-bold text-gray-800">市公积金中心</h3>
+                        <h3 class="font-bold text-gray-800 truncate mr-2">教育信息</h3>
                     </div>
-                    <span class="text-xs text-gray-400">昨天 10:20</span>
-                </div>
-                <div class="text-sm text-gray-600 mb-4">
-                    <p class="mb-1"><span class="text-gray-400">申请目录：</span>基础身份信息、社保信息</p>
-                    <p><span class="text-gray-400">申请用途：</span>公积金贷款额度测算</p>
-                </div>
-                <div class="flex space-x-3">
-                    <button class="flex-1 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50" onclick="alert('已拒绝授权')">拒绝</button>
-                    <a href="app_auth_confirm.html" class="flex-1 py-2 text-sm bg-purple-600 text-white rounded-lg shadow-sm hover:bg-purple-700 text-center block">查看并授权</a>
-                </div>
-            </div>
-            
-            <!-- Item 2 -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-                <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 bg-green-50 text-green-600 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa-solid fa-hospital"></i>
-                        </div>
-                        <h3 class="font-bold text-gray-800">市第一人民医院</h3>
-                    </div>
-                    <span class="text-xs text-gray-400">前天 15:30</span>
-                </div>
-                <div class="text-sm text-gray-600 mb-4">
-                    <p class="mb-1"><span class="text-gray-400">申请目录：</span>门诊就诊记录、基础生理信息</p>
-                    <p><span class="text-gray-400">申请用途：</span>跨院电子病历调阅共享</p>
-                </div>
-                <div class="flex space-x-3">
-                    <button class="flex-1 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50" onclick="alert('已拒绝授权')">拒绝</button>
-                    <a href="app_auth_confirm.html" class="flex-1 py-2 text-sm bg-purple-600 text-white rounded-lg shadow-sm hover:bg-purple-700 text-center block">查看并授权</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab 2 Content: 已处理 -->
-        <div id="contentAuthorized" class="space-y-4 hidden">
-            <!-- Item 1 (有效中) -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative" onclick="window.location.href='app_auth_detail.html?status=valid'">
-                <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa-solid fa-building-columns"></i>
-                        </div>
-                        <h3 class="font-bold text-gray-800">市公积金中心</h3>
-                    </div>
-                    <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded border border-green-100">有效中</span>
+                    <span class="bg-green-50 text-green-600 text-[10px] px-2 py-0.5 rounded border border-green-100 flex-shrink-0">有效中</span>
                 </div>
                 <div class="text-sm text-gray-600 mb-4 space-y-1.5">
-                    <p><span class="text-gray-400">授权事项：</span>公积金贷款额度测算</p>
-                    <p><span class="text-gray-400">授权数据：</span>基础身份信息、社保信息</p>
-                    <p><span class="text-gray-400">授权时间：</span>2025-10-01 10:20</p>
-                    <p><span class="text-gray-400">有效期限：</span>至 2026-10-01</p>
+                    <p><span class="text-gray-400">授权数据：</span>基础身份信息、公积金账户信息</p>
+                    <p><span class="text-gray-400">授权时间：</span>2025-10-15 09:30</p>
+                    <p><span class="text-gray-400">有效期限：</span>至 2025-10-16</p>
                 </div>
                 <!-- 阻止事件冒泡，防止点击按钮时触发卡片的跳转 -->
                 <div class="flex space-x-3" onclick="event.stopPropagation();">
-                    <button class="flex-1 py-2 text-sm border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition" onclick="alert('进入调整授权时间流程')">调整时间</button>
-                    <button class="flex-1 py-2 text-sm border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition" onclick="confirm('确认取消该授权吗？取消后服务方将无法继续获取相关数据。')">取消授权</button>
+                    <button class="flex-1 py-2 text-sm bg-blue-50 text-blue-600 border border-blue-100 rounded-lg hover:bg-blue-100 transition flex items-center justify-center font-medium" onclick="showQRCode('教育信息', '至 2025-10-16', ['基础身份信息', '公积金账户信息'])">
+                        <i class="fa-solid fa-qrcode mr-1.5"></i> 二维码
+                    </button>
+                    <button class="flex-1 py-2 text-sm border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-50 transition" onclick="window.location.href='app_auth_records.html'">使用记录</button>
+                    <button class="flex-1 py-2 text-sm border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition" onclick="openCancelConfirmModal(this)">取消授权</button>
                 </div>
             </div>
 
-            <!-- Item 2 (已使用 - 单次授权) -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative" onclick="window.location.href='app_auth_detail.html?status=used'">
+            <!-- Item 4 (已过期 - 个人授权) -->
+            <div class="auth-card bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative opacity-70" data-status="expired">
                 <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa-solid fa-building-user"></i>
+                    <div class="flex items-center max-w-[70%]">
+                        <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fa-solid fa-graduation-cap text-gray-500"></i>
                         </div>
-                        <h3 class="font-bold text-gray-800">市政务服务网</h3>
+                        <h3 class="font-bold text-gray-600 truncate mr-2">学位信息</h3>
                     </div>
-                    <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded border border-blue-100">已使用</span>
-                </div>
-                <div class="text-sm text-gray-600 space-y-1.5">
-                    <p><span class="text-gray-400">授权事项：</span>政务一网通办身份免填</p>
-                    <p><span class="text-gray-400">授权数据：</span>基础身份信息</p>
-                    <p><span class="text-gray-400">授权时间：</span>2025-09-15 09:30</p>
-                    <p><span class="text-gray-400">有效期限：</span>单次有效</p>
-                </div>
-            </div>
-
-            <!-- Item 3 (已过期) -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative" onclick="window.location.href='app_auth_detail.html?status=expired'">
-                <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 bg-gray-100 text-gray-500 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa-solid fa-hospital"></i>
-                        </div>
-                        <h3 class="font-bold text-gray-800 opacity-70">市第一人民医院</h3>
-                    </div>
-                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200">已过期</span>
+                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200 flex-shrink-0">已过期</span>
                 </div>
                 <div class="text-sm text-gray-500 space-y-1.5">
-                    <p><span class="text-gray-400">授权事项：</span>跨院电子病历调阅共享</p>
                     <p><span class="text-gray-400">授权数据：</span>门诊就诊记录、基础生理信息</p>
                     <p><span class="text-gray-400">授权时间：</span>2023-01-01 10:00</p>
                     <p><span class="text-gray-400">有效期限：</span>至 2024-01-01 (已过期)</p>
                 </div>
+                <!-- 阻止事件冒泡，防止点击按钮时触发卡片的跳转 -->
+                <div class="flex space-x-3 mt-4" onclick="event.stopPropagation();">
+                    <button class="flex-1 py-2 text-sm border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-50 transition" onclick="window.location.href='app_auth_records.html'">使用记录</button>
+                </div>
             </div>
 
-            <!-- Item 4 (已撤销) -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative" onclick="window.location.href='app_auth_detail.html?status=revoked'">
+            <!-- Item 5 (已使用 - 针对单次授权) -->
+            <div class="auth-card bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative opacity-70" data-status="used">
                 <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 bg-gray-100 text-gray-500 rounded-full flex items-center justify-center mr-3">
-                            <i class="fa-solid fa-building-columns"></i>
+                    <div class="flex items-center max-w-[70%]">
+                        <div class="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center mr-3 flex-shrink-0 text-blue-600">
+                            <i class="fa-solid fa-id-card"></i>
                         </div>
-                        <h3 class="font-bold text-gray-800 opacity-70">某某银行</h3>
+                        <h3 class="font-bold text-gray-600 truncate mr-2">单次身份证明</h3>
                     </div>
-                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200">已撤销</span>
+                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200 flex-shrink-0">已使用</span>
                 </div>
                 <div class="text-sm text-gray-500 space-y-1.5">
-                    <p><span class="text-gray-400">授权事项：</span>个人信用贷款审核</p>
+                    <p><span class="text-gray-400">授权数据：</span>个人身份基础信息</p>
+                    <p><span class="text-gray-400">授权时间：</span>2025-10-20 14:15</p>
+                    <p><span class="text-gray-400">有效期限：</span>单次有效 (已扫码使用)</p>
+                </div>
+                <!-- 阻止事件冒泡，防止点击按钮时触发卡片的跳转 -->
+                <div class="flex space-x-3 mt-4" onclick="event.stopPropagation();">
+                    <button class="flex-1 py-2 text-sm border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-50 transition" onclick="window.location.href='app_auth_records.html'">使用记录</button>
+                </div>
+            </div>
+
+            <!-- Item 6 (已撤销) -->
+            <div class="auth-card bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition relative opacity-70" data-status="revoked">
+                <div class="flex items-center justify-between mb-3 border-b border-gray-50 pb-3">
+                    <div class="flex items-center max-w-[70%]">
+                        <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0 text-gray-500">
+                            <i class="fa-solid fa-house-chimney-medical"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-600 truncate mr-2">公积金查询</h3>
+                    </div>
+                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded border border-gray-200 flex-shrink-0">已撤销</span>
+                </div>
+                <div class="text-sm text-gray-500 space-y-1.5">
                     <p><span class="text-gray-400">授权数据：</span>公积金账户信息</p>
-                    <p><span class="text-gray-400">授权时间：</span>2025-05-01 14:00</p>
-                    <p><span class="text-gray-400">撤销时间：</span>2025-06-01 09:00</p>
+                    <p><span class="text-gray-400">授权时间：</span>2025-08-10 09:00</p>
+                    <p><span class="text-gray-400">有效期限：</span>至 2025-09-10 (用户主动撤销)</p>
+                </div>
+                <!-- 阻止事件冒泡，防止点击按钮时触发卡片的跳转 -->
+                <div class="flex space-x-3 mt-4" onclick="event.stopPropagation();">
+                    <button class="flex-1 py-2 text-sm border border-purple-200 text-purple-600 rounded-lg hover:bg-purple-50 transition" onclick="window.location.href='app_auth_records.html'">使用记录</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Validity Selection Bottom Sheet -->
+    <div id="validitySheetOverlay" class="fixed inset-0 bg-black/40 z-50 hidden transition-opacity duration-300 opacity-0" onclick="closeValiditySheet()"></div>
+    <div id="validitySheet" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] bg-white rounded-t-2xl z-50 transform translate-y-full transition-transform duration-300">
+      <div class="p-4 border-b border-gray-100 flex justify-between items-center">
+        <h3 class="text-base font-bold text-gray-800">调整有效期</h3>
+        <i class="fa-solid fa-xmark text-gray-400 text-lg cursor-pointer" onclick="closeValiditySheet()"></i>
+      </div>
+      <div class="p-4 space-y-3">
+        <label class="flex items-center justify-between p-3 border border-gray-100 rounded-xl cursor-pointer hover:bg-gray-50">
+          <span class="text-sm font-medium text-gray-800">单次有效</span>
+          <input type="radio" name="validity" value="单次有效" class="w-4 h-4 text-purple-600 focus:ring-purple-500" onchange="handleValidityChange(this)">
+        </label>
+        <label class="flex items-center justify-between p-3 border border-gray-100 rounded-xl cursor-pointer hover:bg-gray-50">
+          <span class="text-sm font-medium text-gray-800">7天有效</span>
+          <input type="radio" name="validity" value="7天有效" class="w-4 h-4 text-purple-600 focus:ring-purple-500" checked onchange="handleValidityChange(this)">
+        </label>
+        <label class="flex items-center justify-between p-3 border border-gray-100 rounded-xl cursor-pointer hover:bg-gray-50">
+          <span class="text-sm font-medium text-gray-800">自定义有效期</span>
+          <input type="radio" name="validity" value="custom" class="w-4 h-4 text-purple-600 focus:ring-purple-500" onchange="handleValidityChange(this)">
+        </label>
+        
+        <div id="customDateContainer" class="hidden mt-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+          <label class="block text-xs text-gray-500 mb-1">选择截止时间</label>
+          <input type="datetime-local" id="customDateInput" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-purple-500">
+        </div>
+      </div>
+      <div class="px-4 pb-8 mt-2">
+        <button class="w-full bg-purple-600 text-white font-medium py-3 rounded-xl shadow-sm hover:bg-purple-700 transition" onclick="confirmValidity()">确定</button>
+      </div>
+    </div>
+
+    <!-- QR Code Modal (Hidden by default) -->
+    <div id="qrModal" class="hidden fixed inset-0 z-[60] bg-black/60 flex flex-col items-center justify-center p-5 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-[320px] rounded-2xl overflow-hidden shadow-2xl relative">
+            <!-- Modal Header -->
+            <div class="bg-blue-600 p-4 text-center relative">
+                <button onclick="closeQRModal()" class="absolute right-4 top-4 text-white/80 hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+                <h3 class="text-white font-bold text-lg" id="qrModalTitle">出示授权码</h3>
+                <p class="text-blue-100 text-xs mt-1">仅本小程序可扫等信息</p>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6 flex flex-col items-center">
+                <!-- QR Code Container -->
+                <div class="bg-white p-2 rounded-xl shadow-inner border border-gray-100 mb-4 relative">
+                    <div id="qrcode" class="w-48 h-48 flex items-center justify-center"></div>
+                    <!-- Refresh Overlay (hidden initially) -->
+                    <div id="qrOverlay" class="hidden absolute inset-0 bg-white/90 backdrop-blur-sm flex flex-col items-center justify-center rounded-xl cursor-pointer" onclick="refreshQR()">
+                        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 mb-2 shadow-sm">
+                            <i class="fa-solid fa-rotate-right text-lg"></i>
+                        </div>
+                        <span class="text-sm font-medium text-gray-600">二维码已失效，点击刷新</span>
+                    </div>
+                </div>
+                
+                <!-- Selected Data Summary -->
+                <div class="w-full bg-gray-50 rounded-lg p-3 border border-gray-100">
+                    <div class="text-xs font-bold text-gray-700 mb-2 flex items-center">
+                        <i class="fa-solid fa-shield-halved text-blue-500 mr-1.5"></i> 包含以下授权数据：
+                    </div>
+                    <div id="modalDataList" class="flex flex-wrap gap-1.5">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="bg-gray-50 p-4 border-t border-gray-100 flex justify-center">
+                <button onclick="closeQRModal()" class="px-6 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition shadow-sm">完成</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Confirmation Modal -->
+    <div id="cancelConfirmModal" class="fixed inset-0 bg-black/50 z-[70] hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-6 w-5/6 max-w-[320px] mx-auto text-center transform transition-all shadow-xl">
+            <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-triangle-exclamation text-2xl text-red-500"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">确认取消授权？</h3>
+            <p class="text-sm text-gray-500 mb-6 leading-relaxed">取消后该人员将无法继续获取相关数据，此操作不可恢复。</p>
+            <div class="flex space-x-3">
+                <button onclick="closeCancelConfirmModal()" class="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition">暂不取消</button>
+                <button onclick="executeCancelAuth()" class="flex-1 py-2.5 bg-red-500 text-white rounded-xl font-medium hover:bg-red-600 transition shadow-sm shadow-red-500/30">确认取消</button>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
-    function switchTab(tabName) {
-        const tabPending = document.getElementById('tabPending');
-        const tabAuthorized = document.getElementById('tabAuthorized');
-        const contentPending = document.getElementById('contentPending');
-        const contentAuthorized = document.getElementById('contentAuthorized');
+    let currentAuthCard = null;
+    let timerInterval = null;
 
-        if (tabName === 'pending') {
-            tabPending.className = 'flex-1 py-3 text-sm text-center tab-active transition relative';
-            tabAuthorized.className = 'flex-1 py-3 text-sm text-center tab-inactive transition';
-            contentPending.classList.remove('hidden');
-            contentPending.classList.add('block');
-            contentAuthorized.classList.remove('block');
-            contentAuthorized.classList.add('hidden');
-        } else {
-            tabAuthorized.className = 'flex-1 py-3 text-sm text-center tab-active transition';
-            tabPending.className = 'flex-1 py-3 text-sm text-center tab-inactive transition relative';
-            contentAuthorized.classList.remove('hidden');
-            contentAuthorized.classList.add('block');
-            contentPending.classList.remove('block');
-            contentPending.classList.add('hidden');
-        }
+    function openValiditySheet(btn) {
+      currentAuthCard = btn.closest('.bg-white.rounded-xl');
+      const overlay = document.getElementById('validitySheetOverlay');
+      const sheet = document.getElementById('validitySheet');
+      
+      overlay.classList.remove('hidden');
+      // Trigger reflow
+      void overlay.offsetWidth;
+      overlay.classList.remove('opacity-0');
+      sheet.classList.remove('translate-y-full');
     }
 
-    // Handle URL parameters for initial tab
-    document.addEventListener("DOMContentLoaded", function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const tabParam = urlParams.get('tab');
-        if (tabParam === 'authorized') {
-            switchTab('authorized');
-        } else {
-            switchTab('pending');
+    function closeValiditySheet() {
+      const overlay = document.getElementById('validitySheetOverlay');
+      const sheet = document.getElementById('validitySheet');
+      
+      overlay.classList.add('opacity-0');
+      sheet.classList.add('translate-y-full');
+      
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        currentAuthCard = null;
+      }, 300);
+    }
+
+    function handleValidityChange(radio) {
+      const customContainer = document.getElementById('customDateContainer');
+      if (radio.value === 'custom') {
+        customContainer.classList.remove('hidden');
+      } else {
+        customContainer.classList.add('hidden');
+      }
+    }
+
+    function confirmValidity() {
+      const selected = document.querySelector('input[name="validity"]:checked');
+      
+      if (currentAuthCard) {
+        // Find the valid period display element inside the card
+        // Structure is <p><span class="text-gray-400">有效期限：</span>XXX</p>
+        const pTags = currentAuthCard.querySelectorAll('p');
+        let expireP = null;
+        pTags.forEach(p => {
+            if (p.innerText.includes('有效期限：')) {
+                expireP = p;
+            }
+        });
+
+        if (expireP) {
+            let newText = '';
+            if (selected.value === 'custom') {
+              const dateVal = document.getElementById('customDateInput').value;
+              if (!dateVal) {
+                alert('请选择截止时间');
+                return;
+              }
+              newText = '至 ' + dateVal.replace('T', ' ');
+            } else {
+              newText = selected.value;
+            }
+            expireP.innerHTML = `<span class="text-gray-400">有效期限：</span>${newText}`;
         }
-    });
+      }
+      
+      closeValiditySheet();
+      
+      setTimeout(() => {
+          alert('有效期调整成功');
+      }, 300);
+    }
+
+    function showQRCode(title, period, dataItems) {
+        document.getElementById('qrModalTitle').innerText = title;
+        
+        // Populate Data List
+        const modalList = document.getElementById('modalDataList');
+        modalList.innerHTML = '';
+        
+        // Add selected items
+        dataItems.forEach(item => {
+            const span = document.createElement('span');
+            span.className = 'text-[10px] bg-white border border-gray-200 text-gray-600 px-2 py-1 rounded-md';
+            span.innerText = item;
+            modalList.appendChild(span);
+        });
+
+        // Add Period Tag
+        const periodSpan = document.createElement('span');
+        periodSpan.className = 'text-[10px] bg-blue-50 border border-blue-200 text-blue-600 px-2 py-1 rounded-md font-bold';
+        periodSpan.innerText = '期限: ' + period;
+        modalList.appendChild(periodSpan);
+
+        document.getElementById('qrModal').classList.remove('hidden');
+        generateQRCode();
+    }
+
+    function generateQRCode() {
+        // Clear old one first
+        document.getElementById('qrcode').innerHTML = '';
+        new QRCode(document.getElementById("qrcode"), {
+            text: "auth_token_" + Date.now(),
+            width: 180,
+            height: 180,
+            colorDark : "#1e3a8a", // blue-900
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // Hide overlay and start timer
+        document.getElementById('qrOverlay').classList.add('hidden');
+        
+        let duration = 5 * 60; // default 5 minutes
+        startTimer(duration);
+    }
+
+    function closeQRModal() {
+        document.getElementById('qrModal').classList.add('hidden');
+        clearInterval(timerInterval);
+    }
+
+    function refreshQR() {
+        generateQRCode();
+    }
+
+    function startTimer(duration) {
+        clearInterval(timerInterval);
+        let timer = duration;
+        
+        timerInterval = setInterval(function () {
+            if (--timer < 0) {
+                clearInterval(timerInterval);
+                document.getElementById('qrOverlay').classList.remove('hidden');
+            }
+        }, 1000);
+    }
+    let authCardToCancel = null;
+
+    function filterStatus(status, btn) {
+        // Update button styles
+        const buttons = btn.parentElement.querySelectorAll('button');
+        buttons.forEach(b => {
+            b.classList.remove('bg-blue-50', 'text-blue-600', 'border-blue-100');
+            b.classList.add('bg-gray-50', 'text-gray-600', 'border-gray-200');
+        });
+        btn.classList.remove('bg-gray-50', 'text-gray-600', 'border-gray-200');
+        btn.classList.add('bg-blue-50', 'text-blue-600', 'border-blue-100');
+
+        // Filter cards
+        const cards = document.querySelectorAll('.auth-card');
+        cards.forEach(card => {
+            if (status === 'all') {
+                card.style.display = 'block';
+            } else {
+                if (card.getAttribute('data-status') === status) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    function openCancelConfirmModal(btn) {
+        authCardToCancel = btn.closest('.bg-white.rounded-xl');
+        document.getElementById('cancelConfirmModal').classList.remove('hidden');
+    }
+
+    function closeCancelConfirmModal() {
+        document.getElementById('cancelConfirmModal').classList.add('hidden');
+        authCardToCancel = null;
+    }
+
+    function executeCancelAuth() {
+        if (authCardToCancel) {
+            authCardToCancel.style.opacity = '0';
+            setTimeout(() => {
+                authCardToCancel.remove();
+            }, 300);
+        }
+        closeCancelConfirmModal();
+    }
+
 </script>
 </body>
 </html>

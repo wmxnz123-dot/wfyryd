@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>一人一档后台管理系统 - 短信验证记录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-900 text-white flex flex-col h-full shrink-0">
+        <div class="h-16 flex items-center px-6 border-b border-gray-800 shrink-0">
+            <i class="fa-solid fa-cubes text-blue-500 text-2xl mr-3"></i>
+            <span class="text-lg font-bold tracking-wider">一人一档后台</span>
+        </div>
+        <div class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1" id="sidebar-menu">
+                <li>
+                    <a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_workbench.html">
+                        <i class="fa-solid fa-desktop w-6"></i> <span class="ml-3">智能工作台</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center justify-between px-6 py-3 text-white bg-blue-600 transition" onclick="toggleMenu(this)">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-magnifying-glass w-6"></i> <span class="ml-3">数据检索管理</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+                    </div>
+                    <ul class="pl-14 py-2 space-y-3 text-sm bg-gray-800/50 block">
+                        <li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_dashboard.html">数据检索</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_data_map.html">数图分析</a></li>
+                        <li><a class="text-white font-medium relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:bg-blue-500 before:rounded-full" href="admin_search_logs.html">短信验证记录</a></li>
+                    </ul>
+                </li>
+                <!-- 数据管理 -->
+                <li>
+                    <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" onclick="toggleMenu(this)">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-hand-holding-hand w-6"></i> <span class="ml-3">数据管理</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+                    </div>
+                    <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
+                        <li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_catalog_config.html">数据目录管理</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_corrections.html">数据纠错处置</a></li>
+                    </ul>
+                </li>
+                <!-- 授权管理 -->
+                <li>
+                    <div class="flex items-center justify-between px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" onclick="toggleMenu(this)">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-shield-halved w-6"></i> <span class="ml-3">授权管理</span>
+                        </div>
+                        <i class="fa-solid fa-angle-down text-xs transition-transform duration-200"></i>
+                    </div>
+                    <ul class="pl-14 py-2 space-y-3 text-sm hidden bg-gray-800/50">
+                        <li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_auth_monitor.html">异常监控</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_auth_blockchain.html">可信存证</a></li>
+                        <li><a class="text-gray-400 hover:text-white transition relative before:content-[''] before:absolute before:-left-4 before:top-2 before:w-2 before:h-2 before:border-2 before:border-gray-500 before:rounded-full" href="admin_auth_records.html">授权记录</a></li>
+                    </ul>
+                </li>
+                <!-- 数据服务管理 -->
+                <li>
+                    <a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_services_config.html">
+                        <i class="fa-solid fa-layer-group w-6"></i> <span class="ml-3">数据服务管理</span>
+                    </a>
+                </li>
+                <!-- 仪表盘配置 -->
+                <li>
+                    <a class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition" href="admin_profile_dashboard_config.html">
+                        <i class="fa-solid fa-chart-pie w-6"></i> <span class="ml-3">仪表盘配置</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-full overflow-hidden">
+        <!-- Topbar -->
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-6 z-10 shrink-0">
+            <div class="flex items-center text-gray-500">
+                <i class="fa-solid fa-bars hover:text-gray-800 mr-4"></i>
+                <span class="text-sm">数据检索 <span class="mx-2">/</span> <span class="text-gray-800 font-medium">短信验证记录</span></span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center ml-4 border-gray-200 pl-4">
+                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-2">管</div>
+                    <span class="text-sm font-medium">超级管理员</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="flex-1 overflow-y-auto p-6 bg-gray-50 relative">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col h-full">
+                <!-- 搜索区域 -->
+                <div class="p-4 border-b border-gray-100 bg-gray-50/50 rounded-t-xl flex justify-between items-center shrink-0">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <label class="text-sm font-medium text-gray-600 mr-2">账号</label>
+                            <input type="text" placeholder="请输入账号名称" class="border border-gray-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-blue-500 w-48">
+                        </div>
+                        <div class="flex items-center">
+                            <label class="text-sm font-medium text-gray-600 mr-2">手机号</label>
+                            <input type="text" placeholder="请输入手机号" class="border border-gray-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-blue-500 w-48">
+                        </div>
+                        <button class="bg-blue-600 text-white px-5 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition shadow-sm">
+                            查询
+                        </button>
+                        <button class="bg-white border border-gray-200 text-gray-600 px-5 py-1.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+                            重置
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 列表区域 -->
+                <div class="flex-1 overflow-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-200">
+                                <th class="p-4 font-medium w-20 text-center">序号</th>
+                                <th class="p-4 font-medium">账号</th>
+                                <th class="p-4 font-medium">手机号</th>
+                                <th class="p-4 font-medium cursor-pointer hover:text-blue-600 transition group">
+                                    验证时间 <i class="fa-solid fa-sort ml-1 text-gray-300 group-hover:text-blue-500"></i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                                <td class="p-4 text-gray-600 text-center">1</td>
+                                <td class="p-4 font-medium text-gray-800">admin_zhang</td>
+                                <td class="p-4 font-mono text-gray-600">13800100010</td>
+                                <td class="p-4 text-gray-600 font-mono">2025-10-25 14:32:45</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                                <td class="p-4 text-gray-600 text-center">2</td>
+                                <td class="p-4 font-medium text-gray-800">admin_zhang</td>
+                                <td class="p-4 font-mono text-gray-600">13800100010</td>
+                                <td class="p-4 text-gray-600 font-mono">2025-10-25 10:15:22</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                                <td class="p-4 text-gray-600 text-center">3</td>
+                                <td class="p-4 font-medium text-gray-800">police_li</td>
+                                <td class="p-4 font-mono text-gray-600">13905365566</td>
+                                <td class="p-4 text-gray-600 font-mono">2025-10-24 16:40:10</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                                <td class="p-4 text-gray-600 text-center">4</td>
+                                <td class="p-4 font-medium text-gray-800">admin_zhang</td>
+                                <td class="p-4 font-mono text-gray-600">13800100010</td>
+                                <td class="p-4 text-gray-600 font-mono">2025-10-24 09:20:05</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                                <td class="p-4 text-gray-600 text-center">5</td>
+                                <td class="p-4 font-medium text-gray-800">hr_wang</td>
+                                <td class="p-4 font-mono text-gray-600">13705368899</td>
+                                <td class="p-4 text-gray-600 font-mono">2025-10-23 11:05:30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="p-4 border-t border-gray-100 flex items-center justify-between bg-white rounded-b-xl shrink-0">
+                    <div class="text-sm text-gray-500">
+                        共 <span class="font-medium text-gray-800">5</span> 条记录，当前第 <span class="font-medium text-gray-800">1</span>/1 页
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>上一页</button>
+                        <button class="px-3 py-1 border border-blue-500 bg-blue-50 rounded text-sm text-blue-600 font-medium">1</button>
+                        <button class="px-3 py-1 border border-gray-300 rounded text-sm text-gray-500 hover:bg-gray-50 disabled:opacity-50" disabled>下一页</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="admin_sidebar_logic.js"></script>
+</body>
+</html>
