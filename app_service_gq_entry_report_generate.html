@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成入职调查报告 - 个人专属数据空间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f3f4f6; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; box-shadow: 0 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .bg-gradient { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+        .custom-checkbox { appearance: none; background-color: #fff; margin: 0; font: inherit; color: currentColor; width: 1.15em; height: 1.15em; border: 2px solid #cbd5e1; border-radius: 0.25em; display: grid; place-content: center; transition: all 0.2s ease-in-out; cursor: pointer; }
+        .custom-checkbox::before { content: ""; width: 0.65em; height: 0.65em; transform: scale(0); transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em white; background-color: transform; transform-origin: center; clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
+        .custom-checkbox:checked { background-color: #2563eb; border-color: #2563eb; }
+        .custom-checkbox:checked::before { transform: scale(1); }
+    </style>
+</head>
+<body>
+<div class="mobile-view">
+    <div class="bg-gradient text-white p-5 pb-4 rounded-b-3xl shadow-md sticky top-0 z-50">
+        <div class="flex items-center justify-between">
+            <a href="app_service_gq_entry_report_list.html" class="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center">
+                <i class="fa-solid fa-angle-left text-xl"></i>
+            </a>
+            <div class="text-center">
+                <h1 class="text-base font-bold tracking-wide">生成调查报告</h1>
+                <p class="text-sm text-blue-100 opacity-90 mt-0.5">选择 · 生成 · 查看</p>
+            </div>
+            <div class="w-9 h-9"></div>
+        </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 pb-32">
+        <div class="mb-4">
+            <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-circle-info text-sm"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-gray-800 text-sm">生成说明</div>
+                        <div class="text-xs text-gray-500 mt-1 leading-relaxed">仅可选择已认领的数据目录生成报告。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-end justify-between mb-3 px-1">
+            <h3 class="font-bold text-gray-800 text-sm">授权数据目录</h3>
+            <span class="text-xs font-bold text-blue-600" id="selectedCount">已选：0 项</span>
+        </div>
+        <div class="space-y-3" id="catalogList">
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-regular fa-id-card text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">身份基础信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">姓名、性别、身份证号（脱敏）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="身份基础信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-briefcase text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">就业与社保信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">工作单位、参保状态、缴纳记录</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="就业与社保信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <div onclick="showUnclaimedModal()" class="flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:bg-gray-50 transition">
+                <div class="w-11 h-11 bg-gray-100 text-gray-400 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-graduation-cap text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                        <div class="font-bold text-gray-600 text-sm">学历信息（学信网）</div>
+                        <span class="text-[10px] bg-orange-50 text-orange-500 px-1.5 py-0.5 rounded border border-orange-100">未认领</span>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-0.5 truncate">毕业院校、学历层次、毕业时间</div>
+                </div>
+                <div class="ml-3">
+                    <div class="w-[1.15em] h-[1.15em] border-2 border-gray-200 rounded-[0.25em] bg-gray-50 cursor-not-allowed"></div>
+                </div>
+            </div>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-shield-halved text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">行政处罚与失信信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">是否存在不良记录（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="行政处罚与失信信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-heart text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">婚姻登记信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">婚姻状态、登记时间（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="婚姻登记信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-cyan-50 text-cyan-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-building-columns text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">银行征信信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">授信概览、逾期记录（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="银行征信信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-gavel text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">司法诉讼信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">涉诉记录、裁判文书（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="司法诉讼信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-house-chimney text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">住房与公积金信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">公积金缴存、住房信息（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="住房与公积金信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-fuchsia-50 text-fuchsia-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-certificate text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">资格证书信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">职业资格、技能证书（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="资格证书信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-lime-50 text-lime-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-receipt text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">纳税信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">个税申报、缴税记录（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="纳税信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-sky-50 text-sky-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-plane-departure text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">出入境记录</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">出入境次数、时间范围（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="出入境记录" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-car text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">车辆信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">车辆登记、年检状态（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="车辆信息" onchange="updateGenerateButton()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-address-book text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">联系方式与紧急联系人</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">手机、邮箱、紧急联系人（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="联系方式与紧急联系人" onchange="updateGenerateButton()">
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 w-full flex justify-center z-50 pointer-events-none">
+        <div class="w-full max-w-[390px] p-4 pointer-events-auto">
+            <button id="generateBtn" onclick="generateReport()" disabled class="w-full bg-gray-300 text-white font-bold py-3.5 rounded-xl shadow-sm transition cursor-not-allowed">
+                生成报告
+            </button>
+        </div>
+    </div>
+
+    <div id="unclaimedModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
+        <div class="bg-white w-full max-w-[320px] rounded-2xl p-6 shadow-2xl text-center">
+            <div class="w-16 h-16 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">数据未认领</h3>
+            <p class="text-sm text-gray-500 mb-6">该数据尚未完成认领，无法生成报告。请先前往认领您的数据。</p>
+            <div class="flex gap-3">
+                <button onclick="closeUnclaimedModal()" class="flex-1 py-2.5 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition">取消</button>
+                <button onclick="window.location.href='app_my_data.html?tab=unclaimed'" class="flex-1 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition">前往认领</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="hidden fixed inset-0 z-[80] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
+        <div class="bg-white w-full max-w-[360px] rounded-2xl shadow-2xl overflow-hidden">
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-600 px-5 py-4 text-white">
+                <div class="flex items-start justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
+                            <i class="fa-solid fa-circle-check text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-bold tracking-wide">生成成功</div>
+                            <div class="text-xs text-blue-100 mt-0.5 opacity-95">链接与密码用于 HR 端查询</div>
+                        </div>
+                    </div>
+                    <button onclick="goBackList()" class="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-5">
+                <div class="bg-blue-50 border border-blue-100 rounded-xl p-3 text-xs text-blue-700">
+                    授权时间：<span id="reportMeta" class="font-bold text-blue-800"></span>
+                    <span class="text-blue-200 mx-2">|</span>
+                    有效期：24 小时
+                </div>
+
+                <div class="mt-3 space-y-3">
+                    <div class="bg-white border border-gray-200 rounded-xl p-3">
+                        <div class="text-xs text-gray-500 mb-2">报告名称</div>
+                        <div class="flex items-center gap-2 min-w-0">
+                            <div class="w-8 h-8 rounded-lg bg-red-50 border border-red-100 text-red-600 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-file-pdf text-sm"></i>
+                            </div>
+                            <div id="reportFileName" class="text-sm font-bold text-gray-800 truncate"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-xl p-3">
+                        <div class="text-xs text-gray-500 mb-2">分享链接</div>
+                        <div class="flex gap-2">
+                            <input id="shareLinkInput" class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500" readonly>
+                            <button onclick="copyText('shareLinkInput')" class="px-3 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-50 transition">复制</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-xl p-3">
+                        <div class="text-xs text-gray-500 mb-2">密码</div>
+                        <div class="flex gap-2">
+                            <input id="sharePwdInput" class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500" readonly>
+                            <button onclick="copyText('sharePwdInput')" class="px-3 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-50 transition">复制</button>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 pt-1">
+                        <button onclick="goBackList()" class="flex-1 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition">
+                            返回列表
+                        </button>
+                        <button onclick="copyAll()" class="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl shadow-sm hover:bg-blue-700 transition">
+                            复制全部
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-3 text-[10px] text-gray-400 text-center">创建成功后已加入报告列表，可随时查看链接与密码</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const SHARE_RECORDS_KEY = 'gqEntryShareRecords';
+    const HAS_CREATED_REPORT_KEY = 'gqEntryHasCreatedReport';
+
+    function getCurrentUserName() {
+        return localStorage.getItem('currentUserName') || localStorage.getItem('userName') || '张三';
+    }
+
+    function safeJsonParse(text, fallback) {
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    function pad(n) {
+        return String(n).padStart(2, '0');
+    }
+
+    function formatDate(d) {
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    function formatDateSlash(d) {
+        return `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    let lastExpireAtForCopy = '-';
+    let lastReportTitleForCopy = '入职调查报告';
+
+    function updateGenerateButton() {
+        const checkboxes = document.querySelectorAll('.catalog-checkbox');
+        const checked = Array.from(checkboxes).filter(cb => cb.checked);
+        document.getElementById('selectedCount').textContent = `已选：${checked.length} 项`;
+
+        const btn = document.getElementById('generateBtn');
+        if (checked.length > 0) {
+            btn.disabled = false;
+            btn.className = 'w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl shadow-sm hover:bg-blue-700 transition';
+        } else {
+            btn.disabled = true;
+            btn.className = 'w-full bg-gray-300 text-white font-bold py-3.5 rounded-xl shadow-sm transition cursor-not-allowed';
+        }
+    }
+
+    function showUnclaimedModal() {
+        document.getElementById('unclaimedModal').classList.remove('hidden');
+    }
+
+    function closeUnclaimedModal() {
+        document.getElementById('unclaimedModal').classList.add('hidden');
+    }
+
+    function getRecords() {
+        return safeJsonParse(localStorage.getItem(SHARE_RECORDS_KEY) || '[]', []);
+    }
+
+    function setRecords(list) {
+        localStorage.setItem(SHARE_RECORDS_KEY, JSON.stringify(list));
+    }
+
+    function randomPassword() {
+        return String(Math.floor(100000 + Math.random() * 900000));
+    }
+
+    function copyText(inputId) {
+        const input = document.getElementById(inputId);
+        input.select();
+        input.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+    }
+
+    function copyAll() {
+        const link = document.getElementById('shareLinkInput').value;
+        const pwd = document.getElementById('sharePwdInput').value;
+        const text = `【潍坊市个人数据空间】${lastReportTitleForCopy}\n链接： ${link}\n密码：${pwd}\n有效截止日期：${lastExpireAtForCopy}`;
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+    }
+
+    function generateReport() {
+        const selected = Array.from(document.querySelectorAll('.catalog-checkbox')).filter(cb => cb.checked).map(cb => cb.value);
+        if (selected.length === 0) {
+            return;
+        }
+
+        const name = getCurrentUserName();
+        const now = new Date();
+        const stamp = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
+        const reportName = `${name}入职调查报告${stamp}`;
+        const id = `gq-${Date.now()}`;
+        const link = `https://example.com/gq-entry/report?token=${encodeURIComponent(id)}`;
+        const pwd = randomPassword();
+        const expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+        const record = {
+            id,
+            reportName,
+            name,
+            status: 'valid',
+            data: selected,
+            createdAt: now.toISOString(),
+            expireAt: expireAt.toISOString(),
+            link,
+            pwd,
+            usedAt: null,
+            usedInfo: null,
+            canceledAt: null
+        };
+
+        const list = getRecords();
+        list.unshift(record);
+        setRecords(list);
+        localStorage.setItem(HAS_CREATED_REPORT_KEY, '1');
+
+        document.getElementById('reportFileName').textContent = reportName;
+        document.getElementById('reportMeta').textContent = formatDate(now);
+        document.getElementById('shareLinkInput').value = link;
+        document.getElementById('sharePwdInput').value = pwd;
+        lastExpireAtForCopy = formatDateSlash(expireAt);
+        lastReportTitleForCopy = reportName;
+        document.getElementById('successModal').classList.remove('hidden');
+    }
+
+    function goBackList() {
+        window.location.href = 'app_service_gq_entry_report_list.html';
+    }
+</script>
+</body>
+</html>

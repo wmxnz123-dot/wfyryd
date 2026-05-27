@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国企入职调查报告 - 个人专属数据空间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f3f4f6; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; box-shadow: 0 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .bg-gradient { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+    </style>
+</head>
+<body>
+<div class="mobile-view">
+    <div class="bg-gradient text-white p-5 pb-4 rounded-b-3xl shadow-md sticky top-0 z-50">
+        <div class="flex items-center justify-between">
+            <a href="app_home.html" class="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center">
+                <i class="fa-solid fa-angle-left text-xl"></i>
+            </a>
+            <div class="text-center">
+                <h1 class="text-base font-bold tracking-wide">国企入职调查报告</h1>
+                <p class="text-sm text-blue-100 opacity-90 mt-0.5">报告 · 生成 · 查看</p>
+            </div>
+            <div class="w-9 h-9"></div>
+        </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 pb-28">
+        <div id="listHeader" class="flex items-end justify-between mb-3 px-1">
+            <h3 class="font-bold text-gray-800 text-sm">报告列表</h3>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-500" id="reportCount">0 条</span>
+                <button onclick="openClearAllConfirm()" class="text-xs text-gray-400 hover:text-red-600 transition">清空</button>
+            </div>
+        </div>
+
+        <div id="records" class="space-y-3"></div>
+
+        <div id="emptyState" class="hidden">
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                <div class="p-5 bg-gradient-to-br from-blue-600 to-indigo-600 text-white">
+                    <div class="flex items-start gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-white/15 text-white flex items-center justify-center flex-shrink-0 border border-white/20">
+                            <i class="fa-solid fa-file-circle-plus text-2xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-bold tracking-wide">暂无报告</div>
+                            <div class="text-xs text-blue-100 mt-1 leading-relaxed opacity-95">创建后生成链接与密码，可在 HR 端核验查询。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-5">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="bg-gray-50 border border-gray-100 rounded-xl p-2 text-center">
+                            <div class="w-8 h-8 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center mx-auto text-blue-600">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <div class="text-[10px] text-gray-600 mt-1">选择目录</div>
+                        </div>
+                        <div class="bg-gray-50 border border-gray-100 rounded-xl p-2 text-center">
+                            <div class="w-8 h-8 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center mx-auto text-indigo-600">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <div class="text-[10px] text-gray-600 mt-1">生成报告</div>
+                        </div>
+                        <div class="bg-gray-50 border border-gray-100 rounded-xl p-2 text-center">
+                            <div class="w-8 h-8 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center mx-auto text-blue-600">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            <div class="text-[10px] text-gray-600 mt-1">HR 核验</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 bg-blue-50 border border-blue-100 rounded-xl p-3 text-xs text-blue-700 leading-relaxed">
+                        点击底部按钮“创建报告”开始
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="fixed bottom-0 left-0 w-full flex justify-center z-[60] pointer-events-none">
+    <div class="w-full max-w-[390px] bg-white border-t border-gray-100 p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.03)] pointer-events-auto">
+        <div class="flex items-center justify-between mb-3 px-1">
+            <div class="text-xs text-gray-500">创建后生成链接与密码</div>
+            <div class="text-xs text-gray-400">24小时有效</div>
+        </div>
+        <a href="app_service_gq_entry_report_generate.html" class="w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl transition shadow-sm hover:bg-blue-700 block text-center">
+            <i class="fa-solid fa-plus"></i>
+            创建报告
+        </a>
+    </div>
+</div>
+
+<script>
+    const SHARE_RECORDS_KEY = 'gqEntryShareRecords';
+    const HAS_CREATED_REPORT_KEY = 'gqEntryHasCreatedReport';
+    const PDF_DATA_URI = 'data:application/pdf;base64,JVBERi0xLjMKJcTl8uXrp/Og0MTGCjEgMCBvYmoKPDwvVHlwZS9DYXRhbG9nL1BhZ2VzIDIgMCBSPj4KZW5kb2JqCjIgMCBvYmoKPDwvVHlwZS9QYWdlcy9LaWRzWzMgMCBSXS9Db3VudCAxPj4KZW5kb2JqCjMgMCBvYmoKPDwvVHlwZS9QYWdlL1BhcmVudCAyIDAgUi9NZWRpYUJveFswIDAgMjAwIDIwMF0vQ29udGVudHMgNCAwIFI+PgplbmRvYmoKNCAwIG9iago8PC9MZW5ndGggMzQ+PnN0cmVhbQpCVAovRjEgMTIgVGYKNzIgMTQ0IFRkCihIRCDmioDmnInkuIDmrKHmlofku7YpIFRqCkVUCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDUKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4gCjAwMDAwMDAwNTMgMDAwMDAgbiAKMDAwMDAwMDEwMCAwMDAwMCBuIAowMDAwMDAwMTY5IDAwMDAwIG4gCnRyYWlsZXIKPDwvU2l6ZSA1L1Jvb3QgMSAwIFI+PgpzdGFydHhyZWYKMjQ4CiUlRU9G';
+    const expandedDataIds = new Set();
+    let detailCopyExpireAt = '-';
+    let detailCopyTitle = '入职调查报告';
+
+    function safeJsonParse(text, fallback) {
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    function pad(n) {
+        return String(n).padStart(2, '0');
+    }
+
+    function normalizeReportName(r) {
+        const raw = r.reportName || '';
+        if (!raw) return '入职调查报告';
+        const m1 = raw.match(/^(.+?)入职调查报告_(\d{8})/);
+        if (m1) return `${m1[1]}入职调查报告${m1[2]}`;
+        const m2 = raw.match(/^(.+?)入职调查报告_(\d{12})/);
+        if (m2) return `${m2[1]}入职调查报告${m2[2].slice(0, 8)}`;
+        return raw.replace(/_/g, '');
+    }
+
+    function formatDate(d) {
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    function formatDateSlash(d) {
+        return `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    function getRecords() {
+        return safeJsonParse(localStorage.getItem(SHARE_RECORDS_KEY) || '[]', []);
+    }
+
+    function hasCreatedReport() {
+        return localStorage.getItem(HAS_CREATED_REPORT_KEY) === '1';
+    }
+
+    function calcStatus(r) {
+        if (r.usedAt) return 'used';
+        if (r.canceledAt) return 'revoked';
+        const expireAt = new Date(r.expireAt);
+        if (Date.now() > expireAt.getTime()) return 'expired';
+        return 'valid';
+    }
+
+    function statusLabel(status) {
+        if (status === 'valid') return { text: '有效中', cls: 'bg-green-50 text-green-600 border-green-100' };
+        if (status === 'used') return { text: '已使用', cls: 'bg-blue-50 text-blue-600 border-blue-100' };
+        if (status === 'revoked') return { text: '已撤销', cls: 'bg-red-50 text-red-600 border-red-100' };
+        return { text: '已过期', cls: 'bg-gray-100 text-gray-500 border-gray-200' };
+    }
+
+    function toggleData(id) {
+        if (expandedDataIds.has(id)) expandedDataIds.delete(id);
+        else expandedDataIds.add(id);
+        render();
+    }
+
+    function render() {
+        const records = getRecords();
+        const list = hasCreatedReport() ? records : [];
+        const container = document.getElementById('records');
+        const empty = document.getElementById('emptyState');
+
+        if (!list.length) {
+            document.getElementById('listHeader').classList.add('hidden');
+            container.innerHTML = '';
+            empty.classList.remove('hidden');
+            document.getElementById('reportCount').textContent = `0 条`;
+            return;
+        }
+
+        document.getElementById('listHeader').classList.remove('hidden');
+        empty.classList.add('hidden');
+        document.getElementById('reportCount').textContent = `${list.length} 条`;
+
+        container.innerHTML = list.map(r => {
+            const status = calcStatus(r);
+            const sl = statusLabel(status);
+            const dataText = Array.isArray(r.data) ? r.data.join('、') : '-';
+            const createdAt = r.createdAt ? formatDate(new Date(r.createdAt)) : '-';
+            const expireAt = r.expireAt ? formatDate(new Date(r.expireAt)) : '-';
+            const validityText = `24小时（至 ${expireAt}）`;
+            const title = normalizeReportName(r);
+            const expanded = expandedDataIds.has(r.id);
+            const isLongData = dataText.length > 24 || (Array.isArray(r.data) && r.data.length > 3);
+            const baseAction = `
+                <button class="px-3 py-2 bg-white text-gray-700 border border-gray-200 rounded-lg text-xs font-semibold hover:bg-gray-50 transition" onclick="openReport('${r.id}')">查看报告</button>
+            `;
+            const extraActions = (() => {
+                if (status === 'valid') {
+                    return `
+                        <button class="px-3 py-2 bg-white text-gray-600 border border-gray-200 rounded-lg text-xs font-semibold hover:bg-gray-50 transition" onclick="openDetail('${r.id}')">查看链接</button>
+                        <button class="px-3 py-2 bg-white text-red-600 border border-red-100 rounded-lg text-xs font-semibold hover:bg-red-50 transition" onclick="openCancelConfirm('${r.id}')">取消授权</button>
+                    `;
+                }
+                if (status === 'used') {
+                    return `
+                        <button class="px-3 py-2 bg-white text-gray-600 border border-gray-200 rounded-lg text-xs font-semibold hover:bg-gray-50 transition" onclick="openUsedInfo('${r.id}')">使用信息</button>
+                    `;
+                }
+                return '';
+            })();
+            const actions = `${baseAction}${extraActions}`;
+
+            return `
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md transition">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3 min-w-0">
+                            <div class="w-9 h-9 rounded-xl bg-red-50 border border-red-100 text-red-600 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-file-pdf text-base"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="font-bold text-gray-900 text-sm truncate">${title}</div>
+                            </div>
+                        </div>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full border ${sl.cls} flex-shrink-0">${sl.text}</span>
+                    </div>
+                    <div class="mt-3 bg-gray-50 border border-gray-100 rounded-xl p-3 text-xs text-gray-600 space-y-2">
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="text-gray-500 flex-shrink-0">授权数据</div>
+                            <div class="min-w-0 text-right">
+                                <div class="font-semibold text-gray-800 leading-relaxed break-words" style="${expanded ? '' : 'display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;'}">${dataText}</div>
+                                ${isLongData ? `<button class="mt-1 text-[10px] font-semibold text-blue-600 hover:text-blue-700 transition" onclick="toggleData('${r.id}')">${expanded ? '收起' : '展开'}</button>` : ''}
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="text-gray-500">授权时间</div>
+                            <div class="font-semibold text-gray-800">${createdAt}</div>
+                        </div>
+                        <div class="flex items-center justify-between gap-3">
+                            <div class="text-gray-500">有效期限</div>
+                            <div class="font-semibold text-gray-800">${validityText}</div>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-2 justify-end">${actions}</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function copyText(inputId) {
+        const input = document.getElementById(inputId);
+        input.select();
+        input.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+    }
+
+    function openDetail(id) {
+        const list = getRecords();
+        const r = list.find(x => x.id === id);
+        if (!r) return;
+        const title = normalizeReportName(r);
+        const createdAt = r.createdAt ? formatDate(new Date(r.createdAt)) : '-';
+        const expireAt = r.expireAt ? formatDateSlash(new Date(r.expireAt)) : '-';
+        document.getElementById('detailReportName').textContent = title;
+        document.getElementById('detailCreatedAt').textContent = createdAt;
+        document.getElementById('detailExpireAt').textContent = expireAt;
+        document.getElementById('detailLink').value = r.link || '';
+        document.getElementById('detailPwd').value = r.pwd || '';
+        detailCopyExpireAt = expireAt;
+        detailCopyTitle = title;
+        document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeDetail() {
+        document.getElementById('detailModal').classList.add('hidden');
+    }
+
+    function copyDetailAll() {
+        const link = document.getElementById('detailLink').value;
+        const pwd = document.getElementById('detailPwd').value;
+        const text = `【潍坊市个人数据空间】${detailCopyTitle}\n链接： ${link}\n密码：${pwd}\n有效截止日期：${detailCopyExpireAt}`;
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+    }
+
+    function openReport(id) {
+        const list = getRecords();
+        const r = list.find(x => x.id === id);
+        if (!r) return;
+        const title = normalizeReportName(r);
+        document.getElementById('reportTitle').textContent = title;
+        document.getElementById('reportPreviewBtn').href = PDF_DATA_URI;
+        document.getElementById('reportDownloadBtn').href = PDF_DATA_URI;
+        document.getElementById('reportDownloadBtn').setAttribute('download', `${title}.pdf`);
+        document.getElementById('reportModal').classList.remove('hidden');
+    }
+
+    function closeReport() {
+        document.getElementById('reportModal').classList.add('hidden');
+    }
+
+    let currentRecordId = null;
+
+    function openCancelConfirm(id) {
+        currentRecordId = id;
+        document.getElementById('cancelConfirmModal').classList.remove('hidden');
+    }
+
+    function closeCancelConfirm() {
+        document.getElementById('cancelConfirmModal').classList.add('hidden');
+        currentRecordId = null;
+    }
+
+    function confirmCancel() {
+        if (!currentRecordId) return;
+        const list = getRecords();
+        const idx = list.findIndex(x => x.id === currentRecordId);
+        if (idx < 0) return;
+        list[idx].canceledAt = new Date().toISOString();
+        list[idx].status = 'revoked';
+        localStorage.setItem(SHARE_RECORDS_KEY, JSON.stringify(list));
+        closeCancelConfirm();
+        render();
+    }
+
+    function openUsedInfo(id) {
+        const list = getRecords();
+        const r = list.find(x => x.id === id);
+        if (!r) return;
+        const usedAt = r.usedAt ? formatDate(new Date(r.usedAt)) : '-';
+        document.getElementById('usedAtText').textContent = usedAt;
+        document.getElementById('usedNameText').textContent = r.usedInfo?.name || '-';
+        document.getElementById('usedGenderText').textContent = r.usedInfo?.gender || '-';
+        document.getElementById('usedInfoModal').classList.remove('hidden');
+    }
+
+    function closeUsedInfoModal() {
+        document.getElementById('usedInfoModal').classList.add('hidden');
+    }
+
+    function openClearAllConfirm() {
+        document.getElementById('clearAllConfirmModal').classList.remove('hidden');
+    }
+
+    function closeClearAllConfirm() {
+        document.getElementById('clearAllConfirmModal').classList.add('hidden');
+    }
+
+    function confirmClearAll() {
+        localStorage.removeItem(SHARE_RECORDS_KEY);
+        localStorage.removeItem(HAS_CREATED_REPORT_KEY);
+        closeClearAllConfirm();
+        render();
+    }
+
+    render();
+</script>
+
+<div id="reportModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
+    <div class="bg-white w-full max-w-[360px] rounded-2xl shadow-2xl overflow-hidden">
+        <div class="bg-gradient-to-br from-blue-600 to-indigo-600 px-5 py-4 text-white">
+            <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
+                        <i class="fa-solid fa-file-pdf text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold tracking-wide">查看报告</div>
+                        <div class="text-xs text-blue-100 mt-0.5 opacity-95">支持预览与下载</div>
+                    </div>
+                </div>
+                <button onclick="closeReport()" class="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="p-5">
+            <div class="space-y-3">
+                <div class="bg-white border border-gray-200 rounded-xl p-3">
+                    <div class="text-xs text-gray-500 mb-2">报告名称</div>
+                    <div class="flex items-center gap-2 min-w-0">
+                        <div class="w-8 h-8 rounded-lg bg-red-50 border border-red-100 text-red-600 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-pdf text-sm"></i>
+                        </div>
+                        <div id="reportTitle" class="text-sm font-bold text-gray-800 truncate"></div>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-1">
+                    <a id="reportPreviewBtn" href="#" target="_blank" class="flex-1 text-center py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition">预览</a>
+                    <a id="reportDownloadBtn" href="#" download class="flex-1 text-center py-3 bg-blue-600 text-white rounded-xl font-bold shadow-sm hover:bg-blue-700 transition">下载</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="detailModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
+    <div class="bg-white w-full max-w-[360px] rounded-2xl shadow-2xl overflow-hidden">
+        <div class="bg-gradient-to-br from-blue-600 to-indigo-600 px-5 py-4 text-white">
+            <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
+                        <i class="fa-solid fa-link text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold tracking-wide">查看链接</div>
+                        <div class="text-xs text-blue-100 mt-0.5 opacity-95">链接与密码用于 HR 端查询</div>
+                    </div>
+                </div>
+                <button onclick="closeDetail()" class="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="p-5">
+            <div class="bg-blue-50 border border-blue-100 rounded-xl p-3 text-xs text-blue-700">
+                授权时间：<span id="detailCreatedAt" class="font-bold text-blue-800"></span>
+                <span class="text-blue-200 mx-2">|</span>
+                有效期：<span id="detailExpireAt" class="font-bold text-blue-800"></span>
+            </div>
+
+            <div class="mt-3 space-y-3">
+                <div class="bg-white border border-gray-200 rounded-xl p-3">
+                    <div class="text-xs text-gray-500 mb-2">报告名称</div>
+                    <div class="flex items-center gap-2 min-w-0">
+                        <div class="w-8 h-8 rounded-lg bg-red-50 border border-red-100 text-red-600 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-pdf text-sm"></i>
+                        </div>
+                        <div id="detailReportName" class="text-sm font-bold text-gray-800 truncate"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-3">
+                    <div class="text-xs text-gray-500 mb-2">分享链接</div>
+                    <div class="flex gap-2">
+                        <input id="detailLink" class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500" readonly>
+                        <button onclick="copyText('detailLink')" class="px-3 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-50 transition">复制</button>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-xl p-3">
+                    <div class="text-xs text-gray-500 mb-2">密码</div>
+                    <div class="flex gap-2">
+                        <input id="detailPwd" class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500" readonly>
+                        <button onclick="copyText('detailPwd')" class="px-3 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-50 transition">复制</button>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-1">
+                    <button onclick="closeDetail()" class="flex-1 py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition">关闭</button>
+                    <button onclick="copyDetailAll()" class="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl shadow-sm hover:bg-blue-700 transition">复制全部</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="cancelConfirmModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
+    <div class="bg-white w-full max-w-[320px] rounded-2xl p-6 shadow-2xl text-center">
+        <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
+        </div>
+        <h3 class="text-lg font-bold text-gray-800 mb-2">取消授权</h3>
+        <p class="text-sm text-gray-500 mb-6">取消后，该链接与密码将立即失效。</p>
+        <div class="flex space-x-3">
+            <button onclick="closeCancelConfirm()" class="flex-1 py-2.5 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition">取消</button>
+            <button onclick="confirmCancel()" class="flex-1 py-2.5 bg-red-600 text-white rounded-xl font-medium hover:bg-red-700 transition">确定取消</button>
+        </div>
+    </div>
+</div>
+
+<div id="clearAllConfirmModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
+    <div class="bg-white w-full max-w-[320px] rounded-2xl p-6 shadow-2xl text-center">
+        <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-trash-can text-3xl"></i>
+        </div>
+        <h3 class="text-lg font-bold text-gray-800 mb-2">删除全部报告</h3>
+        <p class="text-sm text-gray-500 mb-6">将删除全部生成的报告记录（含链接与密码），且无法恢复。</p>
+        <div class="flex space-x-3">
+            <button onclick="closeClearAllConfirm()" class="flex-1 py-2.5 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition">取消</button>
+            <button onclick="confirmClearAll()" class="flex-1 py-2.5 bg-red-600 text-white rounded-xl font-medium hover:bg-red-700 transition">确定删除</button>
+        </div>
+    </div>
+</div>
+
+<div id="usedInfoModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
+    <div class="bg-white w-full max-w-[340px] rounded-2xl p-6 shadow-2xl">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-gray-800">使用信息</h3>
+            <button onclick="closeUsedInfoModal()" class="text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+        <div class="bg-gray-50 border border-gray-100 rounded-xl p-4 space-y-3 text-sm">
+            <div class="flex justify-between">
+                <div class="text-gray-500">使用时间</div>
+                <div id="usedAtText" class="font-semibold text-gray-800"></div>
+            </div>
+            <div class="flex justify-between">
+                <div class="text-gray-500">姓名</div>
+                <div id="usedNameText" class="font-semibold text-gray-800"></div>
+            </div>
+            <div class="flex justify-between">
+                <div class="text-gray-500">性别</div>
+                <div id="usedGenderText" class="font-semibold text-gray-800"></div>
+            </div>
+        </div>
+        <button onclick="closeUsedInfoModal()" class="w-full mt-5 bg-blue-600 text-white font-bold py-3 rounded-xl shadow-sm hover:bg-blue-700 transition">
+            知道了
+        </button>
+    </div>
+</div>
+</body>
+</html>

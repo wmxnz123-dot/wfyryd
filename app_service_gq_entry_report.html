@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国企入职调查报告 - 个人专属数据空间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f3f4f6; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; box-shadow: 0 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .custom-checkbox { appearance: none; background-color: #fff; margin: 0; font: inherit; color: currentColor; width: 1.15em; height: 1.15em; border: 2px solid #cbd5e1; border-radius: 0.25em; display: grid; place-content: center; transition: all 0.2s ease-in-out; cursor: pointer; }
+        .custom-checkbox::before { content: ""; width: 0.65em; height: 0.65em; transform: scale(0); transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em white; background-color: transform; transform-origin: center; clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
+        .custom-checkbox:checked { background-color: #2563eb; border-color: #2563eb; }
+        .custom-checkbox:checked::before { transform: scale(1); }
+        .bg-gradient { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+    </style>
+</head>
+<body>
+<div class="mobile-view">
+    <div class="bg-gradient text-white p-5 pb-4 rounded-b-3xl shadow-md sticky top-0 z-50">
+        <div class="flex items-center justify-between">
+            <a href="app_home.html" class="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center">
+                <i class="fa-solid fa-angle-left text-xl"></i>
+            </a>
+            <div class="text-center">
+                <h1 class="text-base font-bold tracking-wide">国企入职调查报告</h1>
+                <p class="text-sm text-blue-100 opacity-90 mt-0.5">生成 · 分享 · 记录</p>
+            </div>
+            <button class="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center" onclick="window.location.href='app_service_gq_entry_report_records.html'">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 pb-32">
+        <div class="mb-4">
+            <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-circle-info text-sm"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-gray-800 text-sm">分享规则</div>
+                        <div class="text-xs text-gray-500 mt-1 leading-relaxed">
+                            每组链接与密码有效期 24 小时，且仅支持一次性查询；可重复生成新链接与密码。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-end justify-between mb-3 px-1">
+            <h3 class="font-bold text-gray-800 text-sm">授权数据目录</h3>
+            <span class="text-xs font-bold text-blue-600" id="selectedCount">已选：0 项</span>
+        </div>
+
+        <div class="space-y-3" id="catalogList">
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-regular fa-id-card text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">身份基础信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">姓名、性别、身份证号（脱敏）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="身份基础信息" onchange="updateSelection()">
+                </div>
+            </label>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-briefcase text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">就业与社保信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">工作单位、参保状态、缴纳记录</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="就业与社保信息" onchange="updateSelection()">
+                </div>
+            </label>
+
+            <div onclick="showUnclaimedModal()" class="flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:bg-gray-50 transition">
+                <div class="w-11 h-11 bg-gray-100 text-gray-400 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-graduation-cap text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                        <div class="font-bold text-gray-600 text-sm">学历信息（学信网）</div>
+                        <span class="text-[10px] bg-orange-50 text-orange-500 px-1.5 py-0.5 rounded border border-orange-100">未认领</span>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-0.5 truncate">毕业院校、学历层次、毕业时间</div>
+                </div>
+                <div class="ml-3">
+                    <div class="w-[1.15em] h-[1.15em] border-2 border-gray-200 rounded-[0.25em] bg-gray-50 cursor-not-allowed"></div>
+                </div>
+            </div>
+
+            <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
+                <div class="w-11 h-11 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
+                    <i class="fa-solid fa-shield-halved text-lg"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-gray-900 text-sm">行政处罚与失信信息</div>
+                    <div class="text-xs text-gray-500 mt-0.5 truncate">是否存在不良记录（概览）</div>
+                </div>
+                <div class="ml-3">
+                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="行政处罚与失信信息" onchange="updateSelection()">
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 w-full max-w-[390px] bg-white border-t border-gray-100 p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.03)] z-40">
+        <button id="generateBtn" class="w-full bg-gray-300 text-white font-bold py-3.5 rounded-xl transition shadow-sm cursor-not-allowed" onclick="generateShare()" disabled>
+            生成分享链接与密码
+        </button>
+    </div>
+
+    <div id="unclaimedModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
+        <div class="bg-white w-full max-w-[300px] rounded-2xl p-6 text-center shadow-2xl">
+            <div class="w-16 h-16 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">数据未认领</h3>
+            <p class="text-sm text-gray-500 mb-6">该数据尚未完成认领，无法生成报告分享链接。请先前往认领您的数据。</p>
+            <div class="flex space-x-3">
+                <button onclick="closeUnclaimedModal()" class="flex-1 py-2.5 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition">取消</button>
+                <button onclick="window.location.href='app_my_data.html?tab=unclaimed'" class="flex-1 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition">前往认领</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="shareModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
+        <div class="bg-white w-full max-w-[340px] rounded-2xl p-6 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-gray-800">分享信息</h3>
+                <button onclick="closeShareModal()" class="text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="bg-orange-50 border border-orange-100 rounded-xl p-3 text-sm text-orange-600 mb-4">
+                <div class="font-bold mb-1">重要提示</div>
+                <div class="text-xs leading-relaxed">有效期：24 小时（生成后）</div>
+                <div class="text-xs leading-relaxed">一次性：每组链接与密码仅可查询 1 次，查询成功后立即失效</div>
+            </div>
+            <div class="text-xs text-gray-500 mb-4">
+                生成时间：<span id="createdAtText" class="font-semibold text-gray-700"></span>
+                <span class="text-gray-300 mx-2">|</span>
+                授权截止时间：<span id="expireAtText" class="font-semibold text-gray-700"></span>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
+                    <div class="text-xs text-gray-500 mb-2">分享链接</div>
+                    <div class="flex gap-2">
+                        <input id="shareLinkInput" class="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500" readonly>
+                        <button onclick="copyText('shareLinkInput')" class="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition">复制</button>
+                    </div>
+                </div>
+                <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
+                    <div class="text-xs text-gray-500 mb-2">密码</div>
+                    <div class="flex gap-2">
+                        <input id="sharePwdInput" class="flex-1 bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500" readonly>
+                        <button onclick="copyText('sharePwdInput')" class="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition">复制</button>
+                    </div>
+                </div>
+            </div>
+            <button onclick="copyAll()" class="w-full mt-5 bg-blue-600 text-white font-bold py-3 rounded-xl shadow-sm hover:bg-blue-700 transition">
+                复制全部
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let lastShare = null;
+    const SHARE_RECORDS_KEY = 'gqEntryShareRecords';
+    const APP_NAME = '国企入职调查报告';
+
+    function safeJsonParse(text, fallback) {
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    function getShareRecords() {
+        return safeJsonParse(localStorage.getItem(SHARE_RECORDS_KEY) || '[]', []);
+    }
+
+    function setShareRecords(records) {
+        localStorage.setItem(SHARE_RECORDS_KEY, JSON.stringify(records));
+    }
+
+    function showUnclaimedModal() {
+        document.getElementById('unclaimedModal').classList.remove('hidden');
+    }
+
+    function closeUnclaimedModal() {
+        document.getElementById('unclaimedModal').classList.add('hidden');
+    }
+
+    function updateSelection() {
+        const checkboxes = Array.from(document.querySelectorAll('.catalog-checkbox'));
+        const checked = checkboxes.filter(cb => cb.checked).length;
+        document.getElementById('selectedCount').textContent = `已选：${checked} 项`;
+
+        checkboxes.forEach(cb => {
+            const row = cb.closest('.catalog-item');
+            if (!row) return;
+            if (cb.checked) {
+                row.classList.add('bg-blue-50/40', 'border-blue-200');
+            } else {
+                row.classList.remove('bg-blue-50/40', 'border-blue-200');
+            }
+        });
+        const btn = document.getElementById('generateBtn');
+        if (checked > 0) {
+            btn.disabled = false;
+            btn.className = 'w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl transition shadow-sm hover:bg-blue-700';
+        } else {
+            btn.disabled = true;
+            btn.className = 'w-full bg-gray-300 text-white font-bold py-3.5 rounded-xl transition shadow-sm cursor-not-allowed';
+        }
+    }
+
+    function randomToken(len) {
+        return Array.from(crypto.getRandomValues(new Uint8Array(len))).map(b => (b % 36).toString(36)).join('');
+    }
+
+    function formatDate(d) {
+        const pad = (n) => String(n).padStart(2, '0');
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    function generateShare() {
+        const checked = Array.from(document.querySelectorAll('.catalog-checkbox:checked')).map(i => i.value);
+        if (checked.length === 0) {
+            return;
+        }
+        const createdAt = new Date();
+        const token = randomToken(16);
+        const pwd = String(Math.floor(100000 + Math.random() * 900000));
+        const expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+        const link = `https://example.com/gq-entry/report?token=${token}`;
+        lastShare = { link, pwd, createdAt, expireAt };
+        const records = getShareRecords();
+        records.unshift({
+            id: token,
+            appName: APP_NAME,
+            status: 'valid',
+            data: checked,
+            createdAt: createdAt.toISOString(),
+            expireAt: expireAt.toISOString(),
+            link,
+            pwd,
+            usedAt: null,
+            usedInfo: null,
+            canceledAt: null
+        });
+        setShareRecords(records);
+
+        document.getElementById('shareLinkInput').value = link;
+        document.getElementById('sharePwdInput').value = pwd;
+        document.getElementById('createdAtText').textContent = formatDate(createdAt);
+        document.getElementById('expireAtText').textContent = formatDate(expireAt);
+        openShareModal();
+    }
+
+    function openShareModal() {
+        document.getElementById('shareModal').classList.remove('hidden');
+    }
+
+    function closeShareModal() {
+        document.getElementById('shareModal').classList.add('hidden');
+    }
+
+    async function copyAll() {
+        const link = document.getElementById('shareLinkInput').value;
+        const pwd = document.getElementById('sharePwdInput').value;
+        const text = `分享链接：${link}\n密码：${pwd}`;
+        try {
+            await navigator.clipboard.writeText(text);
+        } catch (e) {
+            const tmp = document.createElement('textarea');
+            tmp.value = text;
+            tmp.style.position = 'fixed';
+            tmp.style.opacity = '0';
+            document.body.appendChild(tmp);
+            tmp.focus();
+            tmp.select();
+            document.execCommand('copy');
+            document.body.removeChild(tmp);
+        }
+        closeShareModal();
+    }
+
+    async function copyText(inputId) {
+        const el = document.getElementById(inputId);
+        const text = el.value;
+        try {
+            await navigator.clipboard.writeText(text);
+        } catch (e) {
+            el.removeAttribute('readonly');
+            el.select();
+            document.execCommand('copy');
+            el.setAttribute('readonly', 'true');
+            window.getSelection().removeAllRanges();
+        }
+    }
+</script>
+</body>
+</html>
