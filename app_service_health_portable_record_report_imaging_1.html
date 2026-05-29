@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>检查报告详情 - 个人健康随身档案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f3f4f6; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; box-shadow: 0 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .bg-gradient { background: linear-gradient(135deg, #22c55e 0%, #10b981 100%); }
+    </style>
+</head>
+<body>
+<div class="mobile-view">
+    <div class="bg-gradient text-white p-5 pb-4 rounded-b-3xl shadow-md sticky top-0 z-50">
+        <div class="flex items-center justify-between">
+            <a href="app_service_health_portable_record.html" class="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center">
+                <i class="fa-solid fa-angle-left text-xl"></i>
+            </a>
+            <div class="text-center">
+                <h1 class="text-base font-bold tracking-wide">检查报告</h1>
+                <p class="text-sm text-emerald-50 opacity-90 mt-0.5">影像检查报告详情</p>
+            </div>
+            <div class="w-9 h-9"></div>
+        </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 pb-20 space-y-4">
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+            <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                    <div class="font-bold text-gray-900 text-sm truncate">腹部彩超检查报告</div>
+                    <div class="text-xs text-gray-500 mt-1 truncate">潍坊市人民医院 · 超声科</div>
+                </div>
+                <div class="text-right flex-shrink-0">
+                    <div class="text-xs text-gray-400">检查时间：2026/05/18 09:12</div>
+                    <div class="text-xs text-gray-400 mt-1">报告时间：2026/05/18 10:02</div>
+                </div>
+            </div>
+
+            <div class="mt-4 bg-gray-50 border border-gray-100 rounded-xl p-3 space-y-3">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">医疗机构编码</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">370702001</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">医疗机构名称</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">潍坊市人民医院</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">就诊类型</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">门诊</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">就诊流水号</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">MZ202605180001</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">申请ID</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">APPLY202605180001</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">申请科室</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">消化内科</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">申请时间</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">2026/05/18 08:56</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">检查科室</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">超声科</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">检查项目</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">腹部彩超</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+            <div class="font-bold text-gray-800 text-sm">影像所见</div>
+            <div class="text-sm text-gray-700 mt-2 leading-relaxed">
+                肝脏形态大小未见明显异常，实质回声均匀；胆囊壁不厚，腔内未见明显结石回声；胰腺显示尚清；脾脏大小形态正常；双肾形态大小正常，集合系统未见明显分离。
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+            <div class="font-bold text-gray-800 text-sm">影像结论</div>
+            <div class="text-sm text-gray-700 mt-2 leading-relaxed">腹部超声未见明显异常。</div>
+        </div>
+
+        <div class="flex gap-2">
+            <a href="#" class="flex-1 text-center py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition">查看原报告</a>
+            <a href="#" class="flex-1 text-center py-3 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition">下载PDF</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

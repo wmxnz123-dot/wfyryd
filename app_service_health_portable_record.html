@@ -56,7 +56,7 @@
 
         <!-- 切换按钮区 -->
         <div class="bg-white border-b border-gray-100 flex text-center mt-2 shadow-sm sticky top-0 z-40">
-            <button onclick="switchTab('outpatient')" id="tab-outpatient" class="flex-1 py-3.5 text-sm font-bold text-blue-600 border-b-2 border-blue-600 transition">门诊信息</button>
+            <button onclick="switchTab('outpatient')" id="tab-outpatient" class="flex-1 py-3.5 text-sm font-bold text-blue-600 border-b-2 border-blue-600 transition">就诊信息</button>
             <button onclick="switchTab('report')" id="tab-report" class="flex-1 py-3.5 text-sm font-bold text-gray-500 border-b-2 border-transparent transition">检查报告</button>
             <button onclick="switchTab('physical')" id="tab-physical" class="flex-1 py-3.5 text-sm font-bold text-gray-500 border-b-2 border-transparent transition">体检信息</button>
         </div>
@@ -64,40 +64,60 @@
         <!-- 门诊信息内容 -->
         <div id="content-outpatient" class="tab-content p-4 space-y-3">
             <div class="flex items-end justify-between px-1 mb-1">
-                <h3 class="font-bold text-gray-800 text-sm">门诊记录</h3>
+                <h3 class="font-bold text-gray-800 text-sm">就诊信息</h3>
                 <span class="text-[10px] text-gray-400">近 12 个月</span>
             </div>
             <a href="app_service_health_portable_record_outpatient_detail_1.html" class="block bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md hover:border-gray-200 transition">
                 <div class="flex items-start justify-between gap-3">
                     <div class="min-w-0">
-                        <div class="font-bold text-gray-900 text-sm truncate">潍坊市人民医院 · 呼吸内科</div>
-                        <div class="text-xs text-gray-500 mt-1">主诉：咳嗽咳痰 1 周</div>
+                        <div class="font-bold text-gray-900 text-sm truncate">门(急)诊病历</div>
+                        <div class="text-xs text-gray-500 mt-1 truncate">潍坊市人民医院</div>
                     </div>
                     <div class="flex items-center gap-2 flex-shrink-0">
                         <div class="text-xs text-gray-400">2026/05/18</div>
                         <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
                     </div>
                 </div>
-                <div class="mt-3 bg-gray-50 border border-gray-100 rounded-xl p-3">
-                    <div class="text-xs text-gray-500">诊断</div>
-                    <div class="text-sm text-gray-800 mt-1">急性支气管炎</div>
+                <div class="mt-3 bg-gray-50 border border-gray-100 rounded-xl p-3 grid grid-cols-3 gap-3">
+                    <div class="min-w-0">
+                        <div class="text-[10px] text-gray-500">科室</div>
+                        <div class="text-xs font-semibold text-gray-800 mt-1 truncate">呼吸内科</div>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="text-[10px] text-gray-500">就诊时间</div>
+                        <div class="text-xs font-semibold text-gray-800 mt-1 truncate">2026/05/18 09:40</div>
+                    </div>
+                    <div class="min-w-0 text-right">
+                        <div class="text-[10px] text-gray-500">就诊类型</div>
+                        <div class="text-xs font-semibold text-gray-800 mt-1 truncate">门(急)诊</div>
+                    </div>
                 </div>
             </a>
 
             <a href="app_service_health_portable_record_outpatient_detail_2.html" class="block bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md hover:border-gray-200 transition">
                 <div class="flex items-start justify-between gap-3">
                     <div class="min-w-0">
-                        <div class="font-bold text-gray-900 text-sm truncate">潍坊市中医院 · 消化内科</div>
-                        <div class="text-xs text-gray-500 mt-1">主诉：上腹不适、反酸</div>
+                        <div class="font-bold text-gray-900 text-sm truncate">住院摘要</div>
+                        <div class="text-xs text-gray-500 mt-1 truncate">潍坊市中医院</div>
                     </div>
                     <div class="flex items-center gap-2 flex-shrink-0">
                         <div class="text-xs text-gray-400">2026/03/07</div>
                         <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
                     </div>
                 </div>
-                <div class="mt-3 bg-gray-50 border border-gray-100 rounded-xl p-3">
-                    <div class="text-xs text-gray-500">诊断</div>
-                    <div class="text-sm text-gray-800 mt-1">慢性胃炎</div>
+                <div class="mt-3 bg-gray-50 border border-gray-100 rounded-xl p-3 grid grid-cols-3 gap-3">
+                    <div class="min-w-0">
+                        <div class="text-[10px] text-gray-500">出院科室</div>
+                        <div class="text-xs font-semibold text-gray-800 mt-1 truncate">消化内科</div>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="text-[10px] text-gray-500">住院时间</div>
+                        <div class="text-xs font-semibold text-gray-800 mt-1 truncate">2026/02/28-03/07</div>
+                    </div>
+                    <div class="min-w-0 text-right">
+                        <div class="text-[10px] text-gray-500">就诊类型</div>
+                        <div class="text-xs font-semibold text-gray-800 mt-1 truncate">住院</div>
+                    </div>
                 </div>
             </a>
         </div>
@@ -105,17 +125,35 @@
         <!-- 检查报告内容 -->
         <div id="content-report" class="tab-content hidden p-4 space-y-3">
             <div class="flex items-end justify-between px-1 mb-1">
-                <h3 class="font-bold text-gray-800 text-sm">检查检验</h3>
-                <span class="text-[10px] text-gray-400">可查看详情</span>
+                <h3 class="font-bold text-gray-800 text-sm">检查报告 / 检验报告</h3>
+                <span class="text-[10px] text-gray-400">点击进入详情</span>
             </div>
+            <a href="app_service_health_portable_record_report_imaging_1.html" class="block bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md hover:border-gray-200 transition">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <div class="font-bold text-gray-900 text-sm truncate">腹部彩超检查报告</div>
+                        <div class="text-xs text-gray-500 mt-1 truncate">潍坊市人民医院 · 超声科</div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-blue-50 text-blue-600 border-blue-100 inline-block">检查</div>
+                            <div class="text-xs text-gray-400 mt-1">2026/05/18</div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
+                    </div>
+                </div>
+            </a>
             <a href="app_service_health_portable_record_report_cbc.html" class="block bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md hover:border-gray-200 transition">
                 <div class="flex items-start justify-between gap-3">
                     <div class="min-w-0">
-                        <div class="font-bold text-gray-900 text-sm truncate">血常规</div>
-                        <div class="text-xs text-gray-500 mt-1">潍坊市人民医院</div>
+                        <div class="font-bold text-gray-900 text-sm truncate">血常规检验报告</div>
+                        <div class="text-xs text-gray-500 mt-1 truncate">潍坊市人民医院 · 检验科</div>
                     </div>
                     <div class="flex items-center gap-2 flex-shrink-0">
-                        <div class="text-xs text-gray-400">2026/05/18</div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-600 border-emerald-100 inline-block">检验</div>
+                            <div class="text-xs text-gray-400 mt-1">2026/05/18</div>
+                        </div>
                         <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
                     </div>
                 </div>
@@ -131,22 +169,22 @@
             <a href="app_service_health_portable_record_physical_detail_1.html" class="block bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md hover:border-gray-200 transition">
                 <div class="flex items-start justify-between gap-3">
                     <div class="min-w-0">
-                        <div class="font-bold text-gray-900 text-sm truncate">2026 年度体检</div>
-                        <div class="text-xs text-gray-500 mt-1">潍坊市体检中心</div>
+                        <div class="font-bold text-gray-900 text-sm truncate">潍坊市体检中心</div>
+                        <div class="text-xs text-gray-500 mt-1">体检目的：入职体检</div>
                     </div>
                     <div class="flex items-center gap-2 flex-shrink-0">
-                        <div class="text-xs text-gray-400">2026/04/20</div>
+                        <div class="text-xs text-gray-400">检查日期：2026/04/20</div>
                         <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
                     </div>
                 </div>
                 <div class="mt-3 bg-gray-50 border border-gray-100 rounded-xl p-3 space-y-2">
                     <div class="flex items-center justify-between gap-3">
-                        <div class="text-xs text-gray-500">总体结论</div>
-                        <div class="text-sm font-semibold text-gray-800">建议控制体重，规律作息</div>
+                        <div class="text-xs text-gray-500 flex-shrink-0">总检结论</div>
+                        <div class="text-sm font-semibold text-gray-800 text-right">基本正常，建议控制体重</div>
                     </div>
                     <div class="flex items-center justify-between gap-3">
-                        <div class="text-xs text-gray-500">重点关注</div>
-                        <div class="text-sm font-semibold text-gray-800">血脂、肝功能</div>
+                        <div class="text-xs text-gray-500 flex-shrink-0">异常描述</div>
+                        <div class="text-sm font-semibold text-gray-800 text-right">血脂轻度偏高、BMI偏高</div>
                     </div>
                 </div>
             </a>
