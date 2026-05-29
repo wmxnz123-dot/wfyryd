@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>门诊详情 - 个人健康随身档案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f3f4f6; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; box-shadow: 0 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .bg-gradient { background: linear-gradient(135deg, #22c55e 0%, #10b981 100%); }
+    </style>
+</head>
+<body>
+<div class="mobile-view">
+    <div class="bg-gradient text-white p-5 pb-4 rounded-b-3xl shadow-md sticky top-0 z-50">
+        <div class="flex items-center justify-between">
+            <a href="app_service_health_portable_record.html" class="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center">
+                <i class="fa-solid fa-angle-left text-xl"></i>
+            </a>
+            <div class="text-center">
+                <h1 class="text-base font-bold tracking-wide">门诊详情</h1>
+                <p class="text-sm text-emerald-50 opacity-90 mt-0.5">就诊记录详情</p>
+            </div>
+            <div class="w-9 h-9"></div>
+        </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 pb-20">
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+            <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                    <div class="font-bold text-gray-900 text-sm truncate">潍坊市中医院 · 消化内科</div>
+                    <div class="text-xs text-gray-500 mt-1">就诊时间：2026/03/07 14:10</div>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-blue-50 text-blue-600 border-blue-100 flex-shrink-0">门诊</span>
+            </div>
+
+            <div class="mt-4 bg-gray-50 border border-gray-100 rounded-xl p-3 space-y-3">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">主诉</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">上腹不适、反酸</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">诊断</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">慢性胃炎</div>
+                </div>
+                <div class="flex items-start justify-between gap-3">
+                    <div class="text-xs text-gray-500 flex-shrink-0">医生</div>
+                    <div class="text-sm font-semibold text-gray-800 text-right">李医生</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div class="px-4 py-3 bg-gray-50 border-b border-gray-100 flex items-center justify-between">
+                <div class="font-bold text-gray-800 text-sm">处方/用药</div>
+                <div class="text-[10px] text-gray-400">示例数据</div>
+            </div>
+            <div class="divide-y divide-gray-100">
+                <div class="px-4 py-3 flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <div class="text-sm font-semibold text-gray-800">奥美拉唑肠溶胶囊</div>
+                        <div class="text-xs text-gray-500 mt-1">20mg × 14 粒</div>
+                    </div>
+                    <div class="text-xs text-gray-500 flex-shrink-0 text-right">1粒/次\n每日1次</div>
+                </div>
+                <div class="px-4 py-3 flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <div class="text-sm font-semibold text-gray-800">铝碳酸镁咀嚼片</div>
+                        <div class="text-xs text-gray-500 mt-1">0.5g × 30 片</div>
+                    </div>
+                    <div class="text-xs text-gray-500 flex-shrink-0 text-right">1-2片/次\n每日3次</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+            <div class="font-bold text-gray-800 text-sm">医嘱</div>
+            <div class="text-sm text-gray-700 mt-2 leading-relaxed">规律饮食，避免辛辣刺激；餐后避免立即平卧；如反酸明显或黑便、呕血等情况请及时就诊。</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

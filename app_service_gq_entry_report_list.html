@@ -152,7 +152,7 @@
     }
 
     function statusLabel(status) {
-        if (status === 'valid') return { text: '有效中', cls: 'bg-green-50 text-green-600 border-green-100' };
+        if (status === 'valid') return { text: '未使用', cls: 'bg-green-50 text-green-600 border-green-100' };
         if (status === 'used') return { text: '已使用', cls: 'bg-blue-50 text-blue-600 border-blue-100' };
         if (status === 'revoked') return { text: '已撤销', cls: 'bg-red-50 text-red-600 border-red-100' };
         return { text: '已过期', cls: 'bg-gray-100 text-gray-500 border-gray-200' };
@@ -199,7 +199,7 @@
                 if (status === 'valid') {
                     return `
                         <button class="px-3 py-2 bg-white text-gray-600 border border-gray-200 rounded-lg text-xs font-semibold hover:bg-gray-50 transition" onclick="openDetail('${r.id}')">查看链接</button>
-                        <button class="px-3 py-2 bg-white text-red-600 border border-red-100 rounded-lg text-xs font-semibold hover:bg-red-50 transition" onclick="openCancelConfirm('${r.id}')">取消授权</button>
+                        <button class="px-3 py-2 bg-white text-red-600 border border-red-100 rounded-lg text-xs font-semibold hover:bg-red-50 transition" onclick="openCancelConfirm('${r.id}')">取消分享</button>
                     `;
                 }
                 if (status === 'used') {
@@ -233,7 +233,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between gap-3">
-                            <div class="text-gray-500">授权时间</div>
+                            <div class="text-gray-500">生成时间</div>
                             <div class="font-semibold text-gray-800">${createdAt}</div>
                         </div>
                         <div class="flex items-center justify-between gap-3">
@@ -421,7 +421,7 @@
 
         <div class="p-5">
             <div class="bg-blue-50 border border-blue-100 rounded-xl p-3 text-xs text-blue-700">
-                授权时间：<span id="detailCreatedAt" class="font-bold text-blue-800"></span>
+                生成时间：<span id="detailCreatedAt" class="font-bold text-blue-800"></span>
                 <span class="text-blue-200 mx-2">|</span>
                 有效期：<span id="detailExpireAt" class="font-bold text-blue-800"></span>
             </div>
@@ -467,7 +467,7 @@
         <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
         </div>
-        <h3 class="text-lg font-bold text-gray-800 mb-2">取消授权</h3>
+        <h3 class="text-lg font-bold text-gray-800 mb-2">取消分享</h3>
         <p class="text-sm text-gray-500 mb-6">取消后，该链接与密码将立即失效。</p>
         <div class="flex space-x-3">
             <button onclick="closeCancelConfirm()" class="flex-1 py-2.5 bg-gray-100 text-gray-600 rounded-xl font-medium hover:bg-gray-200 transition">取消</button>

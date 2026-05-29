@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人健康随身档案 - 个人专属数据空间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f3f4f6; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; box-shadow: 0 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .bg-gradient { background: linear-gradient(135deg, #22c55e 0%, #10b981 100%); }
+    </style>
+</head>
+<body>
+<div class="mobile-view">
+    <div class="bg-gradient text-white p-5 pb-4 rounded-b-3xl shadow-md sticky top-0 z-50">
+        <div class="flex items-center justify-between">
+            <a href="app_home.html" class="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center">
+                <i class="fa-solid fa-angle-left text-xl"></i>
+            </a>
+            <div class="text-center">
+                <h1 class="text-base font-bold tracking-wide">个人健康随身档案</h1>
+                <p class="text-sm text-emerald-50 opacity-90 mt-0.5">多医院就诊信息汇总</p>
+            </div>
+            <div class="w-9 h-9"></div>
+        </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto pb-20">
+        <!-- 个人基本信息卡片 -->
+        <div class="bg-white shadow-sm">
+            <div class="rounded-2xl p-5 relative overflow-hidden">
+                <i class="fa-solid fa-heart-pulse absolute -right-4 -bottom-4 text-7xl text-gray-200/50"></i>
+                <div class="relative z-10 flex items-center justify-between gap-3">
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span id="nameValue" class="text-2xl font-bold text-gray-900 tracking-widest truncate"></span>
+                            <i id="genderIcon" class="fa-solid fa-mars text-blue-500 text-lg"></i>
+                            <span id="ageValue" class="text-sm text-gray-500 font-semibold flex-shrink-0"></span>
+                        </div>
+                    </div>
+                    <button id="toggleMaskBtn" onclick="toggleMask()" class="w-9 h-9 flex items-center justify-center bg-white text-gray-400 hover:text-blue-500 transition flex-shrink-0">
+                        <i id="maskIcon" class="fa-solid fa-eye-slash text-base"></i>
+                    </button>
+                </div>
+
+                <div class="relative z-10 flex items-center justify-between gap-3 mt-3 text-xs">
+                    <span class="flex items-center gap-1.5 text-gray-500">
+                        <i class="fa-regular fa-clock text-gray-400"></i>
+                        数据更新时间:
+                    <span id="updatedAtValue"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 切换按钮区 -->
+        <div class="bg-white border-b border-gray-100 flex text-center mt-2 shadow-sm sticky top-0 z-40">
+            <button onclick="switchTab('outpatient')" id="tab-outpatient" class="flex-1 py-3.5 text-sm font-bold text-blue-600 border-b-2 border-blue-600 transition">门诊信息</button>
+            <button onclick="switchTab('report')" id="tab-report" class="flex-1 py-3.5 text-sm font-bold text-gray-500 border-b-2 border-transparent transition">检查报告</button>
+            <button onclick="switchTab('physical')" id="tab-physical" class="flex-1 py-3.5 text-sm font-bold text-gray-500 border-b-2 border-transparent transition">体检信息</button>
+        </div>
+
+        <!-- 门诊信息内容 -->
+        <div id="content-outpatient" class="tab-content p-4 space-y-3">
+            <div class="flex items-end justify-between px-1 mb-1">
+                <h3 class="font-bold text-gray-800 text-sm">门诊记录</h3>
+                <span class="text-[10px] text-gray-400">近 12 个月</span>
+            </div>
+            <a href="app_service_health_portable_record_outpatient_detail_1.html" class="block bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md hover:border-gray-200 transition">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <div class="font-bold text-gray-900 text-sm truncate">潍坊市人民医院 · 呼吸内科</div>
+                        <div class="text-xs text-gray-500 mt-1">主诉：咳嗽咳痰 1 周</div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <div class="text-xs text-gray-400">2026/05/18</div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
+                    </div>
+                </div>
+                <div class="mt-3 bg-gray-50 border border-gray-100 rounded-xl p-3">
+                    <div class="text-xs text-gray-500">诊断</div>
+                    <div class="text-sm text-gray-800 mt-1">急性支气管炎</div>
+                </div>
+            </a>
+
+            <a href="app_service_health_portable_record_outpatient_detail_2.html" class="block bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md hover:border-gray-200 transition">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <div class="font-bold text-gray-900 text-sm truncate">潍坊市中医院 · 消化内科</div>
+                        <div class="text-xs text-gray-500 mt-1">主诉：上腹不适、反酸</div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <div class="text-xs text-gray-400">2026/03/07</div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
+                    </div>
+                </div>
+                <div class="mt-3 bg-gray-50 border border-gray-100 rounded-xl p-3">
+                    <div class="text-xs text-gray-500">诊断</div>
+                    <div class="text-sm text-gray-800 mt-1">慢性胃炎</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- 检查报告内容 -->
+        <div id="content-report" class="tab-content hidden p-4 space-y-3">
+            <div class="flex items-end justify-between px-1 mb-1">
+                <h3 class="font-bold text-gray-800 text-sm">检查检验</h3>
+                <span class="text-[10px] text-gray-400">可查看详情</span>
+            </div>
+            <a href="app_service_health_portable_record_report_cbc.html" class="block bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md hover:border-gray-200 transition">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <div class="font-bold text-gray-900 text-sm truncate">血常规</div>
+                        <div class="text-xs text-gray-500 mt-1">潍坊市人民医院</div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <div class="text-xs text-gray-400">2026/05/18</div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- 体检信息内容 -->
+        <div id="content-physical" class="tab-content hidden p-4 space-y-3">
+            <div class="flex items-end justify-between px-1 mb-1">
+                <h3 class="font-bold text-gray-800 text-sm">年度体检</h3>
+                <span class="text-[10px] text-gray-400">年度汇总</span>
+            </div>
+            <a href="app_service_health_portable_record_physical_detail_1.html" class="block bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md hover:border-gray-200 transition">
+                <div class="flex items-start justify-between gap-3">
+                    <div class="min-w-0">
+                        <div class="font-bold text-gray-900 text-sm truncate">2026 年度体检</div>
+                        <div class="text-xs text-gray-500 mt-1">潍坊市体检中心</div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <div class="text-xs text-gray-400">2026/04/20</div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i>
+                    </div>
+                </div>
+                <div class="mt-3 bg-gray-50 border border-gray-100 rounded-xl p-3 space-y-2">
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="text-xs text-gray-500">总体结论</div>
+                        <div class="text-sm font-semibold text-gray-800">建议控制体重，规律作息</div>
+                    </div>
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="text-xs text-gray-500">重点关注</div>
+                        <div class="text-sm font-semibold text-gray-800">血脂、肝功能</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function pad(n) {
+        return String(n).padStart(2, '0');
+    }
+
+    function formatDateTime(d) {
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    }
+
+    function getCurrentUserName() {
+        return localStorage.getItem('currentUserName') || localStorage.getItem('userName') || '张三';
+    }
+
+    function getCurrentGender() {
+        return localStorage.getItem('userGender') || '男';
+    }
+
+    function getCurrentAge() {
+        const a = localStorage.getItem('userAge');
+        if (a) return a;
+        const birth = localStorage.getItem('userBirthDate');
+        if (birth) {
+            const m = birth.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (m) {
+                const y = Number(m[1]);
+                const mo = Number(m[2]) - 1;
+                const da = Number(m[3]);
+                const today = new Date();
+                let age = today.getFullYear() - y;
+                const hadBirthday = (today.getMonth() > mo) || (today.getMonth() === mo && today.getDate() >= da);
+                if (!hadBirthday) age -= 1;
+                if (Number.isFinite(age) && age > 0 && age < 120) return String(age);
+            }
+        }
+        return '36';
+    }
+
+    function maskName(name) {
+        if (!name) return '-';
+        if (name.length === 1) return name + '*';
+        return name.slice(0, 1) + '*'.repeat(Math.min(2, name.length - 1));
+    }
+
+    let maskOn = true;
+    let fullName = getCurrentUserName();
+
+    function renderBasic() {
+        // Name
+        document.getElementById('nameValue').textContent = maskOn ? maskName(fullName) : fullName;
+        
+        // Gender Icon
+        const gender = getCurrentGender();
+        const genderIcon = document.getElementById('genderIcon');
+        if (gender === '女') {
+            genderIcon.className = 'fa-solid fa-venus text-pink-500';
+        } else {
+            genderIcon.className = 'fa-solid fa-mars text-blue-500';
+        }
+
+        // Age
+        document.getElementById('ageValue').textContent = `${getCurrentAge()}岁`;
+
+        // Time
+        document.getElementById('updatedAtValue').textContent = formatDateTime(new Date());
+
+        // Eye Icon
+        document.getElementById('maskIcon').className = maskOn ? 'fa-solid fa-eye-slash text-base' : 'fa-solid fa-eye text-base text-blue-500';
+    }
+
+    function toggleMask() {
+        maskOn = !maskOn;
+        renderBasic();
+    }
+
+    function switchTab(tabId) {
+        // Update Tabs
+        const tabs = ['outpatient', 'report', 'physical'];
+        tabs.forEach(id => {
+            const btn = document.getElementById('tab-' + id);
+            if (id === tabId) {
+                btn.className = 'flex-1 py-3.5 text-sm font-bold text-blue-600 border-b-2 border-blue-600 transition';
+            } else {
+                btn.className = 'flex-1 py-3.5 text-sm font-bold text-gray-500 border-b-2 border-transparent transition';
+            }
+        });
+
+        // Update Contents
+        document.querySelectorAll('.tab-content').forEach(el => {
+            el.classList.add('hidden');
+        });
+        document.getElementById('content-' + tabId).classList.remove('hidden');
+    }
+
+    renderBasic();
+</script>
+</body>
+</html>
