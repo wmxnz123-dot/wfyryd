@@ -37,7 +37,7 @@
                     <div class="flex-1 min-w-0">
                         <div class="font-bold text-gray-800 text-sm">报告查询</div>
                         <div class="text-xs text-gray-500 mt-0.5">输入链接与密码，查询入职调查报告</div>
-                        <div class="text-xs text-gray-500 mt-1 leading-relaxed">每组链接与密码有效期 24 小时，且仅支持一次性查询；如需再次查询请重新生成</div>
+                        <div class="text-xs text-gray-500 mt-1 leading-relaxed">每组链接与密码有效期 24 小时，同一链接最多可核验 5 次</div>
                     </div>
                 </div>
 
@@ -90,7 +90,7 @@
                     </div>
                     <div>
                         <div class="font-bold text-gray-800">查询成功</div>
-                        <div class="text-xs text-gray-500">可预览与下载报告 PDF</div>
+                        <div class="text-xs text-gray-500">可下载报告 PDF</div>
                     </div>
                 </div>
                 <button onclick="closeSuccessModal()" class="text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
@@ -100,7 +100,7 @@
 
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
                 <div class="bg-orange-50 border border-orange-100 rounded-lg p-2 text-xs text-orange-600 mb-3">
-                    每组链接与密码有效期 24 小时，且仅支持一次性查询；查询成功后链接立即失效
+                    每组链接与密码有效期 24 小时，同一链接最多可核验 5 次
                 </div>
                 <div class="text-xs text-gray-500 mb-2">报告文件</div>
                 <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center gap-3">
@@ -112,9 +112,18 @@
                         <div class="text-[10px] text-gray-400 mt-0.5">PDF 文件</div>
                     </div>
                 </div>
+                <div class="text-xs text-gray-500 mb-2 mt-3">材料文件</div>
+                <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-file-zipper text-xl"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div id="materialsFileName" class="text-sm font-bold text-gray-800 truncate">入职调查材料.zip</div>
+                        <div class="text-[10px] text-gray-400 mt-0.5">ZIP 文件</div>
+                    </div>
+                </div>
                 <div class="flex gap-2 mt-3">
-                    <a id="previewBtn" href="#" target="_blank" class="flex-1 text-center py-2.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition">预览</a>
-                    <a id="downloadBtn" href="#" download="国企入职调查报告.pdf" class="flex-1 text-center py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition">下载</a>
+                    <a id="downloadBtn" href="#" download="国企入职调查报告.pdf" class="w-full text-center py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition">下载</a>
                 </div>
             </div>
         </div>
@@ -203,6 +212,7 @@
     const DEMO_VALID_LINK = 'https://example.com/gq-entry/report?token=gq-valid-2026';
     const DEMO_EXPIRED_LINK = 'https://example.com/gq-entry/report?token=gq-expired-2026';
     const DEMO_PASSWORD = '862468';
+    const DEMO_QUERY_COUNT_KEY = 'gqEntryDemoQueryCount';
 
     function maskName(name) {
         if (!name) return '-';
@@ -225,11 +235,16 @@
     function normalizeReportNameFromRecord(r) {
         const raw = r?.reportName || '';
         if (!raw) return '入职调查报告';
-        const m1 = raw.match(/^(.+?)入职调查报告_(\d{8})/);
-        if (m1) return `${m1[1]}入职调查报告${m1[2]}`;
-        const m2 = raw.match(/^(.+?)入职调查报告_(\d{12})/);
-        if (m2) return `${m2[1]}入职调查报告${m2[2].slice(0, 8)}`;
-        return raw.replace(/_/g, '');
+        const m1 = raw.match(/^(.+?)入职调查报告_(\d{8})(\d{2})?/);
+        if (m1) return `${m1[1]}入职调查报告${m1[2]}${m1[3] || '01'}`;
+        const m2 = raw.match(/^(.+?)入职调查报告_(\d{12})(\d{2})?/);
+        if (m2) return `${m2[1]}入职调查报告${m2[2].slice(0, 8)}${m2[3] || '01'}`;
+        const cleaned = raw.replace(/_/g, '');
+        const m3 = cleaned.match(/^(.+?)入职调查报告(\d{8})(\d{2})$/);
+        if (m3) return `${m3[1]}入职调查报告${m3[2]}${m3[3]}`;
+        const m4 = cleaned.match(/^(.+?)入职调查报告(\d{8})$/);
+        if (m4) return `${m4[1]}入职调查报告${m4[2]}01`;
+        return cleaned;
     }
 
     function safeJsonParse(text, fallback) {
@@ -335,6 +350,12 @@
                 showTip('密码错误');
                 return;
             }
+            const demoCount = Number(localStorage.getItem(DEMO_QUERY_COUNT_KEY) || '0');
+            if (demoCount >= 5) {
+                showTip('该链接已达可核验次数上限（5次），请重新生成新的链接与密码');
+                return;
+            }
+            localStorage.setItem(DEMO_QUERY_COUNT_KEY, String(demoCount + 1));
         } else {
             const shareList = getShareRecords();
             const idx = shareList.findIndex(r => r.id === token);
@@ -356,8 +377,10 @@
                 showTip('分享已撤销');
                 return;
             }
-            if (r.usedAt) {
-                showTip('该链接与密码已被使用（一次性查询），请重新生成新的链接与密码');
+            const max = Number(r.maxQueryCount || 5);
+            const cnt = Number((r.queryCount ?? (r.usedAt ? 1 : 0)) || 0);
+            if (cnt >= max) {
+                showTip('该链接已达可核验次数上限（5次），请重新生成新的链接与密码');
                 return;
             }
         }
@@ -376,8 +399,11 @@
             const idx = shareList.findIndex(r => r.id === token);
             if (idx >= 0) {
                 const r = shareList[idx];
+                const max = Number(r.maxQueryCount || 5);
+                const cnt = Number((r.queryCount ?? (r.usedAt ? 1 : 0)) || 0);
+                r.queryCount = cnt + 1;
                 r.usedAt = now.toISOString();
-                r.status = 'used';
+                r.status = (r.queryCount >= max) ? 'used' : 'valid';
                 r.usedInfo = { name: usedInfo.name, gender: usedInfo.gender };
                 shareList[idx] = r;
                 setShareRecords(shareList);
@@ -392,10 +418,11 @@
         });
         renderRecords();
 
-        const reportTitle = isPermanentDemo ? '章三入职调查报告20260526' : normalizeReportNameFromRecord(shareRecord);
+        const reportTitle = isPermanentDemo ? '章三入职调查报告2026052601' : normalizeReportNameFromRecord(shareRecord);
+        const materialsTitle = isPermanentDemo ? '章三入职调查材料2026052601' : (shareRecord?.materialsName || reportTitle.replace('入职调查报告', '入职调查材料'));
         const reportFileName = `${reportTitle}.pdf`;
         document.getElementById('reportFileName').textContent = reportFileName;
-        document.getElementById('previewBtn').href = PDF_DATA_URI;
+        document.getElementById('materialsFileName').textContent = `${materialsTitle}.zip`;
         document.getElementById('downloadBtn').href = PDF_DATA_URI;
         document.getElementById('downloadBtn').setAttribute('download', reportFileName);
         openSuccessModal();

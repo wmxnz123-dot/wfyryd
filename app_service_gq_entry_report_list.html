@@ -87,7 +87,7 @@
 <div class="fixed bottom-0 left-0 w-full flex justify-center z-[60] pointer-events-none">
     <div class="w-full max-w-[390px] bg-white border-t border-gray-100 p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.03)] pointer-events-auto">
         <div class="flex items-center justify-between mb-3 px-1">
-            <div class="text-xs text-gray-500">创建后生成链接与密码</div>
+            <div class="text-xs text-gray-500">每天可创建5条报告</div>
             <div class="text-xs text-gray-400">24小时有效</div>
         </div>
         <a href="app_service_gq_entry_report_generate.html" class="w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl transition shadow-sm hover:bg-blue-700 block text-center">
@@ -183,11 +183,16 @@
     function normalizeReportName(r) {
         const raw = r.reportName || '';
         if (!raw) return '入职调查报告';
-        const m1 = raw.match(/^(.+?)入职调查报告_(\d{8})/);
-        if (m1) return `${m1[1]}入职调查报告${m1[2]}`;
-        const m2 = raw.match(/^(.+?)入职调查报告_(\d{12})/);
-        if (m2) return `${m2[1]}入职调查报告${m2[2].slice(0, 8)}`;
-        return raw.replace(/_/g, '');
+        const m1 = raw.match(/^(.+?)入职调查报告_(\d{8})(\d{2})?/);
+        if (m1) return `${m1[1]}入职调查报告${m1[2]}${m1[3] || '01'}`;
+        const m2 = raw.match(/^(.+?)入职调查报告_(\d{12})(\d{2})?/);
+        if (m2) return `${m2[1]}入职调查报告${m2[2].slice(0, 8)}${m2[3] || '01'}`;
+        const cleaned = raw.replace(/_/g, '');
+        const m3 = cleaned.match(/^(.+?)入职调查报告(\d{8})(\d{2})$/);
+        if (m3) return `${m3[1]}入职调查报告${m3[2]}${m3[3]}`;
+        const m4 = cleaned.match(/^(.+?)入职调查报告(\d{8})$/);
+        if (m4) return `${m4[1]}入职调查报告${m4[2]}01`;
+        return cleaned;
     }
 
     function formatDate(d) {
@@ -207,16 +212,23 @@
     }
 
     function calcStatus(r) {
-        if (r.usedAt) return 'used';
         if (r.canceledAt) return 'revoked';
         const expireAt = new Date(r.expireAt);
         if (Date.now() > expireAt.getTime()) return 'expired';
+        const max = Number(r.maxQueryCount || 5);
+        const cnt = Number((r.queryCount ?? (r.usedAt ? 1 : 0)) || 0);
+        if (cnt >= max) return 'used';
         return 'valid';
     }
 
-    function statusLabel(status) {
-        if (status === 'valid') return { text: '未使用', cls: 'bg-green-50 text-green-600 border-green-100' };
-        if (status === 'used') return { text: '已使用', cls: 'bg-blue-50 text-blue-600 border-blue-100' };
+    function statusLabel(status, r) {
+        if (status === 'valid') {
+            const max = Number(r?.maxQueryCount || 5);
+            const cnt = Number((r?.queryCount ?? (r?.usedAt ? 1 : 0)) || 0);
+            if (cnt > 0) return { text: `已核验${cnt}/${max}`, cls: 'bg-blue-50 text-blue-600 border-blue-100' };
+            return { text: '可核验', cls: 'bg-green-50 text-green-600 border-green-100' };
+        }
+        if (status === 'used') return { text: '已用尽', cls: 'bg-blue-50 text-blue-600 border-blue-100' };
         if (status === 'revoked') return { text: '已撤销', cls: 'bg-red-50 text-red-600 border-red-100' };
         return { text: '已过期', cls: 'bg-gray-100 text-gray-500 border-gray-200' };
     }
@@ -247,7 +259,7 @@
 
         container.innerHTML = list.map(r => {
             const status = calcStatus(r);
-            const sl = statusLabel(status);
+            const sl = statusLabel(status, r);
             const dataText = Array.isArray(r.data) ? r.data.join('、') : '-';
             const createdAt = r.createdAt ? formatDate(new Date(r.createdAt)) : '-';
             const expireAt = r.expireAt ? formatDate(new Date(r.expireAt)) : '-';
@@ -324,7 +336,6 @@
         const title = normalizeReportName(r);
         const createdAt = r.createdAt ? formatDate(new Date(r.createdAt)) : '-';
         const expireAt = r.expireAt ? formatDateSlash(new Date(r.expireAt)) : '-';
-        document.getElementById('detailReportName').textContent = title;
         document.getElementById('detailCreatedAt').textContent = createdAt;
         document.getElementById('detailExpireAt').textContent = expireAt;
         document.getElementById('detailLink').value = r.link || '';
@@ -355,8 +366,9 @@
         const r = list.find(x => x.id === id);
         if (!r) return;
         const title = normalizeReportName(r);
+        const materialsName = r.materialsName || title.replace('入职调查报告', '入职调查材料');
         document.getElementById('reportTitle').textContent = title;
-        document.getElementById('reportPreviewBtn').href = PDF_DATA_URI;
+        document.getElementById('reportMaterialsTitle').textContent = materialsName;
         document.getElementById('reportDownloadBtn').href = PDF_DATA_URI;
         document.getElementById('reportDownloadBtn').setAttribute('download', `${title}.pdf`);
         document.getElementById('reportModal').classList.remove('hidden');
@@ -454,9 +466,18 @@
                     </div>
                 </div>
 
-                <div class="flex gap-2 pt-1">
-                    <a id="reportPreviewBtn" href="#" target="_blank" class="flex-1 text-center py-3 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition">预览</a>
-                    <a id="reportDownloadBtn" href="#" download class="flex-1 text-center py-3 bg-blue-600 text-white rounded-xl font-bold shadow-sm hover:bg-blue-700 transition">下载</a>
+                <div class="bg-white border border-gray-200 rounded-xl p-3">
+                    <div class="text-xs text-gray-500 mb-2">材料名称</div>
+                    <div class="flex items-center gap-2 min-w-0">
+                        <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-zipper text-sm"></i>
+                        </div>
+                        <div id="reportMaterialsTitle" class="text-sm font-bold text-gray-800 truncate"></div>
+                    </div>
+                </div>
+
+                <div class="pt-1">
+                    <a id="reportDownloadBtn" href="#" download class="w-full block text-center py-3 bg-blue-600 text-white rounded-xl font-bold shadow-sm hover:bg-blue-700 transition">下载</a>
                 </div>
             </div>
         </div>
@@ -490,16 +511,6 @@
             </div>
 
             <div class="mt-3 space-y-3">
-                <div class="bg-white border border-gray-200 rounded-xl p-3">
-                    <div class="text-xs text-gray-500 mb-2">报告名称</div>
-                    <div class="flex items-center gap-2 min-w-0">
-                        <div class="w-8 h-8 rounded-lg bg-red-50 border border-red-100 text-red-600 flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-file-pdf text-sm"></i>
-                        </div>
-                        <div id="detailReportName" class="text-sm font-bold text-gray-800 truncate"></div>
-                    </div>
-                </div>
-
                 <div class="bg-white border border-gray-200 rounded-xl p-3">
                     <div class="text-xs text-gray-500 mb-2">分享链接</div>
                     <div class="flex gap-2">

@@ -31,36 +31,41 @@
         </div>
     </div>
 
-    <div class="flex-1 overflow-y-auto p-4 pb-32">
-        <div class="mb-4">
-            <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-                <div class="flex items-start gap-3">
-                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-50 text-blue-600 flex items-center justify-center flex-shrink-0">
-                        <i class="fa-solid fa-circle-info text-sm"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="font-bold text-gray-800 text-sm">生成说明</div>
-                        <div class="text-xs text-gray-500 mt-1 leading-relaxed">仅可选择已认领的数据目录生成报告。</div>
+    <div class="flex-1 overflow-y-auto p-4 pb-40">
+
+        <div id="step1">
+            <div class="mb-4">
+                <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+                    <div class="flex items-start gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-circle-info text-sm"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-bold text-gray-800 text-sm">第一步：选择授权数据</div>
+                            <div class="text-xs text-gray-500 mt-1 leading-relaxed">展示已认领的公共数据目录，可按需勾选。身份基础信息为必选项。</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="flex items-end justify-between mb-3 px-1">
-            <h3 class="font-bold text-gray-800 text-sm">授权数据目录</h3>
-            <span class="text-xs font-bold text-blue-600" id="selectedCount">已选：0 项</span>
-        </div>
-        <div class="space-y-3" id="catalogList">
+            <div class="flex items-end justify-between mb-3 px-1">
+                <h3 class="font-bold text-gray-800 text-sm">授权数据目录</h3>
+                <span class="text-xs font-bold text-blue-600" id="selectedCount">已选：0 项</span>
+            </div>
+            <div class="space-y-3" id="catalogList">
             <label class="catalog-item flex items-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer hover:shadow-md hover:border-blue-100 transition">
                 <div class="w-11 h-11 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0">
                     <i class="fa-regular fa-id-card text-lg"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <div class="font-bold text-gray-900 text-sm">身份基础信息</div>
+                    <div class="flex items-center gap-2 min-w-0">
+                        <div class="font-bold text-gray-900 text-sm truncate">身份基础信息</div>
+                        <span class="text-[10px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded border border-blue-100 flex-shrink-0">必选</span>
+                    </div>
                     <div class="text-xs text-gray-500 mt-0.5 truncate">姓名、性别、身份证号（脱敏）</div>
                 </div>
                 <div class="ml-3">
-                    <input type="checkbox" class="custom-checkbox catalog-checkbox" value="身份基础信息" onchange="updateGenerateButton()">
+                    <input id="identityCheckbox" type="checkbox" class="custom-checkbox catalog-checkbox" value="身份基础信息" checked disabled>
                 </div>
             </label>
 
@@ -222,14 +227,48 @@
                     <input type="checkbox" class="custom-checkbox catalog-checkbox" value="联系方式与紧急联系人" onchange="updateGenerateButton()">
                 </div>
             </label>
+            </div>
+        </div>
+
+        <div id="step2" class="hidden">
+            <div class="mb-4">
+                <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+                    <div class="flex items-start gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-100 to-purple-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-bold text-gray-800 text-sm">第二步：上传材料</div>
+                            <div class="text-xs text-gray-500 mt-1 leading-relaxed">必选项需全部上传后才能创建报告。支持图片或 PDF 文件。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-end justify-between mb-3 px-1">
+                <h3 class="font-bold text-gray-800 text-sm">材料清单</h3>
+                <span class="text-xs text-gray-400">必选项带 *</span>
+            </div>
+
+            <div id="materialsList" class="space-y-3"></div>
         </div>
     </div>
 
     <div class="fixed bottom-0 left-0 w-full flex justify-center z-50 pointer-events-none">
         <div class="w-full max-w-[390px] p-4 pointer-events-auto">
-            <button id="generateBtn" onclick="generateReport()" disabled class="w-full bg-gray-300 text-white font-bold py-3.5 rounded-xl shadow-sm transition cursor-not-allowed">
-                生成报告
-            </button>
+            <div id="step1Actions">
+                <button id="nextBtn" onclick="goStep2()" disabled class="w-full bg-gray-300 text-white font-bold py-3.5 rounded-xl shadow-sm transition cursor-not-allowed">
+                    下一步：上传材料
+                </button>
+            </div>
+            <div id="step2Actions" class="hidden flex gap-3">
+                <button onclick="goStep1()" class="flex-1 py-3.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition">
+                    上一步
+                </button>
+                <button id="createBtn" onclick="createReport()" disabled class="flex-1 bg-gray-300 text-white font-bold py-3.5 rounded-xl shadow-sm transition cursor-not-allowed">
+                    创建报告
+                </button>
+            </div>
         </div>
     </div>
 
@@ -256,8 +295,8 @@
                             <i class="fa-solid fa-circle-check text-xl"></i>
                         </div>
                         <div>
-                            <div class="font-bold tracking-wide">生成成功</div>
-                            <div class="text-xs text-blue-100 mt-0.5 opacity-95">链接与密码用于 HR 端查询</div>
+                            <div class="font-bold tracking-wide">创建成功</div>
+                            <div class="text-xs text-blue-100 mt-0.5 opacity-95">报告文件与材料压缩包已生成</div>
                         </div>
                     </div>
                     <button onclick="goBackList()" class="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition">
@@ -268,9 +307,8 @@
 
             <div class="p-5">
                 <div class="bg-blue-50 border border-blue-100 rounded-xl p-3 text-xs text-blue-700">
-                    授权时间：<span id="reportMeta" class="font-bold text-blue-800"></span>
-                    <span class="text-blue-200 mx-2">|</span>
-                    有效期：24 小时
+                    生成时间：<span id="reportMeta" class="font-bold text-blue-800"></span>
+                    <div class="mt-1 text-blue-700">有效截止日期：<span id="expireMeta" class="font-bold text-blue-800"></span></div>
                 </div>
 
                 <div class="mt-3 space-y-3">
@@ -282,6 +320,19 @@
                             </div>
                             <div id="reportFileName" class="text-sm font-bold text-gray-800 truncate"></div>
                         </div>
+                        <div class="mt-3 pt-3 border-t border-gray-100">
+                            <div class="text-xs text-gray-500 mb-2">材料名称</div>
+                            <div class="flex items-center gap-2 min-w-0">
+                                <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0">
+                                    <i class="fa-solid fa-file-zipper text-sm"></i>
+                                </div>
+                                <div id="materialsFileName" class="text-sm font-bold text-gray-800 truncate"></div>
+                            </div>
+                        </div>
+                        <input id="reportPdfLinkInput" type="hidden">
+                        <input id="materialsZipLinkInput" type="hidden">
+                        <a id="reportPdfDownloadBtn" class="hidden" href="#" download></a>
+                        <a id="materialsZipDownloadBtn" class="hidden" href="#" download></a>
                     </div>
 
                     <div class="bg-white border border-gray-200 rounded-xl p-3">
@@ -319,6 +370,7 @@
 <script>
     const SHARE_RECORDS_KEY = 'gqEntryShareRecords';
     const HAS_CREATED_REPORT_KEY = 'gqEntryHasCreatedReport';
+    const PDF_DATA_URI = 'data:application/pdf;base64,JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQyXSAvQ29udGVudHMgNCAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgNSAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL0xlbmd0aCAxMzIgPj4Kc3RyZWFtCkJUCi9GMSAyNCBUZgowIDc4MCBUZAooR1Eg5YWl6IGR6MiDpm4XotbfmiJbmnaXmqKHmnaUpIFRqCjAgNzUwIFRkCihbVGVtcGxhdGVdIOW9ouS7peWkp+Wwt+S4gOWkh+eahOWvvuW6lOaJgOa0u+WKqCkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iago1IDAgb2JqCjw8IC9UeXBlIC9Gb250IC9TdWJ0eXBlIC9UeXBlMSAvQmFzZUZvbnQgL0hlbHZldGljYSA+PgplbmRvYmoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4gCjAwMDAwMDAwNjIgMDAwMDAgbiAKMDAwMDAwMDExNyAwMDAwMCBuIAowMDAwMDAwMjc0IDAwMDAwIG4gCjAwMDAwMDA0NTggMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA2IC9Sb290IDEgMCBSID4+CnN0YXJ0eHJlZgo1NTYKJSVFT0Y=';
 
     function getCurrentUserName() {
         return localStorage.getItem('currentUserName') || localStorage.getItem('userName') || '张三';
@@ -344,15 +396,58 @@
         return `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
     }
 
+    function escapeRegExp(s) {
+        return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function getNextDailySeq(baseTitle) {
+        const list = getRecords();
+        const re = new RegExp(`^${escapeRegExp(baseTitle)}(\\d{2})$`);
+        let max = 0;
+        for (const r of list) {
+            const raw = String(r?.reportName || '');
+            if (raw === baseTitle) {
+                max = Math.max(max, 1);
+                continue;
+            }
+            const m = raw.match(re);
+            if (m) {
+                const n = Number(m[1]);
+                if (Number.isFinite(n)) max = Math.max(max, n);
+            }
+        }
+        const next = Math.min(99, max + 1);
+        return pad(next);
+    }
+
+    const MATERIAL_DEFS = [
+        { key: 'idCard', label: '身份证', desc: '正反面复印在一张A4纸，彩印（扫描件/照片/PDF）', required: true, accept: 'image/*,application/pdf' },
+        { key: 'healthReport', label: '最近三个月体检报告', desc: '体检报告扫描件/照片/PDF', required: false, accept: 'image/*,application/pdf' },
+        { key: 'terminateContract', label: '解除劳动合同证明', desc: '如适用（扫描件/照片/PDF）', required: false, accept: 'image/*,application/pdf' },
+        { key: 'bankCredit', label: '银行征信证明', desc: '如适用（扫描件/照片/PDF）', required: false, accept: 'image/*,application/pdf' },
+        { key: 'noCrime', label: '无犯罪记录证明', desc: '证明文件扫描件/照片/PDF', required: false, accept: 'image/*,application/pdf' },
+        { key: 'bizRecord', label: '个人工商记录查询', desc: '如适用（扫描件/照片/PDF）', required: false, accept: 'image/*,application/pdf' },
+        { key: 'courtRecord', label: '法院诉讼记录', desc: '如适用（扫描件/照片/PDF）', required: false, accept: 'image/*,application/pdf' },
+        { key: 'salaryProof', label: '过往薪资收入证明', desc: '如适用（扫描件/照片/PDF）', required: false, accept: 'image/*,application/pdf' },
+        { key: 'socialInsurance', label: '社会保险个人参保证明', desc: '参保证明扫描件/照片/PDF', required: false, accept: 'image/*,application/pdf' },
+        { key: 'photoBlue', label: '免冠蓝底1寸电子版照片', desc: 'JPG/PNG', required: false, accept: 'image/*' }
+    ];
+
     let lastExpireAtForCopy = '-';
     let lastReportTitleForCopy = '入职调查报告';
+    let lastPdfLinkForCopy = '-';
+    let lastZipLinkForCopy = '-';
+    let lastMaterialsTitleForCopy = '入职调查材料';
+    let selectedCatalogsCache = [];
+    const uploadedFilesByKey = {};
+    let materialsZipBlobUrl = null;
 
     function updateGenerateButton() {
         const checkboxes = document.querySelectorAll('.catalog-checkbox');
         const checked = Array.from(checkboxes).filter(cb => cb.checked);
         document.getElementById('selectedCount').textContent = `已选：${checked.length} 项`;
 
-        const btn = document.getElementById('generateBtn');
+        const btn = document.getElementById('nextBtn');
         if (checked.length > 0) {
             btn.disabled = false;
             btn.className = 'w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl shadow-sm hover:bg-blue-700 transition';
@@ -401,34 +496,129 @@
         document.body.removeChild(ta);
     }
 
-    function generateReport() {
-        const selected = Array.from(document.querySelectorAll('.catalog-checkbox')).filter(cb => cb.checked).map(cb => cb.value);
-        if (selected.length === 0) {
-            return;
+    function renderMaterials() {
+        const wrap = document.getElementById('materialsList');
+        wrap.innerHTML = MATERIAL_DEFS.map(item => {
+            const req = item.required ? '<span class="text-[10px] bg-rose-50 text-rose-600 px-1.5 py-0.5 rounded border border-rose-100">必选*</span>' : '<span class="text-[10px] bg-gray-50 text-gray-500 px-1.5 py-0.5 rounded border border-gray-100">可选</span>';
+            return `
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <div class="font-bold text-gray-900 text-sm truncate">${item.label}</div>
+                                ${req}
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1 leading-relaxed">${item.desc}</div>
+                            <div id="fileName-${item.key}" class="text-xs text-gray-400 mt-2 truncate">未上传</div>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <label class="inline-flex items-center justify-center px-3 py-2 bg-white border border-gray-200 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-50 transition cursor-pointer">
+                                上传
+                                <input id="file-${item.key}" type="file" class="hidden" accept="${item.accept}">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        MATERIAL_DEFS.forEach(item => {
+            const input = document.getElementById(`file-${item.key}`);
+            input.addEventListener('change', () => {
+                const f = input.files && input.files[0] ? input.files[0] : null;
+                uploadedFilesByKey[item.key] = f;
+                document.getElementById(`fileName-${item.key}`).textContent = f ? f.name : '未上传';
+                updateCreateButton();
+            });
+        });
+    }
+
+    function updateCreateButton() {
+        const missing = MATERIAL_DEFS.filter(m => m.required).filter(m => !uploadedFilesByKey[m.key]);
+        const btn = document.getElementById('createBtn');
+        if (missing.length === 0) {
+            btn.disabled = false;
+            btn.className = 'flex-1 bg-blue-600 text-white font-bold py-3.5 rounded-xl shadow-sm hover:bg-blue-700 transition';
+        } else {
+            btn.disabled = true;
+            btn.className = 'flex-1 bg-gray-300 text-white font-bold py-3.5 rounded-xl shadow-sm transition cursor-not-allowed';
         }
+    }
+
+    function goStep2() {
+        selectedCatalogsCache = Array.from(document.querySelectorAll('.catalog-checkbox')).filter(cb => cb.checked).map(cb => cb.value);
+        if (selectedCatalogsCache.length === 0) return;
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('step2').classList.remove('hidden');
+        document.getElementById('step1Actions').classList.add('hidden');
+        document.getElementById('step2Actions').classList.remove('hidden');
+        renderMaterials();
+        updateCreateButton();
+    }
+
+    function goStep1() {
+        document.getElementById('step2').classList.add('hidden');
+        document.getElementById('step1').classList.remove('hidden');
+        document.getElementById('step2Actions').classList.add('hidden');
+        document.getElementById('step1Actions').classList.remove('hidden');
+    }
+
+    function buildMaterialsSummary() {
+        return MATERIAL_DEFS.map(m => {
+            const f = uploadedFilesByKey[m.key];
+            return { key: m.key, label: m.label, required: m.required, fileName: f ? f.name : null };
+        });
+    }
+
+    function buildMaterialsZipBlobUrl(reportName, summary) {
+        const text = JSON.stringify({ reportName, generatedAt: new Date().toISOString(), materials: summary }, null, 2);
+        const blob = new Blob([text], { type: 'application/octet-stream' });
+        const url = URL.createObjectURL(blob);
+        return url;
+    }
+
+    function previewPdf() {
+        window.open(PDF_DATA_URI, '_blank');
+    }
+
+    function createReport() {
+        const missing = MATERIAL_DEFS.filter(m => m.required).filter(m => !uploadedFilesByKey[m.key]);
+        if (missing.length > 0) return;
 
         const name = getCurrentUserName();
         const now = new Date();
         const stamp = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
-        const reportName = `${name}入职调查报告${stamp}`;
+        const baseReportTitle = `${name}入职调查报告${stamp}`;
+        const seq = getNextDailySeq(baseReportTitle);
+        const reportName = `${baseReportTitle}${seq}`;
+        const materialsName = `${name}入职调查材料${stamp}${seq}`;
         const id = `gq-${Date.now()}`;
         const link = `https://example.com/gq-entry/report?token=${encodeURIComponent(id)}`;
         const pwd = randomPassword();
         const expireAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+        const pdfLink = `https://example.com/gq-entry/report.pdf?token=${encodeURIComponent(id)}`;
+        const zipLink = `https://example.com/gq-entry/materials.zip?token=${encodeURIComponent(id)}`;
+        const materialsSummary = buildMaterialsSummary();
 
         const record = {
             id,
             reportName,
             name,
             status: 'valid',
-            data: selected,
+            data: selectedCatalogsCache.length ? selectedCatalogsCache : Array.from(document.querySelectorAll('.catalog-checkbox')).filter(cb => cb.checked).map(cb => cb.value),
             createdAt: now.toISOString(),
             expireAt: expireAt.toISOString(),
             link,
             pwd,
+            queryCount: 0,
+            maxQueryCount: 5,
             usedAt: null,
             usedInfo: null,
-            canceledAt: null
+            canceledAt: null,
+            pdfLink,
+            materialsZipLink: zipLink,
+            materialsName,
+            materials: materialsSummary
         };
 
         const list = getRecords();
@@ -437,17 +627,36 @@
         localStorage.setItem(HAS_CREATED_REPORT_KEY, '1');
 
         document.getElementById('reportFileName').textContent = reportName;
+        document.getElementById('materialsFileName').textContent = materialsName;
         document.getElementById('reportMeta').textContent = formatDate(now);
+        document.getElementById('expireMeta').textContent = formatDateSlash(expireAt);
+        document.getElementById('reportPdfLinkInput').value = pdfLink;
+        document.getElementById('materialsZipLinkInput').value = zipLink;
         document.getElementById('shareLinkInput').value = link;
         document.getElementById('sharePwdInput').value = pwd;
         lastExpireAtForCopy = formatDateSlash(expireAt);
         lastReportTitleForCopy = reportName;
+        lastPdfLinkForCopy = pdfLink;
+        lastZipLinkForCopy = zipLink;
+        lastMaterialsTitleForCopy = materialsName;
+
+        document.getElementById('reportPdfDownloadBtn').href = PDF_DATA_URI;
+        document.getElementById('reportPdfDownloadBtn').download = `${reportName}.pdf`;
+
+        if (materialsZipBlobUrl) {
+            URL.revokeObjectURL(materialsZipBlobUrl);
+        }
+        materialsZipBlobUrl = buildMaterialsZipBlobUrl(reportName, materialsSummary);
+        document.getElementById('materialsZipDownloadBtn').href = materialsZipBlobUrl;
+        document.getElementById('materialsZipDownloadBtn').download = `${materialsName}.zip`;
         document.getElementById('successModal').classList.remove('hidden');
     }
 
     function goBackList() {
         window.location.href = 'app_service_gq_entry_report_list.html';
     }
+
+    updateGenerateButton();
 </script>
 </body>
 </html>
