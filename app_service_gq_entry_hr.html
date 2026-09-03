@@ -90,7 +90,7 @@
                     </div>
                     <div>
                         <div class="font-bold text-gray-800">查询成功</div>
-                        <div class="text-xs text-gray-500">可下载报告 PDF</div>
+                        <div class="text-xs text-gray-500">可下载材料压缩包</div>
                     </div>
                 </div>
                 <button onclick="closeSuccessModal()" class="text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
@@ -102,28 +102,18 @@
                 <div class="bg-orange-50 border border-orange-100 rounded-lg p-2 text-xs text-orange-600 mb-3">
                     每组链接与密码有效期 24 小时，同一链接最多可核验 5 次
                 </div>
-                <div class="text-xs text-gray-500 mb-2">报告文件</div>
-                <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-red-50 text-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <i class="fa-solid fa-file-pdf text-xl"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div id="reportFileName" class="text-sm font-bold text-gray-800 truncate">国企入职调查报告.pdf</div>
-                        <div class="text-[10px] text-gray-400 mt-0.5">PDF 文件</div>
-                    </div>
-                </div>
-                <div class="text-xs text-gray-500 mb-2 mt-3">材料文件</div>
+                <div class="text-xs text-gray-500 mb-2">材料包名称</div>
                 <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center gap-3">
                     <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center flex-shrink-0">
                         <i class="fa-solid fa-file-zipper text-xl"></i>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <div id="materialsFileName" class="text-sm font-bold text-gray-800 truncate">入职调查材料.zip</div>
-                        <div class="text-[10px] text-gray-400 mt-0.5">ZIP 文件</div>
+                        <div id="reportFileName" class="text-sm font-bold text-gray-800 truncate">国企入职调查材料包.zip</div>
+                        <div class="text-[10px] text-gray-400 mt-0.5">ZIP 压缩包</div>
                     </div>
                 </div>
                 <div class="flex gap-2 mt-3">
-                    <a id="downloadBtn" href="#" download="国企入职调查报告.pdf" class="w-full text-center py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition">下载</a>
+                    <a id="downloadBtn" href="#" download="国企入职调查材料包.zip" class="w-full text-center py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition">下载</a>
                 </div>
             </div>
         </div>
@@ -145,70 +135,7 @@
     const records = [];
     const usedKeys = new Set();
     const SHARE_RECORDS_KEY = 'gqEntryShareRecords';
-    const PDF_B64_LINES = [
-        'JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PCAvVHlwZSAvRm9udERlc2NyaXB0b3IgL0ZvbnROYW1lIC9T',
-        'VFNvbmctTGlnaHQgL0ZsYWdzIDQgL0ZvbnRCQm94IFsgLTI1MCAtMjAwIDEwMDAgOTAwIF0gL0l0YWxp',
-        'Y0FuZ2xlIDAgL0FzY2VudCA4ODAgL0Rlc2NlbnQgLTEyMCAvQ2FwSGVpZ2h0IDg4MCAvU3RlbVYgODAg',
-        'Pj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL0NJREZvbnRUeXBlMCAvQmFz',
-        'ZUZvbnQgL1NUU29uZy1MaWdodCAvQ0lEU3lzdGVtSW5mbyA8PCAvUmVnaXN0cnkgKEFkb2JlKSAvT3Jk',
-        'ZXJpbmcgKEdCMSkgL1N1cHBsZW1lbnQgNSA+PiAvRm9udERlc2NyaXB0b3IgMSAwIFIgL0RXIDEwMDAg',
-        'Pj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUwIC9CYXNlRm9udCAv',
-        'U1RTb25nLUxpZ2h0IC9FbmNvZGluZyAvVW5pR0ItVUNTMi1IIC9EZXNjZW5kYW50Rm9udHMgWzIgMCBS',
-        'XSA+PgplbmRvYmoKNCAwIG9iago8PCAvTGVuZ3RoIDU1NyA+PgpzdHJlYW0KQlQKL0YxIDI0IFRmCjcw',
-        'IDc2MCBUZAo8RkVGRjMwMTA2RjRENTc0QTVFMDI0RTJBNEVCQTY1NzA2MzZFN0E3QTk1RjQzMDExNUYy',
-        'MDRFMDk1MTY1ODA0QzhDMDM2N0U1NjJBNTU0NEEwMDMyMDAzMDAwMzIwMDM2MDAzMDAwMzUwMDMyMDAz',
-        'Nz4gVGoKL0YxIDEyIFRmCjAgLTE4IFRkCjxGRUZGNzUxRjYyMTA2NUY2OTVGNEZGMUEwMDMyMDAzMDAw',
-        'MzIwMDM2MDAyRjAwMzAwMDM1MDAyRjAwMzIwMDM3MDAyMDAwMzEwMDMwMDAzQTAwMzIwMDM1PiBUagow',
-        'IC0xOCBUZAo8RkVGRjYzODg2NzQzNjcwOTY1NDg2MjJBNkI2MkZGMUEwMDMyMDAzMDAwMzIwMDM2MDAy',
-        'RjAwMzAwMDM1MDAyRjAwMzIwMDM4MDAyMDAwMzEwMDMwMDAzQTAwMzIwMDM1PiBUagowIC0xOCBUZAo8',
-        'RkVGRjYyQTU1NDRBN0YxNjUzRjdGRjFBMDA0NzAwNTEwMDJEMDAzMjAwMzAwMDMyMDAzNjAwMzAwMDM1',
-        'MDAzMjAwMzcwMDJEMDAzMDAwMzAwMDMwMDAzMT4gVGoKMCAtMTggVGQKPEZFRkY3NTI4OTAxNEZGMUE1',
-        'NkZENEYwMTUxNjU4MDRDODBDQzY2NkY2ODM4OUE4Q0ZGMDg3OTNBNEY4QjZBMjE2NzdGRkYwOT4gVGoK',
-        'RVQKZW5kc3RyZWFtCmVuZG9iago1IDAgb2JqCjw8IC9MZW5ndGggNTEwID4+CnN0cmVhbQpCVAovRjEg',
-        'MjQgVGYKNzAgNzYwIFRkCjxGRUZGNzZFRTVGNTU+IFRqCi9GMSAxMiBUZgowIC0xOCBUZAo8RkVGRjAw',
-        'MzEwMDJFMDAyMDU4RjA2NjBFNEUwRTYzODg2NzQzOEJGNDY2MEU+IFRqCjAgLTE4IFRkCjxGRUZGMDAz',
-        'MjAwMkUwMDIwNEUyQTRFQkE1N0ZBNjcyQzRGRTE2MDZGPiBUagowIC0xOCBUZAo8RkVGRjAwMzMwMDJF',
-        'MDAyMDY1NTk4MEIyNEZFMTYwNkZGRjA4NzkzQTRGOEJGRjA5PiBUagowIC0xOCBUZAo8RkVGRjAwMzQw',
-        'MDJFMDAyMDVERTU0RjVDNUM2NTUzODY0RTBFNzkzRTRGRERGRjA4NzkzQTRGOEJGRjA5PiBUagowIC0x',
-        'OCBUZAo8RkVGRjAwMzUwMDJFMDAyMDUzRjg2Q0Q1NEUwRTU5MzE0RkUxRkYwODc5M0E0RjhCRkYwOT4g',
-        'VGoKMCAtMTggVGQKPEZFRkYwMDM2MDAyRTAwMjA1MDY1NUVCNzRGNTM2OEMwNEZFMTYwNkZGRjA4Nzkz',
-        'QTRGOEJGRjA5PiBUagowIC0xOCBUZAo8RkVGRjk2NDQ1RjU1RkYxQTVCNTc2QkI1ODlFMzkxQ0E0RTBF',
-        'NjZGNDY1QjA2NUY2OTVGND4gVGoKRVQKZW5kc3RyZWFtCmVuZG9iago2IDAgb2JqCjw8IC9MZW5ndGgg',
-        'MTEwMCA+PgpzdHJlYW0KQlQKL0YxIDI0IFRmCjcwIDc2MCBUZAo8RkVGRjAwMzIwMDJFMDAyMDRFMkE0',
-        'RUJBNTdGQTY3MkM0RkUxNjA2Rj4gVGoKL0YxIDEyIFRmCjAgLTE4IFRkCjxGRUZGNTlEMzU0MERGRjFB',
-        'NUYyMDRFMDkwMDIwMDAyMDAwMjAwMDIwNjAyNzUyMkJGRjFBNzUzNzAwMjAwMDIwMDAyMDAwMjA1RTc0',
-        'OUY4NEZGMUEwMDMyMDAzOD4gVGoKMCAtMTggVGQKPEZFRkY4QkMxNEVGNkZGMUE4RUFCNEVGRDhCQzFG',
-        'RjA4ODEzMTY1NEZGRjA5MDAzMzAwMzcwMDMwMDAzNzAwMzAwMDMyMDAyQTAwMkEwMDJBMDAyQTAwMkEw',
-        'MDJBMDAyQTAwMkEwMDMxMDAzMjAwMzMwMDM0PiBUagowIC0xOCBUZAo8RkVGRjYyNEI2NzNBNTNGN0ZG',
-        'MDg4MTMxNjU0RkZGMDlGRjFBMDAzMTAwMzMwMDM4MDAyQTAwMkEwMDJBMDAyQTAwMzAwMDMwMDAzMDAw',
-        'MzA+IFRqCjAgLTE4IFRkCjxGRUZGPiBUagowIC0xOCBUZAo8RkVGRjAwMzMwMDJFMDAyMDY1NTk4MEIy',
-        'NEZFMTYwNkZGRjA4NzkzQTRGOEJGRjA5PiBUagowIC0xOCBUZAo8RkVGRjY3MDA5QUQ4NUI2NjUzODZG',
-        'RjFBNjcyQzc5RDEwMDIwMDAyMDAwMjAwMDIwNkJENTRFMUE5NjYyNjgyMUZGMUE3OTNBNEY4QjU5Mjc1',
-        'QjY2PiBUagowIC0xOCBUZAo8RkVGRjRFMTM0RTFBRkYxQThCQTE3Qjk3NjczQTc5RDE1QjY2NEUwRTYy',
-        'ODA2NzJGMDAyMDAwMjAwMDIwMDAyMDZCRDU0RTFBNjVGNjk1RjRGRjFBMDAzMjAwMzAwMDMyMDAzMTAw',
-        'MkYwMDMwMDAzNz4gVGoKMCAtMTggVGQKPEZFRkY+IFRqCjAgLTE4IFRkCjxGRUZGMDAzNDAwMkUwMDIw',
-        'NURFNTRGNUM1QzY1NTM4NjRFMEU3OTNFNEZEREZGMDg3OTNBNEY4QkZGMDk+IFRqCjAgLTE4IFRkCjxG',
-        'RUZGOEZEMTAwMzEwMDMyNEUyQTY3MDg3OTNFNEZERDdGMzQ3RUIzRkYxQTZCNjM1RTM4MDAyMDAwMjAw',
-        'MDIwMDAyMDUzQzI0RkRENTczMEZGMUE2RjRENTc0QT4gVGoKMCAtMTggVGQKPEZFRkY+IFRqCjAgLTE4',
-        'IFRkCjxGRUZGMDAzNTAwMkUwMDIwNTNGODZDRDU0RTBFNTkzMTRGRTFGRjA4NzkzQTRGOEJGRjA5PiBU',
-        'agowIC0xOCBUZAo8RkVGRjU5MzE0RkUxODhBQjYyNjc4ODRDRkYxQTY1RTAwMDIwMDAyMDAwMjAwMDIw',
-        'OTY1MDUyMzY5QUQ4NkQ4ODhEMzlGRjFBNjVFMD4gVGoKRVQKZW5kc3RyZWFtCmVuZG9iago3IDAgb2Jq',
-        'Cjw8IC9UeXBlIC9QYWdlIC9QYXJlbnQgMTAgMCBSIC9NZWRpYUJveCBbMCAwIDU5NSA4NDJdIC9SZXNv',
-        'dXJjZXMgPDwgL0ZvbnQgPDwgL0YxIDMgMCBSID4+ID4+IC9Db250ZW50cyA0IDAgUiA+PgplbmRvYmoK',
-        'OCAwIG9iago8PCAvVHlwZSAvUGFnZSAvUGFyZW50IDEwIDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQy',
-        'XSAvUmVzb3VyY2VzIDw8IC9Gb250IDw8IC9GMSAzIDAgUiA+PiA+PiAvQ29udGVudHMgNSAwIFIgPj4K',
-        'ZW5kb2JqCjkgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAxMCAwIFIgL01lZGlhQm94IFswIDAg',
-        'NTk1IDg0Ml0gL1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgMyAwIFIgPj4gPj4gL0NvbnRlbnRzIDYg',
-        'MCBSID4+CmVuZG9iagoxMCAwIG9iago8PCAvVHlwZSAvUGFnZXMgL0tpZHMgWzcgMCBSIDggMCBSIDkg',
-        'MCBSXSAvQ291bnQgMyA+PgplbmRvYmoKMTEgMCBvYmoKPDwgL1R5cGUgL0NhdGFsb2cgL1BhZ2VzIDEw',
-        'IDAgUiA+PgplbmRvYmoKeHJlZgowIDEyCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAxNSAwMDAw',
-        'MCBuIAowMDAwMDAwMTkwIDAwMDAwIG4gCjAwMDAwMDAzNzAgMDAwMDAgbiAKMDAwMDAwMDQ5MiAwMDAw',
-        'MCBuIAowMDAwMDAxMTAwIDAwMDAwIG4gCjAwMDAwMDE2NjEgMDAwMDAgbiAKMDAwMDAwMjgxMyAwMDAw',
-        'MCBuIAowMDAwMDAyOTQwIDAwMDAwIG4gCjAwMDAwMDMwNjcgMDAwMDAgbiAKMDAwMDAwMzE5NCAwMDAw',
-        'MCBuIAowMDAwMDAzMjY0IDAwMDAwIG4gCnRyYWlsZXIKPDwgL1NpemUgMTIgL1Jvb3QgMTEgMCBSID4+',
-        'CnN0YXJ0eHJlZgozMzE1CiUlRU9GCg=='
-    ];
-    const PDF_DATA_URI = 'data:application/pdf;base64,' + PDF_B64_LINES.join('');
+    let zipBlobUrl = null;
     const DEMO_VALID_LINK = 'https://example.com/gq-entry/report?token=gq-valid-2026';
     const DEMO_EXPIRED_LINK = 'https://example.com/gq-entry/report?token=gq-expired-2026';
     const DEMO_PASSWORD = '862468';
@@ -234,16 +161,16 @@
 
     function normalizeReportNameFromRecord(r) {
         const raw = r?.reportName || '';
-        if (!raw) return '入职调查报告';
-        const m1 = raw.match(/^(.+?)入职调查报告_(\d{8})(\d{2})?/);
-        if (m1) return `${m1[1]}入职调查报告${m1[2]}${m1[3] || '01'}`;
-        const m2 = raw.match(/^(.+?)入职调查报告_(\d{12})(\d{2})?/);
-        if (m2) return `${m2[1]}入职调查报告${m2[2].slice(0, 8)}${m2[3] || '01'}`;
-        const cleaned = raw.replace(/_/g, '');
-        const m3 = cleaned.match(/^(.+?)入职调查报告(\d{8})(\d{2})$/);
-        if (m3) return `${m3[1]}入职调查报告${m3[2]}${m3[3]}`;
-        const m4 = cleaned.match(/^(.+?)入职调查报告(\d{8})$/);
-        if (m4) return `${m4[1]}入职调查报告${m4[2]}01`;
+        if (!raw) return '入职调查材料包';
+        const m1 = raw.match(/^(.+?)入职调查(材料包|报告)_(\d{8})(\d{2})?/);
+        if (m1) return `${m1[1]}入职调查材料包${m1[3]}${m1[4] || '01'}`;
+        const m2 = raw.match(/^(.+?)入职调查(材料包|报告)_(\d{12})(\d{2})?/);
+        if (m2) return `${m2[1]}入职调查材料包${m2[3].slice(0, 8)}${m2[4] || '01'}`;
+        const cleaned = raw.replace(/_/g, '').replace(/入职调查报告/g, '入职调查材料包');
+        const m3 = cleaned.match(/^(.+?)入职调查材料包(\d{8})(\d{2})$/);
+        if (m3) return `${m3[1]}入职调查材料包${m3[2]}${m3[3]}`;
+        const m4 = cleaned.match(/^(.+?)入职调查材料包(\d{8})$/);
+        if (m4) return `${m4[1]}入职调查材料包${m4[2]}01`;
         return cleaned;
     }
 
@@ -418,14 +345,26 @@
         });
         renderRecords();
 
-        const reportTitle = isPermanentDemo ? '章三入职调查报告2026052601' : normalizeReportNameFromRecord(shareRecord);
-        const materialsTitle = isPermanentDemo ? '章三入职调查材料2026052601' : (shareRecord?.materialsName || reportTitle.replace('入职调查报告', '入职调查材料'));
-        const reportFileName = `${reportTitle}.pdf`;
-        document.getElementById('reportFileName').textContent = reportFileName;
-        document.getElementById('materialsFileName').textContent = `${materialsTitle}.zip`;
-        document.getElementById('downloadBtn').href = PDF_DATA_URI;
-        document.getElementById('downloadBtn').setAttribute('download', reportFileName);
+        const packageTitle = isPermanentDemo ? '章三入职调查材料包2026052601' : normalizeReportNameFromRecord(shareRecord);
+        const packageFileName = `${packageTitle}.zip`;
+        document.getElementById('reportFileName').textContent = packageFileName;
+        if (zipBlobUrl) {
+            URL.revokeObjectURL(zipBlobUrl);
+        }
+        zipBlobUrl = buildZipBlobUrl(packageTitle, shareRecord);
+        document.getElementById('downloadBtn').href = zipBlobUrl;
+        document.getElementById('downloadBtn').setAttribute('download', packageFileName);
         openSuccessModal();
+    }
+
+    function buildZipBlobUrl(packageTitle, shareRecord) {
+        const payload = {
+            packageName: packageTitle,
+            queriedAt: new Date().toISOString(),
+            authorizedCatalogs: Array.isArray(shareRecord?.data) ? shareRecord.data : []
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/octet-stream' });
+        return URL.createObjectURL(blob);
     }
 
     updateQueryButton();
