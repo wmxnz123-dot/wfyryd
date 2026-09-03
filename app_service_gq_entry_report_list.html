@@ -100,73 +100,9 @@
 <script>
     const SHARE_RECORDS_KEY = 'gqEntryShareRecords';
     const HAS_CREATED_REPORT_KEY = 'gqEntryHasCreatedReport';
-    const PDF_B64_LINES = [
-        'JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PCAvVHlwZSAvRm9udERlc2NyaXB0b3IgL0ZvbnROYW1lIC9T',
-        'VFNvbmctTGlnaHQgL0ZsYWdzIDQgL0ZvbnRCQm94IFsgLTI1MCAtMjAwIDEwMDAgOTAwIF0gL0l0YWxp',
-        'Y0FuZ2xlIDAgL0FzY2VudCA4ODAgL0Rlc2NlbnQgLTEyMCAvQ2FwSGVpZ2h0IDg4MCAvU3RlbVYgODAg',
-        'Pj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL0NJREZvbnRUeXBlMCAvQmFz',
-        'ZUZvbnQgL1NUU29uZy1MaWdodCAvQ0lEU3lzdGVtSW5mbyA8PCAvUmVnaXN0cnkgKEFkb2JlKSAvT3Jk',
-        'ZXJpbmcgKEdCMSkgL1N1cHBsZW1lbnQgNSA+PiAvRm9udERlc2NyaXB0b3IgMSAwIFIgL0RXIDEwMDAg',
-        'Pj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUwIC9CYXNlRm9udCAv',
-        'U1RTb25nLUxpZ2h0IC9FbmNvZGluZyAvVW5pR0ItVUNTMi1IIC9EZXNjZW5kYW50Rm9udHMgWzIgMCBS',
-        'XSA+PgplbmRvYmoKNCAwIG9iago8PCAvTGVuZ3RoIDU1NyA+PgpzdHJlYW0KQlQKL0YxIDI0IFRmCjcw',
-        'IDc2MCBUZAo8RkVGRjMwMTA2RjRENTc0QTVFMDI0RTJBNEVCQTY1NzA2MzZFN0E3QTk1RjQzMDExNUYy',
-        'MDRFMDk1MTY1ODA0QzhDMDM2N0U1NjJBNTU0NEEwMDMyMDAzMDAwMzIwMDM2MDAzMDAwMzUwMDMyMDAz',
-        'Nz4gVGoKL0YxIDEyIFRmCjAgLTE4IFRkCjxGRUZGNzUxRjYyMTA2NUY2OTVGNEZGMUEwMDMyMDAzMDAw',
-        'MzIwMDM2MDAyRjAwMzAwMDM1MDAyRjAwMzIwMDM3MDAyMDAwMzEwMDMwMDAzQTAwMzIwMDM1PiBUagow',
-        'IC0xOCBUZAo8RkVGRjYzODg2NzQzNjcwOTY1NDg2MjJBNkI2MkZGMUEwMDMyMDAzMDAwMzIwMDM2MDAy',
-        'RjAwMzAwMDM1MDAyRjAwMzIwMDM4MDAyMDAwMzEwMDMwMDAzQTAwMzIwMDM1PiBUagowIC0xOCBUZAo8',
-        'RkVGRjYyQTU1NDRBN0YxNjUzRjdGRjFBMDA0NzAwNTEwMDJEMDAzMjAwMzAwMDMyMDAzNjAwMzAwMDM1',
-        'MDAzMjAwMzcwMDJEMDAzMDAwMzAwMDMwMDAzMT4gVGoKMCAtMTggVGQKPEZFRkY3NTI4OTAxNEZGMUE1',
-        'NkZENEYwMTUxNjU4MDRDODBDQzY2NkY2ODM4OUE4Q0ZGMDg3OTNBNEY4QjZBMjE2NzdGRkYwOT4gVGoK',
-        'RVQKZW5kc3RyZWFtCmVuZG9iago1IDAgb2JqCjw8IC9MZW5ndGggNTEwID4+CnN0cmVhbQpCVAovRjEg',
-        'MjQgVGYKNzAgNzYwIFRkCjxGRUZGNzZFRTVGNTU+IFRqCi9GMSAxMiBUZgowIC0xOCBUZAo8RkVGRjAw',
-        'MzEwMDJFMDAyMDU4RjA2NjBFNEUwRTYzODg2NzQzOEJGNDY2MEU+IFRqCjAgLTE4IFRkCjxGRUZGMDAz',
-        'MjAwMkUwMDIwNEUyQTRFQkE1N0ZBNjcyQzRGRTE2MDZGPiBUagowIC0xOCBUZAo8RkVGRjAwMzMwMDJF',
-        'MDAyMDY1NTk4MEIyNEZFMTYwNkZGRjA4NzkzQTRGOEJGRjA5PiBUagowIC0xOCBUZAo8RkVGRjAwMzQw',
-        'MDJFMDAyMDVERTU0RjVDNUM2NTUzODY0RTBFNzkzRTRGRERGRjA4NzkzQTRGOEJGRjA5PiBUagowIC0x',
-        'OCBUZAo8RkVGRjAwMzUwMDJFMDAyMDUzRjg2Q0Q1NEUwRTU5MzE0RkUxRkYwODc5M0E0RjhCRkYwOT4g',
-        'VGoKMCAtMTggVGQKPEZFRkYwMDM2MDAyRTAwMjA1MDY1NUVCNzRGNTM2OEMwNEZFMTYwNkZGRjA4Nzkz',
-        'QTRGOEJGRjA5PiBUagowIC0xOCBUZAo8RkVGRjk2NDQ1RjU1RkYxQTVCNTc2QkI1ODlFMzkxQ0E0RTBF',
-        'NjZGNDY1QjA2NUY2OTVGND4gVGoKRVQKZW5kc3RyZWFtCmVuZG9iago2IDAgb2JqCjw8IC9MZW5ndGgg',
-        'MTEwMCA+PgpzdHJlYW0KQlQKL0YxIDI0IFRmCjcwIDc2MCBUZAo8RkVGRjAwMzIwMDJFMDAyMDRFMkE0',
-        'RUJBNTdGQTY3MkM0RkUxNjA2Rj4gVGoKL0YxIDEyIFRmCjAgLTE4IFRkCjxGRUZGNTlEMzU0MERGRjFB',
-        'NUYyMDRFMDkwMDIwMDAyMDAwMjAwMDIwNjAyNzUyMkJGRjFBNzUzNzAwMjAwMDIwMDAyMDAwMjA1RTc0',
-        'OUY4NEZGMUEwMDMyMDAzOD4gVGoKMCAtMTggVGQKPEZFRkY4QkMxNEVGNkZGMUE4RUFCNEVGRDhCQzFG',
-        'RjA4ODEzMTY1NEZGRjA5MDAzMzAwMzcwMDMwMDAzNzAwMzAwMDMyMDAyQTAwMkEwMDJBMDAyQTAwMkEw',
-        'MDJBMDAyQTAwMkEwMDMxMDAzMjAwMzMwMDM0PiBUagowIC0xOCBUZAo8RkVGRjYyNEI2NzNBNTNGN0ZG',
-        'MDg4MTMxNjU0RkZGMDlGRjFBMDAzMTAwMzMwMDM4MDAyQTAwMkEwMDJBMDAyQTAwMzAwMDMwMDAzMDAw',
-        'MzA+IFRqCjAgLTE4IFRkCjxGRUZGPiBUagowIC0xOCBUZAo8RkVGRjAwMzMwMDJFMDAyMDY1NTk4MEIy',
-        'NEZFMTYwNkZGRjA4NzkzQTRGOEJGRjA5PiBUagowIC0xOCBUZAo8RkVGRjY3MDA5QUQ4NUI2NjUzODZG',
-        'RjFBNjcyQzc5RDEwMDIwMDAyMDAwMjAwMDIwNkJENTRFMUE5NjYyNjgyMUZGMUE3OTNBNEY4QjU5Mjc1',
-        'QjY2PiBUagowIC0xOCBUZAo8RkVGRjRFMTM0RTFBRkYxQThCQTE3Qjk3NjczQTc5RDE1QjY2NEUwRTYy',
-        'ODA2NzJGMDAyMDAwMjAwMDIwMDAyMDZCRDU0RTFBNjVGNjk1RjRGRjFBMDAzMjAwMzAwMDMyMDAzMTAw',
-        'MkYwMDMwMDAzNz4gVGoKMCAtMTggVGQKPEZFRkY+IFRqCjAgLTE4IFRkCjxGRUZGMDAzNDAwMkUwMDIw',
-        'NURFNTRGNUM1QzY1NTM4NjRFMEU3OTNFNEZEREZGMDg3OTNBNEY4QkZGMDk+IFRqCjAgLTE4IFRkCjxG',
-        'RUZGOEZEMTAwMzEwMDMyNEUyQTY3MDg3OTNFNEZERDdGMzQ3RUIzRkYxQTZCNjM1RTM4MDAyMDAwMjAw',
-        'MDIwMDAyMDUzQzI0RkRENTczMEZGMUE2RjRENTc0QT4gVGoKMCAtMTggVGQKPEZFRkY+IFRqCjAgLTE4',
-        'IFRkCjxGRUZGMDAzNTAwMkUwMDIwNTNGODZDRDU0RTBFNTkzMTRGRTFGRjA4NzkzQTRGOEJGRjA5PiBU',
-        'agowIC0xOCBUZAo8RkVGRjU5MzE0RkUxODhBQjYyNjc4ODRDRkYxQTY1RTAwMDIwMDAyMDAwMjAwMDIw',
-        'OTY1MDUyMzY5QUQ4NkQ4ODhEMzlGRjFBNjVFMD4gVGoKRVQKZW5kc3RyZWFtCmVuZG9iago3IDAgb2Jq',
-        'Cjw8IC9UeXBlIC9QYWdlIC9QYXJlbnQgMTAgMCBSIC9NZWRpYUJveCBbMCAwIDU5NSA4NDJdIC9SZXNv',
-        'dXJjZXMgPDwgL0ZvbnQgPDwgL0YxIDMgMCBSID4+ID4+IC9Db250ZW50cyA0IDAgUiA+PgplbmRvYmoK',
-        'OCAwIG9iago8PCAvVHlwZSAvUGFnZSAvUGFyZW50IDEwIDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQy',
-        'XSAvUmVzb3VyY2VzIDw8IC9Gb250IDw8IC9GMSAzIDAgUiA+PiA+PiAvQ29udGVudHMgNSAwIFIgPj4K',
-        'ZW5kb2JqCjkgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAxMCAwIFIgL01lZGlhQm94IFswIDAg',
-        'NTk1IDg0Ml0gL1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgMyAwIFIgPj4gPj4gL0NvbnRlbnRzIDYg',
-        'MCBSID4+CmVuZG9iagoxMCAwIG9iago8PCAvVHlwZSAvUGFnZXMgL0tpZHMgWzcgMCBSIDggMCBSIDkg',
-        'MCBSXSAvQ291bnQgMyA+PgplbmRvYmoKMTEgMCBvYmoKPDwgL1R5cGUgL0NhdGFsb2cgL1BhZ2VzIDEw',
-        'IDAgUiA+PgplbmRvYmoKeHJlZgowIDEyCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAxNSAwMDAw',
-        'MCBuIAowMDAwMDAwMTkwIDAwMDAwIG4gCjAwMDAwMDAzNzAgMDAwMDAgbiAKMDAwMDAwMDQ5MiAwMDAw',
-        'MCBuIAowMDAwMDAxMTAwIDAwMDAwIG4gCjAwMDAwMDE2NjEgMDAwMDAgbiAKMDAwMDAwMjgxMyAwMDAw',
-        'MCBuIAowMDAwMDAyOTQwIDAwMDAwIG4gCjAwMDAwMDMwNjcgMDAwMDAgbiAKMDAwMDAwMzE5NCAwMDAw',
-        'MCBuIAowMDAwMDAzMjY0IDAwMDAwIG4gCnRyYWlsZXIKPDwgL1NpemUgMTIgL1Jvb3QgMTEgMCBSID4+',
-        'CnN0YXJ0eHJlZgozMzE1CiUlRU9GCg=='
-    ];
-    const PDF_DATA_URI = 'data:application/pdf;base64,' + PDF_B64_LINES.join('');
     const expandedDataIds = new Set();
     let detailCopyExpireAt = '-';
-    let detailCopyTitle = '入职调查报告';
+    let detailCopyTitle = '入职调查材料包';
 
     function safeJsonParse(text, fallback) {
         try {
@@ -182,17 +118,12 @@
 
     function normalizeReportName(r) {
         const raw = r.reportName || '';
-        if (!raw) return '入职调查报告';
-        const m1 = raw.match(/^(.+?)入职调查报告_(\d{8})(\d{2})?/);
-        if (m1) return `${m1[1]}入职调查报告${m1[2]}${m1[3] || '01'}`;
-        const m2 = raw.match(/^(.+?)入职调查报告_(\d{12})(\d{2})?/);
-        if (m2) return `${m2[1]}入职调查报告${m2[2].slice(0, 8)}${m2[3] || '01'}`;
-        const cleaned = raw.replace(/_/g, '');
-        const m3 = cleaned.match(/^(.+?)入职调查报告(\d{8})(\d{2})$/);
-        if (m3) return `${m3[1]}入职调查报告${m3[2]}${m3[3]}`;
-        const m4 = cleaned.match(/^(.+?)入职调查报告(\d{8})$/);
-        if (m4) return `${m4[1]}入职调查报告${m4[2]}01`;
-        return cleaned;
+        if (!raw) return '入职调查材料包';
+        const m1 = raw.match(/^(.+?)入职调查(材料包|报告)_(\d{8})/);
+        if (m1) return `${m1[1]}入职调查${m1[2]}${m1[3]}`;
+        const m2 = raw.match(/^(.+?)入职调查(材料包|报告)_(\d{12})/);
+        if (m2) return `${m2[1]}入职调查${m2[2]}${m2[3].slice(0, 8)}`;
+        return raw.replace(/_/g, '');
     }
 
     function formatDate(d) {
@@ -212,23 +143,16 @@
     }
 
     function calcStatus(r) {
+        if (r.usedAt) return 'used';
         if (r.canceledAt) return 'revoked';
         const expireAt = new Date(r.expireAt);
         if (Date.now() > expireAt.getTime()) return 'expired';
-        const max = Number(r.maxQueryCount || 5);
-        const cnt = Number((r.queryCount ?? (r.usedAt ? 1 : 0)) || 0);
-        if (cnt >= max) return 'used';
         return 'valid';
     }
 
-    function statusLabel(status, r) {
-        if (status === 'valid') {
-            const max = Number(r?.maxQueryCount || 5);
-            const cnt = Number((r?.queryCount ?? (r?.usedAt ? 1 : 0)) || 0);
-            if (cnt > 0) return { text: `已核验${cnt}/${max}`, cls: 'bg-blue-50 text-blue-600 border-blue-100' };
-            return { text: '可核验', cls: 'bg-green-50 text-green-600 border-green-100' };
-        }
-        if (status === 'used') return { text: '已用尽', cls: 'bg-blue-50 text-blue-600 border-blue-100' };
+    function statusLabel(status) {
+        if (status === 'valid') return { text: '未使用', cls: 'bg-green-50 text-green-600 border-green-100' };
+        if (status === 'used') return { text: '已使用', cls: 'bg-blue-50 text-blue-600 border-blue-100' };
         if (status === 'revoked') return { text: '已撤销', cls: 'bg-red-50 text-red-600 border-red-100' };
         return { text: '已过期', cls: 'bg-gray-100 text-gray-500 border-gray-200' };
     }
@@ -259,7 +183,7 @@
 
         container.innerHTML = list.map(r => {
             const status = calcStatus(r);
-            const sl = statusLabel(status, r);
+            const sl = statusLabel(status);
             const dataText = Array.isArray(r.data) ? r.data.join('、') : '-';
             const createdAt = r.createdAt ? formatDate(new Date(r.createdAt)) : '-';
             const expireAt = r.expireAt ? formatDate(new Date(r.expireAt)) : '-';
@@ -267,10 +191,7 @@
             const title = normalizeReportName(r);
             const expanded = expandedDataIds.has(r.id);
             const isLongData = dataText.length > 24 || (Array.isArray(r.data) && r.data.length > 3);
-            const baseAction = `
-                <button class="px-3 py-2 bg-white text-gray-700 border border-gray-200 rounded-lg text-xs font-semibold hover:bg-gray-50 transition" onclick="openReport('${r.id}')">查看报告</button>
-            `;
-            const extraActions = (() => {
+            const actions = (() => {
                 if (status === 'valid') {
                     return `
                         <button class="px-3 py-2 bg-white text-gray-600 border border-gray-200 rounded-lg text-xs font-semibold hover:bg-gray-50 transition" onclick="openDetail('${r.id}')">查看链接</button>
@@ -284,14 +205,13 @@
                 }
                 return '';
             })();
-            const actions = `${baseAction}${extraActions}`;
 
             return `
                 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 hover:shadow-md transition">
                     <div class="flex items-start justify-between gap-3">
                         <div class="flex items-start gap-3 min-w-0">
-                            <div class="w-9 h-9 rounded-xl bg-red-50 border border-red-100 text-red-600 flex items-center justify-center flex-shrink-0">
-                                <i class="fa-solid fa-file-pdf text-base"></i>
+                            <div class="w-9 h-9 rounded-xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-file-zipper text-base"></i>
                             </div>
                             <div class="min-w-0">
                                 <div class="font-bold text-gray-900 text-sm truncate">${title}</div>
@@ -316,7 +236,7 @@
                             <div class="font-semibold text-gray-800">${validityText}</div>
                         </div>
                     </div>
-                    <div class="mt-3 flex flex-wrap gap-2 justify-end">${actions}</div>
+                    ${actions ? `<div class="mt-3 flex flex-wrap gap-2 justify-end">${actions}</div>` : ''}
                 </div>
             `;
         }).join('');
@@ -336,6 +256,7 @@
         const title = normalizeReportName(r);
         const createdAt = r.createdAt ? formatDate(new Date(r.createdAt)) : '-';
         const expireAt = r.expireAt ? formatDateSlash(new Date(r.expireAt)) : '-';
+        document.getElementById('detailReportName').textContent = title;
         document.getElementById('detailCreatedAt').textContent = createdAt;
         document.getElementById('detailExpireAt').textContent = expireAt;
         document.getElementById('detailLink').value = r.link || '';
@@ -361,22 +282,6 @@
         document.body.removeChild(ta);
     }
 
-    function openReport(id) {
-        const list = getRecords();
-        const r = list.find(x => x.id === id);
-        if (!r) return;
-        const title = normalizeReportName(r);
-        const materialsName = r.materialsName || title.replace('入职调查报告', '入职调查材料');
-        document.getElementById('reportTitle').textContent = title;
-        document.getElementById('reportMaterialsTitle').textContent = materialsName;
-        document.getElementById('reportDownloadBtn').href = PDF_DATA_URI;
-        document.getElementById('reportDownloadBtn').setAttribute('download', `${title}.pdf`);
-        document.getElementById('reportModal').classList.remove('hidden');
-    }
-
-    function closeReport() {
-        document.getElementById('reportModal').classList.add('hidden');
-    }
 
     let currentRecordId = null;
 
@@ -435,55 +340,6 @@
     render();
 </script>
 
-<div id="reportModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
-    <div class="bg-white w-full max-w-[360px] rounded-2xl shadow-2xl overflow-hidden">
-        <div class="bg-gradient-to-br from-blue-600 to-indigo-600 px-5 py-4 text-white">
-            <div class="flex items-start justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center">
-                        <i class="fa-solid fa-file-pdf text-xl"></i>
-                    </div>
-                    <div>
-                        <div class="font-bold tracking-wide">查看报告</div>
-                        <div class="text-xs text-blue-100 mt-0.5 opacity-95">支持预览与下载</div>
-                    </div>
-                </div>
-                <button onclick="closeReport()" class="text-white/80 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-        </div>
-
-        <div class="p-5">
-            <div class="space-y-3">
-                <div class="bg-white border border-gray-200 rounded-xl p-3">
-                    <div class="text-xs text-gray-500 mb-2">报告名称</div>
-                    <div class="flex items-center gap-2 min-w-0">
-                        <div class="w-8 h-8 rounded-lg bg-red-50 border border-red-100 text-red-600 flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-file-pdf text-sm"></i>
-                        </div>
-                        <div id="reportTitle" class="text-sm font-bold text-gray-800 truncate"></div>
-                    </div>
-                </div>
-
-                <div class="bg-white border border-gray-200 rounded-xl p-3">
-                    <div class="text-xs text-gray-500 mb-2">材料名称</div>
-                    <div class="flex items-center gap-2 min-w-0">
-                        <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-file-zipper text-sm"></i>
-                        </div>
-                        <div id="reportMaterialsTitle" class="text-sm font-bold text-gray-800 truncate"></div>
-                    </div>
-                </div>
-
-                <div class="pt-1">
-                    <a id="reportDownloadBtn" href="#" download class="w-full block text-center py-3 bg-blue-600 text-white rounded-xl font-bold shadow-sm hover:bg-blue-700 transition">下载</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div id="detailModal" class="hidden fixed inset-0 z-[70] bg-black/60 flex items-center justify-center p-5 backdrop-blur-sm transition-opacity">
     <div class="bg-white w-full max-w-[360px] rounded-2xl shadow-2xl overflow-hidden">
         <div class="bg-gradient-to-br from-blue-600 to-indigo-600 px-5 py-4 text-white">
@@ -511,6 +367,16 @@
             </div>
 
             <div class="mt-3 space-y-3">
+                <div class="bg-white border border-gray-200 rounded-xl p-3">
+                    <div class="text-xs text-gray-500 mb-2">材料包名称</div>
+                    <div class="flex items-center gap-2 min-w-0">
+                        <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-file-zipper text-sm"></i>
+                        </div>
+                        <div id="detailReportName" class="text-sm font-bold text-gray-800 truncate"></div>
+                    </div>
+                </div>
+
                 <div class="bg-white border border-gray-200 rounded-xl p-3">
                     <div class="text-xs text-gray-500 mb-2">分享链接</div>
                     <div class="flex gap-2">
