@@ -7,6 +7,14 @@
 <title>新增目录 - 一人一档后台</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+/* 请求参数表格：14列较多，收紧并匀化单元格间距 */
+#reqParamTable th,
+#reqParamTable td { padding: 0.5rem 0.375rem !important; }
+#reqParamTable th { font-weight: 500; }
+#reqParamTable input,
+#reqParamTable select { font-size: 0.75rem !important; padding-left: 0.25rem !important; padding-right: 0.25rem !important; }
+</style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans h-screen flex overflow-hidden">
 <!-- Sidebar -->
@@ -164,16 +172,23 @@
 <div class="flex items-center justify-between mb-4">
 <label class="block text-sm font-bold text-gray-800">请求参数<span class="text-red-500 mr-1">*</span></label>
 </div>
-<div class="border border-gray-200 rounded-lg overflow-hidden">
-<table class="w-full text-center border-collapse text-sm">
+<div class="border border-gray-200 rounded-lg overflow-x-auto">
+<table id="reqParamTable" class="w-full min-w-[1150px] text-center border-collapse text-sm">
 <thead class="bg-gray-50 text-gray-600 border-b border-gray-200">
 <tr>
-<th class="p-3 font-medium w-16 text-center">序号</th><th class="p-3 font-medium w-1/5">名称</th>
-<th class="p-3 font-medium w-1/4">描述</th>
-<th class="p-3 font-medium w-1/6">位置</th>
-<th class="p-3 font-medium w-1/6">是否必填</th>
-<th class="p-3 font-medium w-1/5">示例值</th>
-<th class="p-3 font-medium w-24">操作</th>
+<th class="w-12 text-center">序号</th><th>名称</th>
+<th>描述</th>
+<th>位置</th>
+<th>类型</th>
+<th>长度</th>
+<th>显示类型</th>
+<th>字典类型</th>
+<th>非空</th>
+<th>脱敏显示</th>
+<th>脱敏规则</th>
+<th>是否必填</th>
+<th>示例值</th>
+<th class="w-20">操作</th>
 </tr>
 </thead>
 <tbody id="reqParamList">
@@ -187,6 +202,64 @@
 <option value="body">Body</option>
 <option value="header">Header</option>
 <option value="path">Path</option>
+</select>
+</td>
+<td class="p-3">
+<select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+<option value="">请选择</option>
+<option value="String">String</option>
+<option value="Integer">Integer</option>
+<option value="Float">Float</option>
+<option value="Boolean">Boolean</option>
+<option value="Date">Date</option>
+<option value="Array">Array</option>
+</select>
+</td>
+<td class="p-3"><input class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center" placeholder="长度" type="text"/></td>
+<td class="p-3">
+<select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+<option value="">请选择</option>
+<option value="text">单行文本</option>
+<option value="textarea">多行文本</option>
+<option value="select">下拉框</option>
+<option value="date">日期</option>
+<option value="radio">单选</option>
+<option value="checkbox">多选</option>
+</select>
+</td>
+<td class="p-3">
+<select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+<option value="">请选择</option>
+<option value="gender">性别</option>
+<option value="idcard_type">证件类型</option>
+<option value="nation">民族</option>
+<option value="education">学历</option>
+<option value="region">行政区划</option>
+</select>
+</td>
+<td class="p-3">
+<select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+<option value="">请选择</option>
+<option value="1">是</option>
+<option value="0">否</option>
+</select>
+</td>
+<td class="p-3">
+<select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+<option value="">请选择</option>
+<option value="1">是</option>
+<option value="0">否</option>
+</select>
+</td>
+<td class="p-3">
+<select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+<option value="">请选择</option>
+<option value="name">姓名脱敏</option>
+<option value="mobile">手机号脱敏</option>
+<option value="idcard">身份证脱敏</option>
+<option value="address">地址脱敏</option>
+<option value="bankcard">银行卡脱敏</option>
+<option value="full">完全脱敏</option>
 </select>
 </td>
 <td class="p-3">
@@ -756,6 +829,64 @@
                     <option value="body">Body</option>
                     <option value="header">Header</option>
                     <option value="path">Path</option>
+                </select>
+            </td>
+            <td class="p-3">
+                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+                    <option value="">请选择</option>
+                    <option value="String">String</option>
+                    <option value="Integer">Integer</option>
+                    <option value="Float">Float</option>
+                    <option value="Boolean">Boolean</option>
+                    <option value="Date">Date</option>
+                    <option value="Array">Array</option>
+                </select>
+            </td>
+            <td class="p-3"><input type="text" placeholder="长度" class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-center"></td>
+            <td class="p-3">
+                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+                    <option value="">请选择</option>
+                    <option value="text">单行文本</option>
+                    <option value="textarea">多行文本</option>
+                    <option value="select">下拉框</option>
+                    <option value="date">日期</option>
+                    <option value="radio">单选</option>
+                    <option value="checkbox">多选</option>
+                </select>
+            </td>
+            <td class="p-3">
+                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+                    <option value="">请选择</option>
+                    <option value="gender">性别</option>
+                    <option value="idcard_type">证件类型</option>
+                    <option value="nation">民族</option>
+                    <option value="education">学历</option>
+                    <option value="region">行政区划</option>
+                </select>
+            </td>
+            <td class="p-3">
+                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+                    <option value="">请选择</option>
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </td>
+            <td class="p-3">
+                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+                    <option value="">请选择</option>
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </td>
+            <td class="p-3">
+                <select class="w-full border border-gray-300 rounded px-2 py-1.5 text-sm focus:border-blue-500 focus:outline-none text-gray-500">
+                    <option value="">请选择</option>
+                    <option value="name">姓名脱敏</option>
+                    <option value="mobile">手机号脱敏</option>
+                    <option value="idcard">身份证脱敏</option>
+                    <option value="address">地址脱敏</option>
+                    <option value="bankcard">银行卡脱敏</option>
+                    <option value="full">完全脱敏</option>
                 </select>
             </td>
             <td class="p-3">
