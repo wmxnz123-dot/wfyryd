@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据更新 - 医保缴费记录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f3f4f6; }
+        .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; box-shadow: 0 0 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        /* 滚轮选择器 */
+        .wheel { height: 200px; overflow-y: scroll; scroll-snap-type: y mandatory; scrollbar-width: none; }
+        .wheel::-webkit-scrollbar { display: none; }
+        .wheel-item { height: 40px; line-height: 40px; text-align: center; font-size: 16px; color: #9ca3af; scroll-snap-align: center; transition: all 0.15s ease; }
+        .wheel-item.active { color: #111827; font-weight: bold; transform: scale(1.05); }
+        .wheel-pad { height: 80px; }
+        .wheel-mask { position: absolute; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; }
+        .wheel-mask::before, .wheel-mask::after { content: ""; position: absolute; left: 0; right: 0; height: 80px; }
+        .wheel-mask::before { top: 0; background: linear-gradient(to bottom, #fff, rgba(255,255,255,0)); }
+        .wheel-mask::after { bottom: 0; background: linear-gradient(to top, #fff, rgba(255,255,255,0)); }
+    </style>
+</head>
+<body>
+<div class="mobile-view">
+    <!-- Topbar -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50">
+        <a href="app_medicare_detail.html" class="text-gray-600"><i class="fa-solid fa-angle-left text-xl"></i></a>
+        <h1 class="text-lg font-bold text-gray-800">数据更新</h1>
+        <div class="w-6"></div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 pb-32">
+        <!-- Info Banner -->
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-3 flex items-start gap-3 mb-4">
+            <i class="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
+            <p class="text-xs text-blue-700 leading-relaxed">请重新输入认领时的查询时间段，确认后将按新时间段更新医保缴费数据。</p>
+        </div>
+
+        <!-- 开始时间 -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 mb-4">
+            <label class="text-xs text-gray-500 mb-1.5 block">开始时间</label>
+            <button type="button" id="startField" onclick="openPicker('start')"
+                    class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm flex items-center justify-between hover:border-blue-300 transition">
+                <span id="startText" class="text-gray-900 font-medium">2023年05月</span>
+                <i class="fa-regular fa-calendar text-gray-400"></i>
+            </button>
+        </div>
+
+        <!-- 结束时间 -->
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
+            <label class="text-xs text-gray-500 mb-1.5 block">结束时间</label>
+            <button type="button" id="endField" onclick="openPicker('end')"
+                    class="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm flex items-center justify-between hover:border-blue-300 transition">
+                <span id="endText" class="text-gray-900 font-medium">2026年10月</span>
+                <i class="fa-regular fa-calendar text-gray-400"></i>
+            </button>
+        </div>
+
+        <div id="rangeHint" class="hidden mt-3 text-xs text-red-500">
+            <i class="fa-solid fa-circle-exclamation mr-1"></i>结束时间不能早于开始时间
+        </div>
+    </div>
+
+    <!-- Bottom Button -->
+    <div class="fixed bottom-0 w-full max-w-[390px] bg-white border-t border-gray-100 p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.03)] z-40">
+        <button id="confirmBtn" class="w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl transition shadow-sm hover:bg-blue-700" onclick="confirmUpdate()">
+            确认更新
+        </button>
+    </div>
+
+    <!-- 底部滚轮选择器 -->
+    <div id="pickerMask" class="hidden fixed inset-0 z-[70] bg-black/50 transition-opacity" onclick="cancelPicker()"></div>
+    <div id="pickerSheet" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] bg-white rounded-t-2xl z-[71] hidden">
+        <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+            <button onclick="cancelPicker()" class="text-sm text-gray-500 hover:text-gray-700 transition">取消</button>
+            <div id="pickerTitle" class="text-sm font-bold text-gray-800">选择时间</div>
+            <button onclick="confirmPicker()" class="text-sm font-bold text-blue-600 hover:text-blue-700 transition">确定</button>
+        </div>
+        <div class="relative px-6 pb-6 pt-2">
+            <div class="absolute left-6 right-6 top-[calc(50%-20px)] h-10 bg-blue-50 rounded-xl pointer-events-none"></div>
+            <div class="relative flex gap-2">
+                <div class="flex-1 relative">
+                    <div class="wheel-mask rounded-xl"></div>
+                    <div id="yearWheel" class="wheel" onscroll="onWheelScroll(this, 'year')">
+                        <div class="wheel-pad"></div>
+                    </div>
+                </div>
+                <div class="flex-1 relative">
+                    <div class="wheel-mask rounded-xl"></div>
+                    <div id="monthWheel" class="wheel" onscroll="onWheelScroll(this, 'month')">
+                        <div class="wheel-pad"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ITEM_H = 40;
+    const YEARS = [];
+    for (let y = 2015; y <= 2026; y++) YEARS.push(y);
+    const MONTHS = [];
+    for (let m = 1; m <= 12; m++) MONTHS.push(m);
+
+    const pickerState = { target: null, yearIdx: 0, monthIdx: 0 };
+    const selected = { start: '2023-05', end: '2026-10' }; // 'YYYY-MM'
+    const scrollTimers = { year: null, month: null };
+
+    function buildWheel(wheelId, values, activeIdx, format) {
+        const wheel = document.getElementById(wheelId);
+        wheel.innerHTML = '<div class="wheel-pad"></div>' +
+            values.map((v, i) => `<div class="wheel-item${i === activeIdx ? ' active' : ''}" data-idx="${i}">${format(v)}</div>`).join('') +
+            '<div class="wheel-pad"></div>';
+        requestAnimationFrame(() => {
+            wheel.scrollTop = activeIdx * ITEM_H;
+        });
+    }
+
+    function onWheelScroll(wheel, type) {
+        clearTimeout(scrollTimers[type]);
+        scrollTimers[type] = setTimeout(() => {
+            const idx = Math.max(0, Math.min(Math.round(wheel.scrollTop / ITEM_H), wheel.children.length - 3));
+            if (type === 'year') pickerState.yearIdx = idx; else pickerState.monthIdx = idx;
+            wheel.querySelectorAll('.wheel-item').forEach((el, i) => {
+                el.classList.toggle('active', i === idx);
+            });
+        }, 80);
+    }
+
+    function openPicker(target) {
+        pickerState.target = target;
+        document.getElementById('pickerTitle').textContent = target === 'start' ? '选择开始时间' : '选择结束时间';
+        let y = YEARS.length - 1, m = 0;
+        const cur = selected[target];
+        if (cur) {
+            const [yy, mm] = cur.split('-').map(Number);
+            y = YEARS.indexOf(yy);
+            m = mm - 1;
+        }
+        pickerState.yearIdx = y < 0 ? YEARS.length - 1 : y;
+        pickerState.monthIdx = m;
+        buildWheel('yearWheel', YEARS, pickerState.yearIdx, v => v + '年');
+        buildWheel('monthWheel', MONTHS, pickerState.monthIdx, v => String(v).padStart(2, '0') + '月');
+        document.getElementById('pickerMask').classList.remove('hidden');
+        document.getElementById('pickerSheet').classList.remove('hidden');
+    }
+
+    function closePicker() {
+        document.getElementById('pickerMask').classList.add('hidden');
+        document.getElementById('pickerSheet').classList.add('hidden');
+    }
+
+    function cancelPicker() {
+        closePicker();
+    }
+
+    function confirmPicker() {
+        const value = `${YEARS[pickerState.yearIdx]}-${String(MONTHS[pickerState.monthIdx]).padStart(2, '0')}`;
+        const label = `${YEARS[pickerState.yearIdx]}年${String(MONTHS[pickerState.monthIdx]).padStart(2, '0')}月`;
+        selected[pickerState.target] = value;
+        const textEl = document.getElementById(pickerState.target === 'start' ? 'startText' : 'endText');
+        textEl.textContent = label;
+        closePicker();
+        validateRange();
+    }
+
+    function validateRange() {
+        const invalid = selected.start && selected.end && selected.end < selected.start;
+        document.getElementById('rangeHint').classList.toggle('hidden', !invalid);
+        const btn = document.getElementById('confirmBtn');
+        if (selected.start && selected.end && !invalid) {
+            btn.disabled = false;
+            btn.className = 'w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl transition shadow-sm hover:bg-blue-700';
+        } else {
+            btn.disabled = true;
+            btn.className = 'w-full bg-gray-300 text-white font-bold py-3.5 rounded-xl transition shadow-sm cursor-not-allowed';
+        }
+    }
+
+    function confirmUpdate() {
+        if (!selected.start || !selected.end || selected.end < selected.start) {
+            return;
+        }
+        localStorage.setItem('medicareUpdatePending', JSON.stringify({
+            start: selected.start,
+            end: selected.end
+        }));
+        window.location.href = 'app_medicare_detail.html';
+    }
+
+    // 初始化校验（默认已回填时间段）
+    validateRange();
+</script>
+</body>
+</html>

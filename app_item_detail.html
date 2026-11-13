@@ -40,7 +40,7 @@
           </div>
           <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
             <div class="text-xs text-gray-500">更新时间</div>
-            <div class="mt-1 font-semibold text-gray-900">2025-10-25 09:30:00</div>
+            <div class="mt-1 font-semibold text-gray-900" id="updateTime">2025-10-25 09:30:00</div>
           </div>
         </div>
       </div>
@@ -105,13 +105,31 @@
 
     <!-- Bottom Actions -->
     <div class="fixed bottom-0 left-0 w-full flex justify-center z-50 pointer-events-none">
-        <div class="w-full max-w-[390px] bg-white border-t border-gray-200 p-4 pointer-events-auto flex space-x-4">
+        <div class="w-full max-w-[390px] bg-white border-t border-gray-200 p-4 pointer-events-auto flex space-x-3">
             <a href="app_correction_list.html" class="flex-1 bg-white text-gray-700 text-center py-3 rounded-xl font-bold border border-gray-300 hover:bg-gray-50 transition">
                 <i class="fa-solid fa-clock-rotate-left mr-1"></i> 纠错记录
             </a>
-            <a href="app_correction_submit.html" class="flex-1 bg-blue-600 text-white text-center py-3 rounded-xl font-bold shadow-md hover:bg-blue-700 transition">
+            <a href="app_correction_submit.html" class="flex-1 bg-white text-blue-600 text-center py-3 rounded-xl font-bold border border-blue-200 hover:bg-blue-50 transition">
                 <i class="fa-solid fa-pen-to-square mr-1"></i> 数据纠错
             </a>
+            <button onclick="updateData()" class="flex-1 bg-blue-600 text-white text-center py-3 rounded-xl font-bold shadow-md hover:bg-blue-700 transition">
+                <i class="fa-solid fa-rotate mr-1"></i> 数据更新
+            </button>
+        </div>
+    </div>
+
+    <!-- 数据更新结果弹窗 -->
+    <div id="updateModal" class="fixed inset-0 bg-black bg-opacity-50 z-[60] hidden flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-6 w-5/6 max-w-sm mx-auto text-center shadow-xl">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-check text-3xl text-green-500"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">数据已更新</h3>
+            <p class="text-sm text-gray-600 mb-1">已同步来源单位最新数据</p>
+            <p class="text-xs text-gray-400 mb-6">更新时间：<span id="modalUpdateTime"></span></p>
+            <button onclick="closeUpdateModal()" class="w-full bg-blue-600 text-white font-medium py-3 rounded-xl hover:bg-blue-700 transition">
+                确定
+            </button>
         </div>
     </div>
   </div>
@@ -155,6 +173,23 @@
             });
         }
     });
+
+    function formatNow() {
+        const n = new Date();
+        const p = v => String(v).padStart(2, '0');
+        return `${n.getFullYear()}-${p(n.getMonth() + 1)}-${p(n.getDate())} ${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;
+    }
+
+    function updateData() {
+        const now = formatNow();
+        document.getElementById('updateTime').textContent = now;
+        document.getElementById('modalUpdateTime').textContent = now;
+        document.getElementById('updateModal').classList.remove('hidden');
+    }
+
+    function closeUpdateModal() {
+        document.getElementById('updateModal').classList.add('hidden');
+    }
   </script>
 </body>
 </html>

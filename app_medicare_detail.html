@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>医保缴费记录详情</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: #f3f4f6; }
+    .mobile-view { max-width: 390px; margin: 0 auto; background-color: #f8fafc; min-height: 100vh; position: relative; padding-bottom: 92px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <div class="mobile-view">
+    <div class="bg-white px-4 py-4 border-b border-gray-100 sticky top-0 z-10">
+      <div class="flex items-center justify-between">
+        <a href="app_my_data.html" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-700">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="text-base font-semibold text-gray-900">医保缴费记录</div>
+        <a href="./index.html" class="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center text-gray-700">
+          <i class="fa-solid fa-grid-2"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="px-4 mt-4">
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-sm font-bold text-gray-900">数据状态</div>
+          </div>
+          <span class="text-xs px-2 py-1 rounded-full bg-green-50 text-green-600 border border-green-100 h-fit">已认领</span>
+        </div>
+        <div class="mt-3 grid grid-cols-2 gap-3 text-sm">
+          <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
+            <div class="text-xs text-gray-500">来源</div>
+            <div class="mt-1 font-semibold text-gray-900">市医保局</div>
+          </div>
+          <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
+            <div class="text-xs text-gray-500">更新时间</div>
+            <div class="mt-1 font-semibold text-gray-900" id="updateTime">2026-11-13 09:30:00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 mt-4">
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+        <div class="text-sm font-bold text-gray-900 mb-1">数据详情</div>
+        <div class="mt-2 space-y-5">
+          <!-- 查询条件 -->
+          <div class="space-y-4">
+            <div class="text-xs font-bold text-gray-700">查询条件</div>
+            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
+              <div class="text-xs text-gray-500">开始时间</div>
+              <div class="text-sm font-semibold text-gray-900 text-right" id="startVal">2023-05</div>
+            </div>
+            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
+              <div class="text-xs text-gray-500">结束时间</div>
+              <div class="text-sm font-semibold text-gray-900 text-right" id="endVal">2026-10</div>
+            </div>
+          </div>
+
+          <!-- 查询结果 -->
+          <div class="space-y-4">
+            <div class="text-xs font-bold text-gray-700">查询结果</div>
+            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
+              <div class="text-xs text-gray-500">参保状态</div>
+              <div class="text-sm font-semibold text-gray-900 text-right">正常参保</div>
+            </div>
+            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
+              <div class="text-xs text-gray-500">累计缴费</div>
+              <div class="text-sm font-semibold text-gray-900 text-right">42个月，无断缴</div>
+            </div>
+            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
+              <div class="text-xs text-gray-500">2026-10</div>
+              <div class="text-sm font-semibold text-gray-900 text-right">个人 86.00元 / 单位 344.00元</div>
+            </div>
+            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
+              <div class="text-xs text-gray-500">2026-09</div>
+              <div class="text-sm font-semibold text-gray-900 text-right">个人 86.00元 / 单位 344.00元</div>
+            </div>
+            <div class="py-3 flex items-start justify-between gap-4">
+              <div class="text-xs text-gray-500">2026-08</div>
+              <div class="text-sm font-semibold text-gray-900 text-right">个人 86.00元 / 单位 344.00元</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 mt-4">
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+        <div class="text-sm font-bold text-gray-900">说明</div>
+        <div class="text-xs text-gray-500 mt-2 leading-relaxed">
+          本页面用于核对医保缴费数据内容。缴费时间段为认领时自行选择的时间范围，如发现信息错误或缺失，可提交纠错申请并上传证明材料。
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="fixed bottom-0 left-0 w-full flex justify-center z-50 pointer-events-none">
+        <div class="w-full max-w-[390px] bg-white border-t border-gray-200 p-4 pointer-events-auto flex space-x-3">
+            <a href="app_correction_list.html" class="flex-1 bg-white text-gray-700 text-center py-3 rounded-xl font-bold border border-gray-300 hover:bg-gray-50 transition">
+                <i class="fa-solid fa-clock-rotate-left mr-1"></i> 纠错记录
+            </a>
+            <a href="app_correction_submit.html" class="flex-1 bg-white text-blue-600 text-center py-3 rounded-xl font-bold border border-blue-200 hover:bg-blue-50 transition">
+                <i class="fa-solid fa-pen-to-square mr-1"></i> 数据纠错
+            </a>
+            <button onclick="window.location.href='app_medicare_update.html'" class="flex-1 bg-blue-600 text-white text-center py-3 rounded-xl font-bold shadow-md hover:bg-blue-700 transition">
+                <i class="fa-solid fa-rotate mr-1"></i> 数据更新
+            </button>
+        </div>
+    </div>
+
+    <!-- 数据更新结果弹窗 -->
+    <div id="updateModal" class="fixed inset-0 bg-black bg-opacity-50 z-[60] hidden flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-6 w-5/6 max-w-sm mx-auto text-center shadow-xl">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-check text-3xl text-green-500"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">数据已更新</h3>
+            <p class="text-sm text-gray-600 mb-1">已按输入的时间段重新查询并更新数据</p>
+            <p class="text-xs text-gray-400 mb-6">更新时间：<span id="modalUpdateTime"></span></p>
+            <button onclick="closeUpdateModal()" class="w-full bg-blue-600 text-white font-medium py-3 rounded-xl hover:bg-blue-700 transition">
+                确定
+            </button>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    // 从数据更新页返回：应用新时间段
+    document.addEventListener('DOMContentLoaded', function() {
+        const flag = localStorage.getItem('medicareUpdatePending');
+        if (flag) {
+            localStorage.removeItem('medicareUpdatePending');
+            try {
+                const { start, end } = JSON.parse(flag);
+                if (start && end) {
+                    document.getElementById('startVal').textContent = start;
+                    document.getElementById('endVal').textContent = end;
+                    document.getElementById('updateTime').textContent = formatNow();
+                    document.getElementById('modalUpdateTime').textContent = document.getElementById('updateTime').textContent;
+                    document.getElementById('updateModal').classList.remove('hidden');
+                }
+            } catch (e) {}
+        }
+    });
+
+    function formatNow() {
+        const n = new Date();
+        const p = v => String(v).padStart(2, '0');
+        return `${n.getFullYear()}-${p(n.getMonth() + 1)}-${p(n.getDate())} ${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;
+    }
+
+    function closeUpdateModal() {
+        document.getElementById('updateModal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
