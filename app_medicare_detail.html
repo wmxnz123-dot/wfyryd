@@ -46,45 +46,73 @@
       </div>
     </div>
 
+    <!-- 查询条件 -->
     <div class="px-4 mt-4">
       <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
-        <div class="text-sm font-bold text-gray-900 mb-1">数据详情</div>
-        <div class="mt-2 space-y-5">
-          <!-- 查询条件 -->
-          <div class="space-y-4">
-            <div class="text-xs font-bold text-gray-700">查询条件</div>
-            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
-              <div class="text-xs text-gray-500">开始时间</div>
-              <div class="text-sm font-semibold text-gray-900 text-right" id="startVal">2023-05</div>
+        <div class="text-sm font-bold text-gray-900 mb-2">查询条件</div>
+        <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
+          <div class="text-xs text-gray-500">开始时间</div>
+          <div class="text-sm font-semibold text-gray-900 text-right" id="startVal">2023-05</div>
+        </div>
+        <div class="py-3 flex items-start justify-between gap-4">
+          <div class="text-xs text-gray-500">结束时间</div>
+          <div class="text-sm font-semibold text-gray-900 text-right" id="endVal">2026-10</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 查询结果 -->
+    <div class="px-4 mt-4">
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+        <div class="text-sm font-bold text-gray-900 mb-2">查询结果</div>
+
+        <div class="space-y-3">
+          <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
+            <div class="py-2 flex items-start justify-between gap-4 border-b border-gray-100">
+              <div class="text-xs text-gray-500">缴费月份</div>
+              <div class="text-sm font-semibold text-gray-900 text-right">2026-10</div>
             </div>
-            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
-              <div class="text-xs text-gray-500">结束时间</div>
-              <div class="text-sm font-semibold text-gray-900 text-right" id="endVal">2026-10</div>
+            <div class="mt-1">
+              <div class="py-2 flex items-start justify-between gap-4 border-b border-gray-100">
+                <div class="text-xs text-gray-500">个人缴纳</div>
+                <div class="text-sm font-semibold text-gray-900 text-right">86.00元</div>
+              </div>
+              <div class="py-2 flex items-start justify-between gap-4">
+                <div class="text-xs text-gray-500">单位缴纳</div>
+                <div class="text-sm font-semibold text-gray-900 text-right">344.00元</div>
+              </div>
             </div>
           </div>
-
-          <!-- 查询结果 -->
-          <div class="space-y-4">
-            <div class="text-xs font-bold text-gray-700">查询结果</div>
-            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
-              <div class="text-xs text-gray-500">参保状态</div>
-              <div class="text-sm font-semibold text-gray-900 text-right">正常参保</div>
+          <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
+            <div class="py-2 flex items-start justify-between gap-4 border-b border-gray-100">
+              <div class="text-xs text-gray-500">缴费月份</div>
+              <div class="text-sm font-semibold text-gray-900 text-right">2026-09</div>
             </div>
-            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
-              <div class="text-xs text-gray-500">累计缴费</div>
-              <div class="text-sm font-semibold text-gray-900 text-right">42个月，无断缴</div>
+            <div class="mt-1">
+              <div class="py-2 flex items-start justify-between gap-4 border-b border-gray-100">
+                <div class="text-xs text-gray-500">个人缴纳</div>
+                <div class="text-sm font-semibold text-gray-900 text-right">86.00元</div>
+              </div>
+              <div class="py-2 flex items-start justify-between gap-4">
+                <div class="text-xs text-gray-500">单位缴纳</div>
+                <div class="text-sm font-semibold text-gray-900 text-right">344.00元</div>
+              </div>
             </div>
-            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
-              <div class="text-xs text-gray-500">2026-10</div>
-              <div class="text-sm font-semibold text-gray-900 text-right">个人 86.00元 / 单位 344.00元</div>
+          </div>
+          <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
+            <div class="py-2 flex items-start justify-between gap-4 border-b border-gray-100">
+              <div class="text-xs text-gray-500">缴费月份</div>
+              <div class="text-sm font-semibold text-gray-900 text-right">2026-08</div>
             </div>
-            <div class="py-3 flex items-start justify-between gap-4 border-b border-gray-100">
-              <div class="text-xs text-gray-500">2026-09</div>
-              <div class="text-sm font-semibold text-gray-900 text-right">个人 86.00元 / 单位 344.00元</div>
-            </div>
-            <div class="py-3 flex items-start justify-between gap-4">
-              <div class="text-xs text-gray-500">2026-08</div>
-              <div class="text-sm font-semibold text-gray-900 text-right">个人 86.00元 / 单位 344.00元</div>
+            <div class="mt-1">
+              <div class="py-2 flex items-start justify-between gap-4 border-b border-gray-100">
+                <div class="text-xs text-gray-500">个人缴纳</div>
+                <div class="text-sm font-semibold text-gray-900 text-right">86.00元</div>
+              </div>
+              <div class="py-2 flex items-start justify-between gap-4">
+                <div class="text-xs text-gray-500">单位缴纳</div>
+                <div class="text-sm font-semibold text-gray-900 text-right">344.00元</div>
+              </div>
             </div>
           </div>
         </div>
